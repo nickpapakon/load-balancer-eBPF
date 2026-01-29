@@ -23,6 +23,17 @@ set -euxo pipefail
 # static route
 ip route add ${GENERAL_SUBNET} via ${GATEWAY_KATRAN_IP} dev eth0
 
+# cd /home/simple_user/xdp-tutorial/basic00-loader
+# ./loader eth0
+
+cd /home/simple_user/katran
+cp ../Makefile .
+
+make compile_bpf
+
+# export KATRAN_INTERFACE="eth0"
+# ./install_xdproot.sh
+
 # keep container running indefinitely
 sleep infinity
 

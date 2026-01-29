@@ -7,7 +7,6 @@ COLOR_RED="\033[0;31m"
 COLOR_GREEN="\033[0;32m"
 COLOR_OFF="\033[0m"
 
-target_images=$(ls -1 | grep dockerfile | awk -F'.' '{print $1}')
 
 for f in *.dockerfile; do
     target_img="${f%.dockerfile}"

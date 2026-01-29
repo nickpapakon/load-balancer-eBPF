@@ -1,55 +1,60 @@
-#include "xdp_lb_kern.h"
-#include "MQTTPacket.h"
-
-#define REAL_1_IP       (unsigned int)(10 + (1 << 8) + (3 << 16) + (201 << 24))
-#define REAL_2_IP       (unsigned int)(10 + (1 << 8) + (3 << 16) + (202 << 24))
-#define REAL_3_IP       (unsigned int)(10 + (1 << 8) + (3 << 16) + (203 << 24))
-#define DEFAULT_CLIENT_IP       (unsigned int)(10 + (1 << 8) + (1 << 16) + (102 << 24))
-#define SCRATCH_LB_IP   (unsigned int)(10 + (1 << 8) + (5 << 16) + (102 << 24))
-
-#define GATEWAY_SCRATCH_LB_MAC_LAST_BYTE 0x01
-#define SCRATCH_LB_MAC_LAST_BYTE 0x02
+#include "katran/lib/bpf/mqtt_topic_based_fwd.h"
+#include "katran/lib/bpf/MQTTPacket.h"
 
 #define BPF_PRINT 1
+#define ROOT_ARRAY_SIZE 3
+
+// TODO:    look at root_array in order to make
+//          bpf_tail_call(ctx, &root_array, 2); 
+//          (fwd to Katran BPF balancer bpf prog)
+// struct {
+//   __uint(type, BPF_MAP_TYPE_PROG_ARRAY);
+//   __type(key, __u32);
+//   __type(value, __u32);
+//   __uint(max_entries, ROOT_ARRAY_SIZE);
+//   __uint(pinning, LIBBPF_PIN_BY_NAME);
+// } root_array SEC(".maps");
+
 
 SEC("xdp")
-int xdp_load_balancer(struct xdp_md *ctx)
+int mqtt_fwd(struct xdp_md *ctx)
 {   
     // [Context]: take the pointer to packet data and data end
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
+    int ret = XDP_PASS;
 
     if (BPF_PRINT) bpf_printk("\n\ngot something from NIC");
 
     // [Ethernet header parsing]: (Based on EtherType, Pass to network stack any non-IPv4 packet)
     struct ethhdr *eth = data;
     if (data + sizeof(struct ethhdr) > data_end){
-        if (BPF_PRINT) bpf_printk("[xdp_aborted] Not enough data for ethhdr");
-        return XDP_ABORTED;
+        if (BPF_PRINT) bpf_printk("[let_katran_decide] Not enough data for ethhdr");
+        goto call_katran;
     }
 
     if (bpf_ntohs(eth->h_proto) != ETH_P_IP){
-        if (BPF_PRINT) bpf_printk("[xdp_pass] Not an IPv4 packet, passing to network stack");
-        return XDP_PASS;
+        if (BPF_PRINT) bpf_printk("[let_katran_decide] Not an IPv4 packet, passing to network stack");
+        goto call_katran;
     }
 
     // [IP header parsing]: (Based on Protocol, Pass to network stack any non-TCP packet), display src IP
     struct iphdr *iph = data + sizeof(struct ethhdr);
     if (data + sizeof(struct ethhdr) + sizeof(struct iphdr) > data_end){
-        if (BPF_PRINT) bpf_printk("[xdp_aborted] Not enough data for iphdr");
-        return XDP_ABORTED;
+        if (BPF_PRINT) bpf_printk("[let_katran_decide] Not enough data for iphdr");
+        goto call_katran;
     }
 
     if (iph->protocol != IPPROTO_TCP){
-        if (BPF_PRINT) bpf_printk("[xdp_pass] Not a TCP packet, passing to network stack");
-        return XDP_PASS;
+        if (BPF_PRINT) bpf_printk("[let_katran_decide] Not a TCP packet, passing to network stack");
+        goto call_katran;
     }
 
     // [TCP header parsing]: display source and destination ports
     struct tcphdr *tcp = (void *)iph + sizeof(struct iphdr);
     if ((void *)tcp + sizeof(struct tcphdr) > data_end){
-        if (BPF_PRINT) bpf_printk("[xdp_aborted] Not enough data for tcphdr");
-        return XDP_ABORTED;
+        if (BPF_PRINT) bpf_printk("[let_katran_decide] Not enough data for tcphdr");
+        goto call_katran;
     }
 
     if (BPF_PRINT) bpf_printk("Got TCP packet from 0x%x", iph->saddr);
@@ -113,13 +118,13 @@ int xdp_load_balancer(struct xdp_md *ctx)
             
             if (rc <= 0){
                 if (BPF_PRINT) bpf_printk("[xdp_aborted] Error decoding remaining length rc=%d", rc);
-                return XDP_ABORTED;
+                goto abort;
             }
 
             curdata += rc;
             if(curdata + remaining_length != (void *)data_end){
                 if (BPF_PRINT) bpf_printk("[xdp_aborted] Remaining length does not match data length");
-                return XDP_ABORTED;
+                goto abort;
             } 
             
             // [Check MQTT packet type]: Only process PUBLISH packets for LB decision
@@ -130,7 +135,7 @@ int xdp_load_balancer(struct xdp_md *ctx)
             // [MQTT PUBLISH Variable header parsing]: checks enough length to read the 2 bytes for topic len?
             else if ((void*)curdata + 2 > (unsigned char *) data_end) {
                 if (BPF_PRINT) bpf_printk("[xdp_aborted] Not enough data to read topic length");
-                return XDP_ABORTED;
+                goto abort;
             }
             
             else {
@@ -140,15 +145,15 @@ int xdp_load_balancer(struct xdp_md *ctx)
                 
                 if(topic_len > MAX_SUPPORTED_TOPIC_LENGTH){
                     if (BPF_PRINT) bpf_printk("[xdp_aborted] Topic length exceeds MAX_SUPPORTED_TOPIC_LENGTH");
-                    return XDP_ABORTED;
+                    goto abort;
                 } 
                 else if (topic_len <= 0){
                     if (BPF_PRINT) bpf_printk("[xdp_aborted] Topic cannot have zero length");
-                    return XDP_ABORTED;
+                    goto abort;
                 }
                 else if ((void *)(curdata) + topic_len > (void *)data_end){
                     if (BPF_PRINT) bpf_printk("[xdp_aborted] Topic data exceeds packet boundary");
-                    return XDP_ABORTED;
+                    goto abort;
                 }
                 else {
                     // [MQTT PUBLISH Topic to VIP mapping]: lookup the topic in the BPF map to get the VIP to forward the packet to
@@ -209,37 +214,27 @@ int xdp_load_balancer(struct xdp_md *ctx)
     
     // Parse MQTT packet
 
+    if (mqtt_topic_wise_forwarding) iph->daddr = mqtt_topic_wise_forwarding;
+    else                            iph->daddr = VIP_DEFAULT;
 
-    unsigned int CLIENT_IP = DEFAULT_CLIENT_IP;
-
-    // *********************** This section is added to allow changing the client IP via BPF map ****************
-    //                         this helps sending MQTT publish packets with different client IPs for testing 
-    //   but the admin should modify the "client_ips" BPF map entry accordingly from userspace (e.g. withbpftool)
-    // -> lookup client IP from BPF map 
-    int key = 1;
-    struct ip_addr_union *client_ip_struct;
-    client_ip_struct = bpf_map_lookup_elem(&client_ips, &key);
-    // -> (override default CLIENT_IP if you have info in the map)
-    if (client_ip_struct){
-        CLIENT_IP = client_ip_struct->ipv4;
-        if (BPF_PRINT) bpf_printk("Using client IP from BPF map: 0x%x", CLIENT_IP);
-    }
-    // ****************** end of section (Ctrl+F client_ip_struct to see dependent sections) *******************
-
-    if (iph->saddr == CLIENT_IP){
-        if (mqtt_topic_wise_forwarding) iph->daddr = mqtt_topic_wise_forwarding;
-        else                            iph->daddr = REAL_3_IP;
-    }
-    else{
-        iph->daddr = CLIENT_IP;
-    }
-    iph->saddr = SCRATCH_LB_IP;
-    eth->h_dest[5] = GATEWAY_SCRATCH_LB_MAC_LAST_BYTE;
-    eth->h_source[5] = SCRATCH_LB_MAC_LAST_BYTE;
-    
     iph->check = iph_csum(iph);
 
-    return XDP_TX;
+    ret = XDP_TX;
+    goto call_katran;
+
+abort:
+    if (BPF_PRINT) bpf_printk("Aborting XDP program\n");
+    return XDP_ABORTED;
+
+call_katran:
+    if (BPF_PRINT) bpf_printk("Calling katran XDP program\n");
+    return XDP_PASS;
+    // TODO
+    // bpf_tail_call(ctx, &root_array, 2);
+
+    if (BPF_PRINT) bpf_printk("Tail call failed in katran XDP program\n Return XDP action: %d", ret);
+    return ret;
+
 }
 
 char _license[] SEC("license") = "GPL";

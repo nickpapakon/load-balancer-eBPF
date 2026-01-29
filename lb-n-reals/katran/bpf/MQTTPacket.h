@@ -34,7 +34,6 @@
 
 #define MQTT_PORT 1883
 
-#include "MQTTPacket.h"
 
 enum errors
 {
@@ -109,7 +108,7 @@ typedef struct
  * @return the integer value calculated
  * returns -1 on error
  */
-__u16 readInt(unsigned char** pptr, unsigned char* enddata)
+__attribute__((__always_inline__)) static inline __u16 readInt(unsigned char** pptr, unsigned char* enddata)
 {
 	unsigned char* ptr = *pptr;
 	if(ptr + 2 > enddata)
@@ -124,7 +123,7 @@ __u16 readInt(unsigned char** pptr, unsigned char* enddata)
  * @param pptr pointer to the input buffer - incremented by the number of bytes used & returned
  * @return the character read
  */
-char readChar(unsigned char** pptr)
+__attribute__((__always_inline__)) static inline char readChar(unsigned char** pptr)
 {
 	char c = **pptr;
 	(*pptr)++;
@@ -138,7 +137,7 @@ char readChar(unsigned char** pptr)
  * @param enddata pointer to the end of the data: do not read beyond
  * @return 1 if successful, 0 if not
  */
-int readMQTTLenString(MQTTString* mqttstring, unsigned char** pptr, unsigned char* enddata)
+__attribute__((__always_inline__)) static inline int readMQTTLenString(MQTTString* mqttstring, unsigned char** pptr, unsigned char* enddata)
 {
 	int rc = 0;
 
@@ -195,7 +194,7 @@ exit:
 static unsigned char* bufptr;
 static unsigned char* bufptr_end;
 
-int bufchar(unsigned char* c, int count)
+__attribute__((__always_inline__)) static inline int bufchar(unsigned char* c, int count)
 {
 	int i;
 
@@ -206,7 +205,7 @@ int bufchar(unsigned char* c, int count)
 	return count;
 }
 
-int MQTTPacket_decodeBuf(unsigned char* buf, unsigned char* buf_end, int* value)
+__attribute__((__always_inline__)) static inline int MQTTPacket_decodeBuf(unsigned char* buf, unsigned char* buf_end, int* value)
 {
 	bufptr = buf;
 	bufptr_end = buf_end;

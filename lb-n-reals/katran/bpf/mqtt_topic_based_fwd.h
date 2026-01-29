@@ -9,16 +9,17 @@
 #include <linux/ip.h>
 #include <linux/tcp.h>
 
-#include "include/bpf.h"
-#include "include/bpf_helpers.h"
-#include "include/bpf_endian.h"
-#include "include/bpf_common.h"
+#include "katran/lib/linux_includes/bpf.h"
+#include "katran/lib/linux_includes/bpf_helpers.h"
+#include "katran/lib/linux_includes/bpf_endian.h"
+#include "katran/lib/linux_includes/bpf_common.h"
 
 // If you change MAX_SUPPORTED_TOPIC_LENGTH, 
 // be careful about the `len` type in mqtt_topic_entry struct below
-#define MAX_SUPPORTED_TOPIC_LENGTH 80
+#define MAX_SUPPORTED_TOPIC_LENGTH 8 // TODO - CHANGE to 80 ? 
 #define MAX_VIPS 512
 #define NO_FLAGS 0
+#define VIP_DEFAULT       (unsigned int)(10 + (1 << 8) + (50 << 16) + (250 << 24))
 
 struct mqtt_topic_entry {
     // TODO: can I optimize the topic to a variable length array?
@@ -44,16 +45,7 @@ struct ip_addr_union {
     };
 };
 
-// a eBPF map just to be able to change the client_IP (use key: 1)
-struct {
-  __uint(type, BPF_MAP_TYPE_HASH);
-  __type(key, unsigned int);
-  __type(value, struct ip_addr_union);
-  __uint(max_entries, 10);
-  __uint(map_flags, NO_FLAGS);
-} client_ips SEC(".maps");
-
-// map the client ip to the last used topic
+// map the client ip to the last used topic (updated only in kernel-space)
 struct {
   __uint(type, BPF_MAP_TYPE_HASH);
   __type(key, struct ip_addr_union);
@@ -62,7 +54,7 @@ struct {
   __uint(map_flags, NO_FLAGS);
 } mqtt_client_ip_to_topic SEC(".maps");
 
-// map the mqtt topic to a vip
+// map the mqtt topic to a vip (updated only in user-space)
 struct {
   __uint(type, BPF_MAP_TYPE_HASH);
   __type(key, struct mqtt_topic_entry);
