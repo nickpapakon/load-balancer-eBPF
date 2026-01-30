@@ -21,6 +21,13 @@
 #define NO_FLAGS 0
 #define VIP_DEFAULT       (unsigned int)(10 + (1 << 8) + (50 << 16) + (250 << 24))
 
+// not included in linux_includes/bpf_helpers.h (old version)
+enum libbpf_pin_type {
+	LIBBPF_PIN_NONE,
+	/* PIN_BY_NAME: pin maps by name (in /sys/fs/bpf by default) */
+	LIBBPF_PIN_BY_NAME,
+};
+
 struct mqtt_topic_entry {
     // TODO: can I optimize the topic to a variable length array?
     char topic[MAX_SUPPORTED_TOPIC_LENGTH];

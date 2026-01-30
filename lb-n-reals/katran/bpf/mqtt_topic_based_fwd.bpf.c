@@ -3,17 +3,18 @@
 
 #define BPF_PRINT 1
 #define ROOT_ARRAY_SIZE 3
+#define KATRAN_XDP_PROG_POS_ROOT_ARRAY 2
 
 // TODO:    look at root_array in order to make
 //          bpf_tail_call(ctx, &root_array, 2); 
 //          (fwd to Katran BPF balancer bpf prog)
-// struct {
-//   __uint(type, BPF_MAP_TYPE_PROG_ARRAY);
-//   __type(key, __u32);
-//   __type(value, __u32);
-//   __uint(max_entries, ROOT_ARRAY_SIZE);
-//   __uint(pinning, LIBBPF_PIN_BY_NAME);
-// } root_array SEC(".maps");
+struct {
+  __uint(type, BPF_MAP_TYPE_PROG_ARRAY);
+  __type(key, __u32);
+  __type(value, __u32);
+  __uint(max_entries, ROOT_ARRAY_SIZE);
+  __uint(pinning, LIBBPF_PIN_BY_NAME);
+} root_array SEC(".maps");
 
 
 SEC("xdp")
@@ -228,9 +229,8 @@ abort:
 
 call_katran:
     if (BPF_PRINT) bpf_printk("Calling katran XDP program\n");
-    return XDP_PASS;
     // TODO
-    // bpf_tail_call(ctx, &root_array, 2);
+    bpf_tail_call(ctx, &root_array, KATRAN_XDP_PROG_POS_ROOT_ARRAY);
 
     if (BPF_PRINT) bpf_printk("Tail call failed in katran XDP program\n Return XDP action: %d", ret);
     return ret;
