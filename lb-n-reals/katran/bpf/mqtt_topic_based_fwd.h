@@ -16,6 +16,7 @@
 
 // If you change MAX_SUPPORTED_TOPIC_LENGTH, 
 // be careful about the `len` type in mqtt_topic_entry struct below
+// also change the MAX_SUPPORTED_TOPIC_LENGTH in userspace/update-map
 #define MAX_SUPPORTED_TOPIC_LENGTH 8 // TODO - CHANGE to 80 ? 
 #define MAX_VIPS 512
 #define NO_FLAGS 0

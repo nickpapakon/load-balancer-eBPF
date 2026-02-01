@@ -6,7 +6,8 @@
 #include <arpa/inet.h>  // For inet_pton
 
 
-#define MAX_SUPPORTED_TOPIC_LENGTH 80
+// CHANGE - be careful - this should be updated based on the bpf map definition
+#define MAX_SUPPORTED_TOPIC_LENGTH 8
 
 struct mqtt_topic_entry {
     // TODO: can I optimize the topic to a variable length array?

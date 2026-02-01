@@ -4,7 +4,7 @@ USER simple_user
 
 # if needed to re-build Katran because a src file changed
 # change the argument below to invalidate docker build cache for the Katran build step
-ARG KATRAN_BUILD_CACHE_BUSTER=1
+ARG KATRAN_BUILD_CACHE_BUSTER=10
 RUN git pull
 
 ARG KATRAN_BPF_DIR=/home/simple_user/katran/katran/lib/bpf
@@ -58,7 +58,8 @@ RUN cd /home/simple_user/xdp-tutorial && \
 COPY . .
 COPY ./bpf/* /home/simple_user/katran/katran/lib/bpf/
 
-RUN chmod +x /home/simple_user/setup.sh
+RUN chmod +x /home/simple_user/setup.sh && \
+    chmod +x /home/simple_user/scripts/*
 # Add a script to set up interfaces or other configurations at container startup (need root access)
 
 ENTRYPOINT [ "/home/simple_user/setup.sh" ]

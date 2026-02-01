@@ -224,7 +224,7 @@ python3 client_pub_opts.py -H ${SCRATCH_LB_IP} -t living-room/ -P ${MQTT_PORT} -
 ```
 
 
-## Tests 4-5
+## Test 4
 
 ### Limitations
 
@@ -328,16 +328,14 @@ bpftool map update id $MAP_ID key 0 0 0 0 value 10 1 50 200 0 0 0 0 0 0 0 0 0 0 
 bpftool map dump id $MAP_ID
 ```
 
-- [Gateway]() Open terminal and start capturing on  `any` interfaces
+- **Gateway**: Open terminal and start capturing on  `any` interfaces
 ```bash
 docker exec -it gateway sh
 
 tcpdump -n -i any -nnXXtttt -w /tmp/gateway_any_capture.pcap -C 3 -G 600 
 ```
 
-### Test 4
-
-- [Client]() Open another terminal and Then try to publish messages to mqtt_LB/katran:
+- **Client**: Open another terminal and Then try to publish messages to mqtt_LB/katran:
 ```bash
 docker exec -it client sh
 
@@ -347,3 +345,65 @@ mosquitto_pub -h ${MQTT_VIP} -t sensor -p ${MQTT_PORT} -m "motor temp, current, 
 #               in our case goes always to real 3
 ```
 
+- Stop and collect the captures on gateway containers
+
+- Collect logs from `bpftool prog tracelog` running on `termB`
+
+
+## Test 5
+
+Minor fixes concerning a bug and better logging.
+Test shows the behavior of `mqtt_LB` when receiving many MQTT messages with different topics
+As expected the first packet with a topic that is meant to be sent to a different VIP group does not properly arrive on any of the responsible brokers due to false topic prediction. All other commands are the same. Hopefully,
+
+- In this version, instead of manually pasting the commands you can use the `scripts/` provided in `/home/simple_user` of katran container
+```bash
+docker exec -it katran sh
+
+# termA
+./scripts/loader.sh
+# termB
+./scripts/debug.sh
+# termC
+./scripts/userspace.sh
+```
+
+- **Gateway**: Open terminal and start capturing on  `any` interfaces
+```bash
+docker exec -it gateway sh
+
+tcpdump -n -i any -nnXXtttt -w /tmp/gateway_any_capture.pcap -C 3 -G 600 
+```
+
+- **Client**: Open another terminal and Then try to publish messages to mqtt_LB/katran:
+```bash
+# run the following multiple (3+) times
+mosquitto_pub -h ${MQTT_VIP} -t sensor/a -p ${MQTT_PORT} -m "motor temp, current, ..."
+# Expectations (see docker container logs):
+# 1st time:  
+#       Message is possibly NOT PUBLISHED to any broker (connection done with a broker from the VIP_DEFAULT VIP group) - Here real-3
+# Next times: 
+#       Message is successfully published to a responsible (member of VIP_A) broker  - Here real-1
+
+
+# repeat procedure for sensor/b -> VIP_B
+mosquitto_pub -h ${MQTT_VIP} -t sensor/b -p ${MQTT_PORT} -m "motor temp, current, ..."
+# Expectations (see docker container logs):
+# 1st time:  
+#       Message is NOT PUBLISHED to any broker (connection done with a broker from the VIP_A - Here real-1 -
+#       due to the fact that mqtt_fwd prog makes prediction of topic based on the client IP - 
+#       Here predicted topic: sensor/a   that differs from the actual)
+# Next times: 
+#       Message is successfully published to a responsible (member of VIP_B) broker  - Here real-2  
+#       (as the client-IP to mqtt topic mapping has been updated from the previous message)
+```
+
+- Stop and collect the captures on gateway containers
+
+- Collect logs from `bpftool prog tracelog` running on `termB`
+
+- (Optional) (not captured) Similar results to Test 3 are produced by the following procedure
+```bash
+cd utils
+python3 client_pub_opts.py -H ${MQTT_VIP} -t sensor -P ${MQTT_PORT} -k 3 -N 6 -S 1
+```

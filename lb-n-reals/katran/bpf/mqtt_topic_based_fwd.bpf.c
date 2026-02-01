@@ -2,6 +2,7 @@
 #include "katran/lib/bpf/MQTTPacket.h"
 
 #define BPF_PRINT 1
+#define PRINT_ALL_PCKTS 1
 #define ROOT_ARRAY_SIZE 3
 #define KATRAN_XDP_PROG_POS_ROOT_ARRAY 2
 
@@ -23,7 +24,8 @@ int mqtt_fwd(struct xdp_md *ctx)
     void *data_end = (void *)(long)ctx->data_end;
     int ret = XDP_PASS;
 
-    if (BPF_PRINT) bpf_printk("\n\ngot something from NIC");
+    const char *delimiter = "\n\n\n\n########################################################################\n";
+    if (BPF_PRINT) bpf_printk("%s\n[mqtt_fwd] got something from NIC\n", delimiter); 
 
     // [Ethernet header parsing]: (Based on EtherType, Pass to network stack any non-IPv4 packet)
     struct ethhdr *eth = data;
@@ -56,8 +58,8 @@ int mqtt_fwd(struct xdp_md *ctx)
         goto call_katran;
     }
 
-    if (BPF_PRINT) bpf_printk("Got TCP packet from 0x%x", iph->saddr);
-    if (BPF_PRINT) bpf_printk(" src Port: %d, dst Port: %d", bpf_ntohs(tcp->source), bpf_ntohs(tcp->dest));
+    if (BPF_PRINT) bpf_printk("TCP packet\n src IP: 0x%x, dst IP: 0x%x", bpf_ntohl(iph->saddr), bpf_ntohl(iph->daddr));
+    if (BPF_PRINT) bpf_printk(" src Port: %d,    dst Port: %d", bpf_ntohs(tcp->source), bpf_ntohs(tcp->dest));
 
     unsigned int mqtt_topic_wise_forwarding = 0;
 
@@ -68,6 +70,7 @@ int mqtt_fwd(struct xdp_md *ctx)
     }
     // [TCP payload]: Packet is destined to MQTT port, continue to topic prediction and parsing
     else {
+        if (BPF_PRINT) bpf_printk("[mqtt_service]");
         // [predicted topic based on src IP]: We suppose that the following message will be for the topic that was last sent by this client IP
         // []: lookup the predicted topic from BPF map based on source IP
         struct mqtt_topic_entry* predicted_topic = NULL;
@@ -80,6 +83,7 @@ int mqtt_fwd(struct xdp_md *ctx)
         // []: If no predicted topic, no forwarding based on topic
         // []: If the packet is MQTT PUBLISH, the forwarding decision will be updated later based on the actual topic
         if (predicted_topic){
+            if (BPF_PRINT) bpf_printk("Predicted topic: %s\n", predicted_topic->topic);
             struct vip_definition *vip_def;
             vip_def = bpf_map_lookup_elem(&mqtt_topic_to_vip, predicted_topic);
             if(vip_def){
