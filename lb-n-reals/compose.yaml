@@ -1,34 +1,5 @@
 services:
 
-  lb_from_scratch:
-    container_name: lb_from_scratch
-    build:
-      context: lb_from_scratch/
-    deploy:
-      resources:
-        limits:
-          cpus: '4.0'
-          memory: 4G
-          pids: 1024
-        reservations:
-          cpus: '2.0'
-          memory: 2G
-    privileged: true                    # recommended for XDP/AF_XDP access
-    cap_add:
-      - NET_ADMIN
-      - SYS_ADMIN
-    volumes:
-      - /lib/modules:/lib/modules:ro
-      - /sys/fs/bpf:/sys/fs/bpf
-      - /sys/kernel/debug:/sys/kernel/debug:rw
-      - /usr/src:/usr/src:ro
-    networks:
-      gateway-scratch-lb:
-        ipv4_address: ${SCRATCH_LB_IP}
-        mac_address: ${SCRATCH_LB_MAC}
-    env_file: .env
-
-
   katran:
     container_name: katran
     build:
@@ -130,6 +101,8 @@ services:
       context: gateway/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - katran
     networks:
       gateway-client:
         ipv4_address: ${GATEWAY_CLIENT_IP}

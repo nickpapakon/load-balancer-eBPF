@@ -1,0 +1,207 @@
+Client command:
+
+mosquitto_pub -h ${MQTT_VIP} -t sensor -p ${MQTT_PORT} -m "motor temp, current, ..."
+
+
+
+################################################# LOGS #####################################################
+
+
+
+
+
+
+
+# 
+# bpftool prog list | grep xdp && \
+bpftool map show name root_array && \
+bpftool map dump name root_array && \
+bpftool prog tracelog> > > 
+354: xdp  name xdp_root  tag 631855c97cb7abd1  gpl
+361: xdp  name balancer_ingress  tag 2761505d10514ef0  gpl
+364: xdp  name mqtt_fwd  tag 0e58f9f44ba63272  gpl
+39: prog_array  name root_array  flags 0x0
+	key 4B  value 4B  max_entries 3  memlock 288B
+	owner_prog_type xdp  owner jited
+	btf_id 29
+[{
+        "key": 1,
+        "value": 364
+    },{
+        "key": 2,
+        "value": 361
+    }
+]
+
+
+
+
+           <...>-23033   [007] ..s21  6842.076798: bpf_trace_printk: 
+
+got something from NIC
+           <...>-23033   [007] ..s21  6842.076819: bpf_trace_printk: [let_katran_decide] Not an IPv4 packet, passing to network stack
+           <...>-23033   [007] ..s21  6842.076820: bpf_trace_printk: Calling katran XDP program
+
+           <...>-23033   [007] ..s21  6842.076841: bpf_trace_printk: 
+
+got something from NIC
+           <...>-23033   [007] ..s21  6842.076843: bpf_trace_printk: Got TCP packet from 0x6601010a
+           <...>-23033   [007] ..s21  6842.076845: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+           <...>-23033   [007] ..s21  6842.076847: bpf_trace_printk: No predicted topic for this client IP
+           <...>-23033   [007] ..s21  6842.076848: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+           <...>-23033   [007] ..s21  6842.076850: bpf_trace_printk: Calling katran XDP program
+
+           <...>-23033   [007] ..s21  6842.076852: bpf_trace_printk: 
+
+*************************
+
+           <...>-23033   [007] ..s21  6842.076854: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+           <...>-23033   [007] ..s21  6842.076867: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+           <...>-23033   [007] ..s21  6842.076868: bpf_trace_printk: Redirecting packet to real 3
+
+           <...>-23033   [007] ..s21  6842.076869: bpf_trace_printk: Packet is IPv4
+
+           <...>-23033   [007] ..s21  6842.076870: bpf_trace_printk: IP hex: 0xcb03010a
+           <...>-23033   [007] ..s21  6842.077010: bpf_trace_printk: 
+
+got something from NIC
+           <...>-23033   [007] ..s21  6842.077012: bpf_trace_printk: Got TCP packet from 0x6601010a
+           <...>-23033   [007] ..s21  6842.077013: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+           <...>-23033   [007] ..s21  6842.077014: bpf_trace_printk: No predicted topic for this client IP
+           <...>-23033   [007] ..s21  6842.077015: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+           <...>-23033   [007] ..s21  6842.077016: bpf_trace_printk: Calling katran XDP program
+
+           <...>-23033   [007] ..s21  6842.077017: bpf_trace_printk: 
+
+*************************
+
+           <...>-23033   [007] ..s21  6842.077018: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+           <...>-23033   [007] ..s21  6842.077021: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+           <...>-23033   [007] ..s21  6842.077022: bpf_trace_printk: Redirecting packet to real 3
+
+           <...>-23033   [007] ..s21  6842.077022: bpf_trace_printk: Packet is IPv4
+
+           <...>-23033   [007] ..s21  6842.077023: bpf_trace_printk: IP hex: 0xcb03010a
+           <...>-23033   [007] ..s21  6842.077150: bpf_trace_printk: 
+
+got something from NIC
+           <...>-23033   [007] ..s21  6842.077151: bpf_trace_printk: Got TCP packet from 0x6601010a
+           <...>-23033   [007] ..s21  6842.077152: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+           <...>-23033   [007] ..s21  6842.077153: bpf_trace_printk: No predicted topic for this client IP
+           <...>-23033   [007] ..s21  6842.077154: bpf_trace_printk: This segment Contains MQTT packet
+           <...>-23033   [007] ..s21  6842.077155: bpf_trace_printk: MQTT Packet type: 1
+           <...>-23033   [007] ..s21  6842.077155: bpf_trace_printk: Not a PUBLISH packet type
+           <...>-23033   [007] ..s21  6842.077156: bpf_trace_printk: Calling katran XDP program
+
+           <...>-23033   [007] ..s21  6842.077157: bpf_trace_printk: 
+
+*************************
+
+           <...>-23033   [007] ..s21  6842.077393: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+           <...>-23033   [007] ..s21  6842.077401: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+           <...>-23033   [007] ..s21  6842.077402: bpf_trace_printk: Redirecting packet to real 3
+
+   mosquitto_pub-23033   [007] ..s21  6842.077403: bpf_trace_printk: Packet is IPv4
+
+   mosquitto_pub-23033   [007] ..s21  6842.077404: bpf_trace_printk: IP hex: 0xcb03010a
+           <...>-22758   [000] ..s21  6842.086907: bpf_trace_printk: 
+
+got something from NIC
+       mosquitto-22758   [000] ..s21  6842.086928: bpf_trace_printk: Got TCP packet from 0x6601010a
+       mosquitto-22758   [000] ..s21  6842.086930: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+       mosquitto-22758   [000] ..s21  6842.086932: bpf_trace_printk: No predicted topic for this client IP
+       mosquitto-22758   [000] ..s21  6842.086933: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+       mosquitto-22758   [000] ..s21  6842.086935: bpf_trace_printk: Calling katran XDP program
+
+       mosquitto-22758   [000] ..s21  6842.086938: bpf_trace_printk: 
+
+*************************
+
+       mosquitto-22758   [000] ..s21  6842.086939: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+       mosquitto-22758   [000] ..s21  6842.086957: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+       mosquitto-22758   [000] ..s21  6842.086958: bpf_trace_printk: Redirecting packet to real 3
+
+       mosquitto-22758   [000] ..s21  6842.086958: bpf_trace_printk: Packet is IPv4
+
+       mosquitto-22758   [000] ..s21  6842.086959: bpf_trace_printk: IP hex: 0xcb03010a
+   mosquitto_pub-23033   [007] ..s21  6842.087086: bpf_trace_printk: 
+
+got something from NIC
+   mosquitto_pub-23033   [007] ..s21  6842.087090: bpf_trace_printk: Got TCP packet from 0x6601010a
+   mosquitto_pub-23033   [007] ..s21  6842.087092: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+   mosquitto_pub-23033   [007] ..s21  6842.087093: bpf_trace_printk: No predicted topic for this client IP
+   mosquitto_pub-23033   [007] ..s21  6842.087094: bpf_trace_printk: This segment Contains MQTT packet
+   mosquitto_pub-23033   [007] ..s21  6842.087095: bpf_trace_printk: MQTT Packet type: 3
+   mosquitto_pub-23033   [007] ..s21  6842.087095: bpf_trace_printk: Topic length: 6
+   mosquitto_pub-23033   [007] ..s21  6842.087097: bpf_trace_printk: Topic: sensor
+   mosquitto_pub-23033   [007] ..s21  6842.087098: bpf_trace_printk: Payload: sensormotor temp, current, ...
+   mosquitto_pub-23033   [007] ..s21  6842.087099: bpf_trace_printk: Actual Topic does not match the predicted one based on BPF map - We update BPF map
+   mosquitto_pub-23033   [007] ..s21  6842.087103: bpf_trace_printk: No VIP mapping found for actual topic
+   mosquitto_pub-23033   [007] ..s21  6842.087104: bpf_trace_printk: Calling katran XDP program
+
+   mosquitto_pub-23033   [007] ..s21  6842.087106: bpf_trace_printk: 
+
+*************************
+
+   mosquitto_pub-23033   [007] ..s21  6842.087107: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+   mosquitto_pub-23033   [007] ..s21  6842.087113: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+   mosquitto_pub-23033   [007] ..s21  6842.087114: bpf_trace_printk: Redirecting packet to real 3
+
+   mosquitto_pub-23033   [007] ..s21  6842.087115: bpf_trace_printk: Packet is IPv4
+
+   mosquitto_pub-23033   [007] ..s21  6842.087116: bpf_trace_printk: IP hex: 0xcb03010a
+   mosquitto_pub-23033   [007] ..s21  6842.087226: bpf_trace_printk: 
+
+got something from NIC
+   mosquitto_pub-23033   [007] ..s21  6842.087228: bpf_trace_printk: Got TCP packet from 0x6601010a
+   mosquitto_pub-23033   [007] ..s21  6842.087229: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+   mosquitto_pub-23033   [007] ..s21  6842.087230: bpf_trace_printk: No VIP mapping found for predicted topic
+   mosquitto_pub-23033   [007] ..s21  6842.087233: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+   mosquitto_pub-23033   [007] ..s21  6842.087234: bpf_trace_printk: Calling katran XDP program
+
+   mosquitto_pub-23033   [007] ..s21  6842.087235: bpf_trace_printk: 
+
+*************************
+
+   mosquitto_pub-23033   [007] ..s21  6842.087236: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+   mosquitto_pub-23033   [007] ..s21  6842.087239: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+   mosquitto_pub-23033   [007] ..s21  6842.087239: bpf_trace_printk: Redirecting packet to real 3
+
+   mosquitto_pub-23033   [007] ..s21  6842.087240: bpf_trace_printk: Packet is IPv4
+
+   mosquitto_pub-23033   [007] ..s21  6842.087241: bpf_trace_printk: IP hex: 0xcb03010a
+       mosquitto-22758   [000] ..s21  6842.088128: bpf_trace_printk: 
+
+got something from NIC
+       mosquitto-22758   [000] ..s21  6842.088152: bpf_trace_printk: Got TCP packet from 0x6601010a
+       mosquitto-22758   [000] ..s21  6842.088160: bpf_trace_printk:  src Port: 53806, dst Port: 1883
+       mosquitto-22758   [000] ..s21  6842.088163: bpf_trace_printk: No VIP mapping found for predicted topic
+       mosquitto-22758   [000] ..s21  6842.088164: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+       mosquitto-22758   [000] ..s21  6842.088165: bpf_trace_printk: Calling katran XDP program
+
+       mosquitto-22758   [000] ..s21  6842.088168: bpf_trace_printk: 
+
+*************************
+
+       mosquitto-22758   [000] ..s21  6842.088169: bpf_trace_printk: [Katran]: Parsing TCP packet: src port: 53806, dst port: 1883
+
+       mosquitto-22758   [000] ..s21  6842.088195: bpf_trace_printk: [special_mqtt_service] Setting dest IP to a0132c8
+
+       mosquitto-22758   [000] ..s21  6842.088196: bpf_trace_printk: Redirecting packet to real 3
+
+       mosquitto-22758   [000] ..s21  6842.088197: bpf_trace_printk: Packet is IPv4
+
+       mosquitto-22758   [000] ..s21  6842.088198: bpf_trace_printk: IP hex: 0xcb03010a
+

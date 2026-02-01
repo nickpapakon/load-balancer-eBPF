@@ -4,7 +4,7 @@ USER simple_user
 
 # if needed to re-build Katran because a src file changed
 # change the argument below to invalidate docker build cache for the Katran build step
-ARG KATRAN_BUILD_CACHE_BUSTER=4
+ARG KATRAN_BUILD_CACHE_BUSTER=1
 RUN git pull
 
 ARG KATRAN_BPF_DIR=/home/simple_user/katran/katran/lib/bpf
@@ -46,15 +46,14 @@ RUN cd xdp-tutorial && \
 # whatever file changes below this line will invalidate the cache
 
 COPY ./userspace/update-map /home/simple_user/xdp-tutorial/basic00-update-map
-COPY ./userspace/update-prog-array /home/simple_user/xdp-tutorial/basic00-update-prog-array
-COPY ./userspace/loader /home/simple_user/xdp-tutorial/basic00-loader
+# COPY ./userspace/update-prog-array /home/simple_user/xdp-tutorial/basic00-update-prog-array
+# COPY ./userspace/loader /home/simple_user/xdp-tutorial/basic00-loader
 
 USER root
 
 
-# RUN cd /home/simple_user/xdp-tutorial && \
-#     bpftool gen skeleton /home/simple_user/katran/_build/deps/bpfprog/bpf/xdp_root.o > basic00-loader/tail_call.skel.h && \
-#     make
+RUN cd /home/simple_user/xdp-tutorial && \
+    make
 
 COPY . .
 COPY ./bpf/* /home/simple_user/katran/katran/lib/bpf/

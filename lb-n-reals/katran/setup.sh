@@ -31,6 +31,8 @@ cp ../Makefile .
 
 make compile_bpf
 
+rm -rf /sys/fs/bpf/jmp_${KATRAN_INTERFACE} 
+
 # export KATRAN_INTERFACE="eth0"
 # ./install_xdproot.sh
 

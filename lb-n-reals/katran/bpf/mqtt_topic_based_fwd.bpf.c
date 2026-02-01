@@ -5,9 +5,7 @@
 #define ROOT_ARRAY_SIZE 3
 #define KATRAN_XDP_PROG_POS_ROOT_ARRAY 2
 
-// TODO:    look at root_array in order to make
-//          bpf_tail_call(ctx, &root_array, 2); 
-//          (fwd to Katran BPF balancer bpf prog)
+
 struct {
   __uint(type, BPF_MAP_TYPE_PROG_ARRAY);
   __type(key, __u32);
@@ -64,6 +62,7 @@ int mqtt_fwd(struct xdp_md *ctx)
     unsigned int mqtt_topic_wise_forwarding = 0;
 
     // [MQTT_VIP check]: Check if packet is destined to MQTT port
+    // TODO: use mqtt_service_vips ...
     if(bpf_ntohs(tcp->dest) != MQTT_PORT){
         if (BPF_PRINT) bpf_printk("Packet is not destined to MQTT port");
     }
@@ -229,7 +228,6 @@ abort:
 
 call_katran:
     if (BPF_PRINT) bpf_printk("Calling katran XDP program\n");
-    // TODO
     bpf_tail_call(ctx, &root_array, KATRAN_XDP_PROG_POS_ROOT_ARRAY);
 
     if (BPF_PRINT) bpf_printk("Tail call failed in katran XDP program\n Return XDP action: %d", ret);

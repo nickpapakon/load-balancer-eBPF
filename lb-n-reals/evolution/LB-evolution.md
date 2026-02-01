@@ -131,7 +131,7 @@ bpftool map dump id $MAP_ID
 ### Limitations - Modifications since previous test
 
 Feature:
-- Variable Length up to 80 characters is supported in this version
+- Variable MQTT Topic Length up to 80 characters is supported in this version
 
 The rest limitations have not been addressed yet.
 
@@ -202,7 +202,7 @@ mosquitto_pub -h ${SCRATCH_LB_IP}  -p ${MQTT_PORT} -m "" -t aabbccddeeaabbccddee
 
 ## Test 3
 
-## Test Procedure
+### Test Procedure
 
 No modifications done on Load Balancer. 
 - Send multiple MQTT PUBLISH messages of the same topic under a single TCP connection using a python `paho.mqtt` client
@@ -210,7 +210,7 @@ No modifications done on Load Balancer.
 - Repeat the procedure - rerun the python client that sends multiple MQTT PUBLISH messages with the same topic 
 - Now a new TCP connection is used and thus the messages are all properly forwarded to the same responsible broker.
 
-## Command
+### Command
 
 ```bash
 # keep-alive of 3 sec
@@ -222,3 +222,128 @@ python3 client_pub_opts.py -H ${SCRATCH_LB_IP} -t living-room/ -P ${MQTT_PORT} -
 
 # second time we run the command, as a new TCP 3WHS happens to the appropriate broker, all MQTT PUBLISH messages are correctly delivered to broker real_2
 ```
+
+
+## Tests 4-5
+
+### Limitations
+
+- variable topic len up to 8 chars
+- 1st mqtt pub message lost every time the client changes IP, loss continues until client re-connects
+- no IPv6 handling
+- every packet destined to MQTT-port (1883) is handled in this way (idea: use the configurable `MQTT_VIP` to discriminate MQTT service)
+
+### eBPF Programs
+
+This version consists of multiple bpf (xdp) programs that are tail-called using `bpf_tail_call`.
+- `xdp_root`: The XDP program that is attached to the network interface and makes a tail call to `root_array[1]` program
+- `root_array[1]`: My XDP program `mqtt_fwd` that performs the MQTT topic-based forwarding logic. If the received packet is destined to the `MQTT_PORT = 1883` then this program **changes the destination IP to a VIP** that represents a group of reals/brokers. The group of reals is selected **based on the (predicted/actual) MQTT topic** that (would be / is) used in the communication (check previous explanations for this logic). At the end, the program makes tail call to `root_array[2]` either there was a modification in the frame or not.
+- `root_array[2]`: here Katran `balancer_ingress` xdp program is registered so that takes responsibility for the load balancing task. Katran looks at the destination IP of the packet and selects the real-broker to which the frame will be forwarded based on the VIP - reals mapping (from eBPF Maps that have been modified from userspace). 5-tuple (proto, src IP, src port, dst IP, dst port) is also considered in order to forward packets from the same session to the same broker. While making the encapsulated IPIP packet, the old ip header destination address (which was modified by `mqtt_fwd` program) changes to the `MQTT_VIP` value (stored in `mqtt_service_vips` eBPF map modified by userspace) which is meant to be used from the client for the communication with LB (checksum also needs to be updated).
+
+
+
+### Topic to VIP mapping
+
+| topic        | VIP         |
+| ------------ | ----------- |
+| `sensor/a`   | VIP_A       |
+| `sensor/b`   | VIP_B       |
+| other topics | VIP_DEFAULT |
+
+### VIP to reals mapping 
+
+| VIP         | Reals (brokers)  |
+| ----------- | ---------------- |
+| VIP_A       | 1                |
+| VIP_B       | 2                |
+| VIP_DEFAULT | 3                |
+
+
+### Commands
+
+Open three terminals `termA`, `termB`, `termC` to interact with Katran container
+```bash
+docker exec -it katran sh
+```
+
+- On `termA`, Install xdproot and Run Katran Server-Loader.
+```bash
+cd /home/simple_user/katran
+./install_xdproot.sh
+```
+
+```bash
+cd /home/simple_user/katran/_build
+sudo ./build/example_grpc/katran_server_grpc -balancer_prog ./deps/bpfprog/bpf/balancer.bpf.o  -forwarding_cores=0 -hc_forwarding=false -lru_size=10000 -default_mac ${GATEWAY_KATRAN_MAC} -map_path /sys/fs/bpf/jmp_${KATRAN_INTERFACE} -prog_pos=2 -mqtt_fwd true -mqtt_topic_based_fwd_prog ./deps/bpfprog/bpf/mqtt_topic_based_fwd.bpf.o -mqtt_prog_pos 1 -intf ${KATRAN_INTERFACE}
+```
+
+- After the previous commands, you should see 3 xdp programs loaded in bpf/kernel (`xdp_root`, `mqtt_fwd`, `balancer_ingress`). You should also see a bpf Map `root_array` that contains the mapping `1 -> mqtt_fwd, 2 -> balancer_ingress` and is used for the `bpf_tail_call` calls. You can inspect these with the bpftool commands on `termB` (run the final command also to inspect the `bpf_printk` logs from the bpf programs):
+```bash
+bpftool prog list | grep xdp && \
+bpftool map show name root_array && \
+bpftool map dump name root_array && \
+bpftool prog tracelog
+```
+
+<!--
+Lookup / Disable mqtt_fwd program
+bpftool map lookup name root_array key 1 0 0 0
+bpftool map delete  name root_array key 1 0 0 0
+-->
+
+- On `termC`, run commands for the go client to configure VIPs and reals for Katran
+```bash
+cd /home/simple_user/katran/example_grpc/goclient/src/katranc/main
+
+# configure a VIP groups
+./main -A -t ${VIP_A}:${MQTT_PORT}
+./main -a -t ${VIP_A}:${MQTT_PORT} -r ${REAL_1_IP} -w 1
+./main -A -t ${VIP_B}:${MQTT_PORT} 
+./main -a -t ${VIP_B}:${MQTT_PORT} -r ${REAL_2_IP} -w 1
+./main -A -t ${VIP_DEFAULT}:${MQTT_PORT} 
+./main -a -t ${VIP_DEFAULT}:${MQTT_PORT} -r ${REAL_3_IP} -w 1
+
+# list available services (VIP -> reals mapping)
+./main -l
+```
+
+- On `termC`, configure the mapping of topics to VIPs for `mqtt_fwd` program
+```bash
+# Update eBPF map from userspace  [topic -> VIP (group of responsible services)]
+export MAP_ID=$(bpftool map list | grep mqtt_topic | awk -F':' '{ print $1 }') && \
+bpftool map show id $MAP_ID  && \
+cd /home/simple_user/xdp-tutorial/basic00-update-map  && \
+./user_bpfmap $MAP_ID sensor/a $VIP_A  && \
+./user_bpfmap $MAP_ID sensor/b $VIP_B  && \
+bpftool map dump id $MAP_ID
+```
+
+- On `termC`, configure the general mqtt VIP that the client uses, so that `balancer_ingress` changes the destination IP to this one instead of the specific VIP that was given by the `mqtt_fwd` program
+```bash
+export MAP_ID=$(bpftool map list | grep mqtt_service | awk -F':' '{ print $1 }')
+bpftool map show id $MAP_ID
+# MQTT_VIP=10.1.50.200
+# echo $MQTT_VIP | awk -F'.' '{ print $1  }'
+bpftool map update id $MAP_ID key 0 0 0 0 value 10 1 50 200 0 0 0 0 0 0 0 0 0 0 0 0
+bpftool map dump id $MAP_ID
+```
+
+- [Gateway]() Open terminal and start capturing on  `any` interfaces
+```bash
+docker exec -it gateway sh
+
+tcpdump -n -i any -nnXXtttt -w /tmp/gateway_any_capture.pcap -C 3 -G 600 
+```
+
+### Test 4
+
+- [Client]() Open another terminal and Then try to publish messages to mqtt_LB/katran:
+```bash
+docker exec -it client sh
+
+# run the following multiple (3+) times
+mosquitto_pub -h ${MQTT_VIP} -t sensor -p ${MQTT_PORT} -m "motor temp, current, ..."
+# Expectations (all times sent to VIP_DEFAULT group - no predicted topic / no matching topic-VIP mapping found)
+#               in our case goes always to real 3
+```
+
