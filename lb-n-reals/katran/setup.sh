@@ -36,6 +36,9 @@ rm -rf /sys/fs/bpf/jmp_${KATRAN_INTERFACE}
 # export KATRAN_INTERFACE="eth0"
 # ./install_xdproot.sh
 
+cd /home/simple_user/scripts
+./loader.sh
+
 # keep container running indefinitely
-sleep infinity
+# sleep infinity
 

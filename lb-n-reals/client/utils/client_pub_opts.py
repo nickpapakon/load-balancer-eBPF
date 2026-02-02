@@ -62,6 +62,10 @@ def on_publish(mqttc, obj, mid, reason_code, properties):
 def on_log(mqttc, obj, level, string):
     print(string)
 
+def on_disconnect(mqttc, userdata, disconnect_flags, reason_code, properties):
+    print(f"Client disconnected. userdata: {userdata},  reason_code: {reason_code}")
+
+
 usetls = args.use_tls
 
 if args.cacerts:
@@ -105,6 +109,7 @@ if args.username or args.password:
 mqttc.on_message = on_message
 mqttc.on_connect = on_connect
 mqttc.on_publish = on_publish
+mqttc.on_disconnect = on_disconnect
 
 if args.debug:
     mqttc.on_log = on_log
@@ -114,12 +119,22 @@ mqttc.connect(args.host, port, args.keepalive)
 
 mqttc.loop_start()
 
-for x in range (0, args.nummsgs):
-    msg_txt = '{"msgnum": "'+str(x)+'"}'
-    print("Publishing: "+msg_txt)
-    infot = mqttc.publish(args.topic, msg_txt, qos=args.qos)
-    infot.wait_for_publish()
-
+for x in range (1, 1 + args.nummsgs):
     time.sleep(args.delay)
 
+    if not mqttc.is_connected():
+        print("Waiting for reconnection (TCP 3WHS in progress)...")
+        while not mqttc.is_connected():
+            time.sleep(0.5)
+
+    msg_txt = x*"#"
+    print(f"Publishing: msgnum: {x}")
+    try:
+        infot = mqttc.publish(args.topic, msg_txt, qos=args.qos)
+        infot.wait_for_publish()
+    except Exception as e:
+        print(f"Publish failed with Exception: {e}")
+
+    
+mqttc.loop_stop()
 mqttc.disconnect()

@@ -14,10 +14,10 @@
 #include "katran/lib/linux_includes/bpf_endian.h"
 #include "katran/lib/linux_includes/bpf_common.h"
 
-// If you change MAX_SUPPORTED_TOPIC_LENGTH, 
+// CHANGE: If you change MAX_SUPPORTED_TOPIC_LENGTH, 
 // be careful about the `len` type in mqtt_topic_entry struct below
 // also change the MAX_SUPPORTED_TOPIC_LENGTH in userspace/update-map
-#define MAX_SUPPORTED_TOPIC_LENGTH 8 // TODO - CHANGE to 80 ? 
+#define MAX_SUPPORTED_TOPIC_LENGTH 256 // TODO - CHANGE to 80 ? 
 #define MAX_VIPS 512
 #define NO_FLAGS 0
 #define VIP_DEFAULT       (unsigned int)(10 + (1 << 8) + (50 << 16) + (250 << 24))

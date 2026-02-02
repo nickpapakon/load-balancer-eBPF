@@ -7,7 +7,7 @@
 
 
 // CHANGE - be careful - this should be updated based on the bpf map definition
-#define MAX_SUPPORTED_TOPIC_LENGTH 8
+#define MAX_SUPPORTED_TOPIC_LENGTH 256
 
 struct mqtt_topic_entry {
     // TODO: can I optimize the topic to a variable length array?
