@@ -360,4 +360,14 @@ Swap:           15Gi       3,0Gi        12Gi
 ```
 When not enough memory, Docker stops without any log ? Is this ok ?
 
+
+
+mosquitto_pub -h ${MQTT_VIP} -p ${MQTT_PORT} -m "motor temp, current, ..." -t sensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/a
+
+mosquitto_pub -h ${MQTT_VIP} -p ${MQTT_PORT} -m "motor temp, current, ..." -t sensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/asensor/b
+
+this test succeeded
+
+
 -->
+

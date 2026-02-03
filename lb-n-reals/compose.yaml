@@ -1,5 +1,6 @@
 services:
 
+#####   KATRAN   ########
   katran:
     container_name: katran
     build:
@@ -28,19 +29,125 @@ services:
         mac_address: ${KATRAN_MAC}
     env_file: .env
 
-  
-  client:
-    container_name: client
+
+###### GATEWAY  #########
+
+  gateway:
+    container_name: gateway
+    build:
+      context: gateway/
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - katran
+    networks:
+      gateway-client:
+        ipv4_address: ${GATEWAY_CLIENT_IP}
+        mac_address: ${GATEWAY_CLIENT_MAC}
+      gateway-lb: 
+        ipv4_address: ${GATEWAY_KATRAN_IP}
+        mac_address: ${GATEWAY_KATRAN_MAC}
+      gateway-reals:
+        ipv4_address: ${GATEWAY_REAL_IP}
+        mac_address:  ${GATEWAY_REAL_MAC}
+      gateway-scratch-lb:
+        ipv4_address: ${GATEWAY_SCRATCH_LB_IP}
+        mac_address:  ${GATEWAY_SCRATCH_LB_MAC}
+    # depends_on:
+    #   - katran
+    env_file: .env
+
+
+######  CLIENTS  #######
+
+
+  client_1:
+    container_name: client_1
     build:
       context: client/
     cap_add:
       - NET_ADMIN
     networks:
       gateway-client:
-        ipv4_address: ${CLIENT_IP}
-        mac_address: ${CLIENT_MAC}
+        ipv4_address: ${CLIENT_1_IP}
+        mac_address: ${CLIENT_1_MAC}
     env_file: .env
+    environment:
+      - CLIENT_NUM=1
+
+  client_2:
+    container_name: client_2
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_2_IP}
+        mac_address: ${CLIENT_2_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=2
   
+  client_3:
+    container_name: client_3
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_3_IP}
+        mac_address: ${CLIENT_3_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=3
+
+  client_4:
+    container_name: client_4
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_4_IP}
+        mac_address: ${CLIENT_4_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=4
+
+  client_5:
+    container_name: client_5
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_5_IP}
+        mac_address: ${CLIENT_5_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=5
+
+  client_6:
+    container_name: client_6
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_6_IP}
+        mac_address: ${CLIENT_6_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=6
+
+
+#####  REALS  #########
+
   real_1:
     container_name: real_1
     build:
@@ -95,30 +202,62 @@ services:
     environment:
       - NUM=3
 
-  gateway:
-    container_name: gateway
+  real_4:
+    container_name: real_4
     build:
-      context: gateway/
+      context: real/
+    privileged: true
     cap_add:
       - NET_ADMIN
-    depends_on:
-      - katran
+      - SYS_ADMIN
+    volumes:
+      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
     networks:
-      gateway-client:
-        ipv4_address: ${GATEWAY_CLIENT_IP}
-        mac_address: ${GATEWAY_CLIENT_MAC}
-      gateway-lb: 
-        ipv4_address: ${GATEWAY_KATRAN_IP}
-        mac_address: ${GATEWAY_KATRAN_MAC}
       gateway-reals:
-        ipv4_address: ${GATEWAY_REAL_IP}
-        mac_address:  ${GATEWAY_REAL_MAC}
-      gateway-scratch-lb:
-        ipv4_address: ${GATEWAY_SCRATCH_LB_IP}
-        mac_address:  ${GATEWAY_SCRATCH_LB_MAC}
-    # depends_on:
-    #   - katran
+        ipv4_address: ${REAL_4_IP}
+        mac_address: ${REAL_4_MAC}
     env_file: .env
+    environment:
+      - NUM=4
+
+
+  real_5:
+    container_name: real_5
+    build:
+      context: real/
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
+    networks:
+      gateway-reals:
+        ipv4_address: ${REAL_5_IP}
+        mac_address: ${REAL_5_MAC}
+    env_file: .env
+    environment:
+      - NUM=5
+
+
+  real_6:
+    container_name: real_6
+    build:
+      context: real/
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
+    networks:
+      gateway-reals:
+        ipv4_address: ${REAL_6_IP}
+        mac_address: ${REAL_6_MAC}
+    env_file: .env
+    environment:
+      - NUM=6
+
 
 networks:
   gateway-client:

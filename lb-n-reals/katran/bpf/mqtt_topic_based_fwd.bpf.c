@@ -175,7 +175,7 @@ int mqtt_fwd(struct xdp_md *ctx)
                     
                     
                     if (BPF_PRINT) bpf_printk("Topic: %s", topic_entry.topic);
-                    if (BPF_PRINT) bpf_printk("Payload: %s", curdata);
+                    // if (BPF_PRINT) bpf_printk("Payload: %s", curdata);
 
                     // [Compare predicted topic with actual topic]: compare the actual topic with the predicted one from BPF map
                     int successful_prediction = 1;

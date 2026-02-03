@@ -1,0 +1,958 @@
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4340    [009] ..s21  3205.888908: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cc, dst IP: 0xa0132c8
+         python3-4340    [009] ..s21  3205.888909: bpf_trace_printk:  src Port: 39367,    dst Port: 1883
+         python3-4340    [009] ..s21  3205.888909: bpf_trace_printk: [mqtt_service]
+         python3-4340    [009] ..s21  3205.888911: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4340    [009] ..s21  3205.888912: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4340    [009] ..s21  3205.888912: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4340    [009] ..s21  3205.888913: bpf_trace_printk: This segment Contains MQTT packet
+         python3-4340    [009] ..s21  3205.888913: bpf_trace_printk: MQTT Packet type: 3
+         python3-4340    [009] ..s21  3205.888914: bpf_trace_printk: Topic length: 21
+         python3-4340    [009] ..s21  3205.888914: bpf_trace_printk: Topic: measurements/humidity
+         python3-4340    [009] ..s21  3205.888915: bpf_trace_printk: Found VIP mapping for actual topic
+         python3-4340    [009] ..s21  3205.888915: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4340    [009] ..s21  3205.888916: bpf_trace_printk: Calling katran XDP program
+
+         python3-4340    [009] ..s21  3205.888917: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4340    [009] ..s21  3205.888917: bpf_trace_printk:     Src port: 39367,       Dst port: 1883
+
+         python3-4340    [009] ..s21  3205.888918: bpf_trace_printk:     Src IP: 0xa0101cc,    Dst IP: 0xa013202
+
+         python3-4340    [009] ..s21  3205.888923: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4340    [009] ..s21  3205.888924: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4340    [009] ..s21  3205.888924: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4341    [006] ..s21  3205.949008: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4341    [006] ..s21  3205.949019: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cd, dst IP: 0xa0132c8
+         python3-4341    [006] ..s21  3205.949020: bpf_trace_printk:  src Port: 58653,    dst Port: 1883
+         python3-4341    [006] ..s21  3205.949021: bpf_trace_printk: [mqtt_service]
+         python3-4341    [006] ..s21  3205.949023: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4341    [006] ..s21  3205.949024: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4341    [006] ..s21  3205.949024: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4341    [006] ..s21  3205.949025: bpf_trace_printk: This segment Contains MQTT packet
+         python3-4341    [006] ..s21  3205.949025: bpf_trace_printk: MQTT Packet type: 3
+         python3-4341    [006] ..s21  3205.949026: bpf_trace_printk: Topic length: 21
+         python3-4341    [006] ..s21  3205.949027: bpf_trace_printk: Topic: measurements/humidity
+         python3-4341    [006] ..s21  3205.949027: bpf_trace_printk: Found VIP mapping for actual topic
+         python3-4341    [006] ..s21  3205.949028: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4341    [006] ..s21  3205.949028: bpf_trace_printk: Calling katran XDP program
+
+         python3-4341    [006] ..s21  3205.949029: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4341    [006] ..s21  3205.949030: bpf_trace_printk:     Src port: 58653,       Dst port: 1883
+
+         python3-4341    [006] ..s21  3205.949030: bpf_trace_printk:     Src IP: 0xa0101cd,    Dst IP: 0xa013202
+
+         python3-4341    [006] ..s21  3205.949035: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4341    [006] ..s21  3205.949036: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4341    [006] ..s21  3205.949036: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4343    [001] ..s21  3205.987953: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4343    [001] ..s21  3205.987966: bpf_trace_printk: TCP packet
+ src IP: 0xa0101c9, dst IP: 0xa0132c8
+         python3-4343    [001] ..s21  3205.987967: bpf_trace_printk:  src Port: 39723,    dst Port: 1883
+         python3-4343    [001] ..s21  3205.987968: bpf_trace_printk: [mqtt_service]
+         python3-4343    [001] ..s21  3205.987970: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4343    [001] ..s21  3205.987971: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4343    [001] ..s21  3205.987972: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4343    [001] ..s21  3205.987972: bpf_trace_printk: This segment Contains MQTT packet
+         python3-4343    [001] ..s21  3205.987972: bpf_trace_printk: MQTT Packet type: 3
+         python3-4343    [001] ..s21  3205.987973: bpf_trace_printk: Topic length: 24
+         python3-4343    [001] ..s21  3205.987974: bpf_trace_printk: Topic: measurements/temperature
+         python3-4343    [001] ..s21  3205.987975: bpf_trace_printk: Found VIP mapping for actual topic
+         python3-4342    [009] ..s21  3205.987976: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4343    [001] ..s21  3205.987976: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4343    [001] ..s21  3205.987977: bpf_trace_printk: Calling katran XDP program
+
+         python3-4342    [009] ..s21  3205.987978: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cb, dst IP: 0xa0132c8
+         python3-4342    [009] ..s21  3205.987979: bpf_trace_printk:  src Port: 44903,    dst Port: 1883
+         python3-4343    [001] ..s21  3205.987979: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4342    [009] ..s21  3205.987979: bpf_trace_printk: [mqtt_service]
+         python3-4343    [001] ..s21  3205.987980: bpf_trace_printk:     Src port: 39723,       Dst port: 1883
+
+         python3-4343    [001] ..s21  3205.987980: bpf_trace_printk:     Src IP: 0xa0101c9,    Dst IP: 0xa013201
+
+         python3-4342    [009] ..s21  3205.987981: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4342    [009] ..s21  3205.987982: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4342    [009] ..s21  3205.987983: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4342    [009] ..s21  3205.987983: bpf_trace_printk: This segment Contains MQTT packet
+         python3-4342    [009] ..s21  3205.987984: bpf_trace_printk: MQTT Packet type: 3
+         python3-4342    [009] ..s21  3205.987984: bpf_trace_printk: Topic length: 21
+         python3-4342    [009] ..s21  3205.987985: bpf_trace_printk: Topic: measurements/humidity
+         python3-4343    [001] ..s21  3205.987985: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4342    [009] ..s21  3205.987985: bpf_trace_printk: Found VIP mapping for actual topic
+         python3-4343    [001] ..s21  3205.987986: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4342    [009] ..s21  3205.987986: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4343    [001] ..s21  3205.987986: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4342    [009] ..s21  3205.987986: bpf_trace_printk: Calling katran XDP program
+
+         python3-4342    [009] ..s21  3205.987987: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4342    [009] ..s21  3205.987988: bpf_trace_printk:     Src port: 44903,       Dst port: 1883
+
+         python3-4342    [009] ..s21  3205.987988: bpf_trace_printk:     Src IP: 0xa0101cb,    Dst IP: 0xa013202
+
+         python3-4342    [009] ..s21  3205.987991: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4342    [009] ..s21  3205.987992: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4342    [009] ..s21  3205.987992: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4320    [000] ..s21  3206.849009: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4320    [000] ..s21  3206.849049: bpf_trace_printk: TCP packet
+ src IP: 0xa0101ca, dst IP: 0xa0132c8
+         python3-4320    [000] ..s21  3206.849052: bpf_trace_printk:  src Port: 44969,    dst Port: 1883
+         python3-4320    [000] ..s21  3206.849053: bpf_trace_printk: [mqtt_service]
+         python3-4320    [000] ..s21  3206.849057: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4320    [000] ..s21  3206.849060: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4320    [000] ..s21  3206.849062: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4320    [000] ..s21  3206.849063: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4320    [000] ..s21  3206.849064: bpf_trace_printk: Calling katran XDP program
+
+         python3-4320    [000] ..s21  3206.849067: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4320    [000] ..s21  3206.849068: bpf_trace_printk:     Src port: 44969,       Dst port: 1883
+
+         python3-4320    [000] ..s21  3206.849069: bpf_trace_printk:     Src IP: 0xa0101ca,    Dst IP: 0xa013201
+
+         python3-4320    [000] ..s21  3206.849078: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4320    [000] ..s21  3206.849079: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4320    [000] ..s21  3206.849080: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+       mosquitto-3072    [006] ..s21  3206.849629: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+       mosquitto-3072    [006] ..s21  3206.849647: bpf_trace_printk: TCP packet
+ src IP: 0xa0101ca, dst IP: 0xa0132c8
+       mosquitto-3072    [006] ..s21  3206.849649: bpf_trace_printk:  src Port: 44969,    dst Port: 1883
+       mosquitto-3072    [006] ..s21  3206.849651: bpf_trace_printk: [mqtt_service]
+       mosquitto-3072    [006] ..s21  3206.849653: bpf_trace_printk: Predicted topic: measurements/temperature
+
+       mosquitto-3072    [006] ..s21  3206.849655: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+       mosquitto-3072    [006] ..s21  3206.849657: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+       mosquitto-3072    [006] ..s21  3206.849659: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+       mosquitto-3072    [006] ..s21  3206.849661: bpf_trace_printk: Calling katran XDP program
+
+       mosquitto-3072    [006] ..s21  3206.849663: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+       mosquitto-3072    [006] ..s21  3206.849665: bpf_trace_printk:     Src port: 44969,       Dst port: 1883
+
+       mosquitto-3072    [006] ..s21  3206.849666: bpf_trace_printk:     Src IP: 0xa0101ca,    Dst IP: 0xa013201
+
+       mosquitto-3072    [006] ..s21  3206.849672: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+       mosquitto-3072    [006] ..s21  3206.849674: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+       mosquitto-3072    [006] ..s21  3206.849675: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4303    [001] ..s21  3206.849721: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4303    [001] ..s21  3206.849724: bpf_trace_printk: TCP packet
+ src IP: 0xa0101ca, dst IP: 0xa0132c8
+         python3-4303    [001] ..s21  3206.849725: bpf_trace_printk:  src Port: 44969,    dst Port: 1883
+         python3-4303    [001] ..s21  3206.849726: bpf_trace_printk: [mqtt_service]
+         python3-4303    [001] ..s21  3206.849727: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4303    [001] ..s21  3206.849729: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4303    [001] ..s21  3206.849731: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4303    [001] ..s21  3206.849732: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4303    [001] ..s21  3206.849733: bpf_trace_printk: Calling katran XDP program
+
+         python3-4303    [001] ..s21  3206.849734: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4303    [001] ..s21  3206.849736: bpf_trace_printk:     Src port: 44969,       Dst port: 1883
+
+         python3-4303    [001] ..s21  3206.849737: bpf_trace_printk:     Src IP: 0xa0101ca,    Dst IP: 0xa013201
+
+         python3-4303    [001] ..s21  3206.849757: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4303    [001] ..s21  3206.849758: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4303    [001] ..s21  3206.849759: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4303    [001] ..s21  3206.850114: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4303    [001] .Ns21  3206.850130: bpf_trace_printk: TCP packet
+ src IP: 0xa0101ca, dst IP: 0xa0132c8
+         python3-4303    [001] .Ns21  3206.850131: bpf_trace_printk:  src Port: 44969,    dst Port: 1883
+         python3-4303    [001] .Ns21  3206.850132: bpf_trace_printk: [mqtt_service]
+         python3-4303    [001] .Ns21  3206.850133: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4303    [001] .Ns21  3206.850135: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4303    [001] .Ns21  3206.850137: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4303    [001] .Ns21  3206.850139: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4303    [001] .Ns21  3206.850141: bpf_trace_printk: Calling katran XDP program
+
+         python3-4303    [001] .Ns21  3206.850142: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4303    [001] .Ns21  3206.850143: bpf_trace_printk:     Src port: 44969,       Dst port: 1883
+
+         python3-4303    [001] .Ns21  3206.850145: bpf_trace_printk:     Src IP: 0xa0101ca,    Dst IP: 0xa013201
+
+         python3-4303    [001] .Ns21  3206.850148: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4303    [001] .Ns21  3206.850149: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4303    [001] .Ns21  3206.850150: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4340    [000] ..s21  3206.890054: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4340    [000] ..s21  3206.890079: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cc, dst IP: 0xa0132c8
+         python3-4340    [000] ..s21  3206.890081: bpf_trace_printk:  src Port: 39367,    dst Port: 1883
+         python3-4340    [000] ..s21  3206.890081: bpf_trace_printk: [mqtt_service]
+         python3-4340    [000] ..s21  3206.890084: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4340    [000] ..s21  3206.890086: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4340    [000] ..s21  3206.890087: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4340    [000] ..s21  3206.890088: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4340    [000] ..s21  3206.890088: bpf_trace_printk: Calling katran XDP program
+
+         python3-4340    [000] ..s21  3206.890090: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4340    [000] ..s21  3206.890091: bpf_trace_printk:     Src port: 39367,       Dst port: 1883
+
+         python3-4340    [000] ..s21  3206.890092: bpf_trace_printk:     Src IP: 0xa0101cc,    Dst IP: 0xa013202
+
+         python3-4340    [000] ..s21  3206.890098: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4340    [000] ..s21  3206.890099: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4340    [000] ..s21  3206.890099: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+       mosquitto-3077    [000] ..s21  3206.890428: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+       mosquitto-3077    [000] ..s21  3206.890430: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cc, dst IP: 0xa0132c8
+       mosquitto-3077    [000] ..s21  3206.890431: bpf_trace_printk:  src Port: 39367,    dst Port: 1883
+       mosquitto-3077    [000] ..s21  3206.890432: bpf_trace_printk: [mqtt_service]
+       mosquitto-3077    [000] ..s21  3206.890433: bpf_trace_printk: Predicted topic: measurements/humidity
+
+       mosquitto-3077    [000] ..s21  3206.890434: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+       mosquitto-3077    [000] ..s21  3206.890435: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+       mosquitto-3077    [000] ..s21  3206.890436: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+       mosquitto-3077    [000] ..s21  3206.890436: bpf_trace_printk: Calling katran XDP program
+
+       mosquitto-3077    [000] ..s21  3206.890438: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+       mosquitto-3077    [000] ..s21  3206.890439: bpf_trace_printk:     Src port: 39367,       Dst port: 1883
+
+       mosquitto-3077    [000] ..s21  3206.890439: bpf_trace_printk:     Src IP: 0xa0101cc,    Dst IP: 0xa013202
+
+       mosquitto-3077    [000] ..s21  3206.890442: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+       mosquitto-3077    [000] ..s21  3206.890443: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+       mosquitto-3077    [000] ..s21  3206.890443: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4302    [004] ..s21  3206.891016: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4302    [004] ..s21  3206.891019: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cc, dst IP: 0xa0132c8
+         python3-4302    [004] ..s21  3206.891020: bpf_trace_printk:  src Port: 39367,    dst Port: 1883
+         python3-4302    [004] ..s21  3206.891021: bpf_trace_printk: [mqtt_service]
+         python3-4302    [004] ..s21  3206.891023: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4302    [004] ..s21  3206.891024: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4302    [004] ..s21  3206.891025: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4302    [004] ..s21  3206.891026: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4302    [004] ..s21  3206.891027: bpf_trace_printk: Calling katran XDP program
+
+         python3-4302    [004] ..s21  3206.891028: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4302    [004] ..s21  3206.891029: bpf_trace_printk:     Src port: 39367,       Dst port: 1883
+
+         python3-4302    [004] ..s21  3206.891030: bpf_trace_printk:     Src IP: 0xa0101cc,    Dst IP: 0xa013202
+
+         python3-4302    [004] ..s21  3206.891034: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4302    [004] ..s21  3206.891035: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4302    [004] ..s21  3206.891035: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4302    [004] ..s21  3206.891412: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4302    [004] ..s21  3206.891424: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cc, dst IP: 0xa0132c8
+         python3-4302    [004] ..s21  3206.891426: bpf_trace_printk:  src Port: 39367,    dst Port: 1883
+         python3-4302    [004] ..s21  3206.891426: bpf_trace_printk: [mqtt_service]
+         python3-4302    [004] ..s21  3206.891427: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4302    [004] ..s21  3206.891429: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4302    [004] ..s21  3206.891430: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4302    [004] ..s21  3206.891431: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4302    [004] ..s21  3206.891432: bpf_trace_printk: Calling katran XDP program
+
+         python3-4302    [004] ..s21  3206.891433: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4302    [004] ..s21  3206.891434: bpf_trace_printk:     Src port: 39367,       Dst port: 1883
+
+         python3-4302    [004] ..s21  3206.891435: bpf_trace_printk:     Src IP: 0xa0101cc,    Dst IP: 0xa013202
+
+         python3-4302    [004] ..s21  3206.891438: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4302    [004] ..s21  3206.891439: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4302    [004] ..s21  3206.891439: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4341    [008] ..s21  3206.949881: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4341    [008] ..s21  3206.949898: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cd, dst IP: 0xa0132c8
+         python3-4341    [008] ..s21  3206.949899: bpf_trace_printk:  src Port: 58653,    dst Port: 1883
+         python3-4341    [008] ..s21  3206.949899: bpf_trace_printk: [mqtt_service]
+         python3-4341    [008] ..s21  3206.949901: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4341    [008] ..s21  3206.949902: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4341    [008] ..s21  3206.949903: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4341    [008] ..s21  3206.949903: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4341    [008] ..s21  3206.949904: bpf_trace_printk: Calling katran XDP program
+
+         python3-4341    [008] ..s21  3206.949905: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4341    [008] ..s21  3206.949906: bpf_trace_printk:     Src port: 58653,       Dst port: 1883
+
+         python3-4341    [008] ..s21  3206.949906: bpf_trace_printk:     Src IP: 0xa0101cd,    Dst IP: 0xa013202
+
+         python3-4341    [008] ..s21  3206.949911: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4341    [008] ..s21  3206.949911: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4341    [008] ..s21  3206.949912: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4338    [001] ..s21  3206.950246: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4338    [001] ..s21  3206.950256: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cd, dst IP: 0xa0132c8
+         python3-4338    [001] ..s21  3206.950257: bpf_trace_printk:  src Port: 58653,    dst Port: 1883
+         python3-4338    [001] ..s21  3206.950258: bpf_trace_printk: [mqtt_service]
+         python3-4338    [001] ..s21  3206.950259: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4338    [001] ..s21  3206.950260: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4338    [001] ..s21  3206.950260: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4338    [001] ..s21  3206.950261: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4338    [001] ..s21  3206.950262: bpf_trace_printk: Calling katran XDP program
+
+         python3-4338    [001] ..s21  3206.950262: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4338    [001] ..s21  3206.950263: bpf_trace_printk:     Src port: 58653,       Dst port: 1883
+
+         python3-4338    [001] ..s21  3206.950263: bpf_trace_printk:     Src IP: 0xa0101cd,    Dst IP: 0xa013202
+
+         python3-4338    [001] ..s21  3206.950266: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4338    [001] ..s21  3206.950266: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4338    [001] ..s21  3206.950266: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4338    [001] ..s21  3206.950422: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4338    [001] ..s21  3206.950423: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cd, dst IP: 0xa0132c8
+         python3-4338    [001] ..s21  3206.950423: bpf_trace_printk:  src Port: 58653,    dst Port: 1883
+         python3-4338    [001] ..s21  3206.950423: bpf_trace_printk: [mqtt_service]
+         python3-4338    [001] ..s21  3206.950424: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4338    [001] ..s21  3206.950424: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4338    [001] ..s21  3206.950425: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4338    [001] ..s21  3206.950425: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4338    [001] ..s21  3206.950426: bpf_trace_printk: Calling katran XDP program
+
+         python3-4338    [001] ..s21  3206.950426: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4338    [001] ..s21  3206.950427: bpf_trace_printk:     Src port: 58653,       Dst port: 1883
+
+         python3-4338    [001] ..s21  3206.950427: bpf_trace_printk:     Src IP: 0xa0101cd,    Dst IP: 0xa013202
+
+         python3-4338    [001] ..s21  3206.950429: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4338    [001] ..s21  3206.950429: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4338    [001] ..s21  3206.950429: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+       mosquitto-3077    [000] ..s21  3206.950609: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+       mosquitto-3077    [000] ..s21  3206.950611: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cd, dst IP: 0xa0132c8
+       mosquitto-3077    [000] ..s21  3206.950612: bpf_trace_printk:  src Port: 58653,    dst Port: 1883
+       mosquitto-3077    [000] ..s21  3206.950612: bpf_trace_printk: [mqtt_service]
+       mosquitto-3077    [000] ..s21  3206.950613: bpf_trace_printk: Predicted topic: measurements/humidity
+
+       mosquitto-3077    [000] ..s21  3206.950614: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+       mosquitto-3077    [000] ..s21  3206.950614: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+       mosquitto-3077    [000] ..s21  3206.950615: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+       mosquitto-3077    [000] ..s21  3206.950615: bpf_trace_printk: Calling katran XDP program
+
+       mosquitto-3077    [000] ..s21  3206.950616: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+       mosquitto-3077    [000] ..s21  3206.950617: bpf_trace_printk:     Src port: 58653,       Dst port: 1883
+
+       mosquitto-3077    [000] ..s21  3206.950617: bpf_trace_printk:     Src IP: 0xa0101cd,    Dst IP: 0xa013202
+
+       mosquitto-3077    [000] ..s21  3206.950620: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+       mosquitto-3077    [000] ..s21  3206.950621: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+       mosquitto-3077    [000] ..s21  3206.950621: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4343    [003] ..s21  3206.988949: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4343    [003] ..s21  3206.988968: bpf_trace_printk: TCP packet
+ src IP: 0xa0101c9, dst IP: 0xa0132c8
+         python3-4343    [003] ..s21  3206.988969: bpf_trace_printk:  src Port: 39723,    dst Port: 1883
+         python3-4343    [003] ..s21  3206.988970: bpf_trace_printk: [mqtt_service]
+         python3-4343    [003] ..s21  3206.988971: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4343    [003] ..s21  3206.988973: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4343    [003] ..s21  3206.988973: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4343    [003] ..s21  3206.988974: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4343    [003] ..s21  3206.988974: bpf_trace_printk: Calling katran XDP program
+
+         python3-4343    [003] ..s21  3206.988976: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4343    [003] ..s21  3206.988976: bpf_trace_printk:     Src port: 39723,       Dst port: 1883
+
+         python3-4343    [003] ..s21  3206.988977: bpf_trace_printk:     Src IP: 0xa0101c9,    Dst IP: 0xa013201
+
+         python3-4343    [003] ..s21  3206.989140: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4343    [003] ..s21  3206.989151: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4343    [003] ..s21  3206.989151: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+       mosquitto-3072    [000] ..s21  3206.989420: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+       mosquitto-3072    [000] ..s21  3206.989429: bpf_trace_printk: TCP packet
+ src IP: 0xa0101c9, dst IP: 0xa0132c8
+       mosquitto-3072    [000] ..s21  3206.989430: bpf_trace_printk:  src Port: 39723,    dst Port: 1883
+       mosquitto-3072    [000] ..s21  3206.989430: bpf_trace_printk: [mqtt_service]
+       mosquitto-3072    [000] ..s21  3206.989431: bpf_trace_printk: Predicted topic: measurements/temperature
+
+       mosquitto-3072    [000] ..s21  3206.989432: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+       mosquitto-3072    [000] ..s21  3206.989433: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+       mosquitto-3072    [000] ..s21  3206.989434: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+       mosquitto-3072    [000] ..s21  3206.989434: bpf_trace_printk: Calling katran XDP program
+
+       mosquitto-3072    [000] ..s21  3206.989435: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+       mosquitto-3072    [000] ..s21  3206.989436: bpf_trace_printk:     Src port: 39723,       Dst port: 1883
+
+       mosquitto-3072    [000] ..s21  3206.989436: bpf_trace_printk:     Src IP: 0xa0101c9,    Dst IP: 0xa013201
+
+       mosquitto-3072    [000] ..s21  3206.989439: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+       mosquitto-3072    [000] ..s21  3206.989440: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+       mosquitto-3072    [000] ..s21  3206.989440: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4339    [007] ..s21  3206.989541: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4339    [007] ..s21  3206.989544: bpf_trace_printk: TCP packet
+ src IP: 0xa0101c9, dst IP: 0xa0132c8
+         python3-4339    [007] ..s21  3206.989545: bpf_trace_printk:  src Port: 39723,    dst Port: 1883
+         python3-4339    [007] ..s21  3206.989545: bpf_trace_printk: [mqtt_service]
+         python3-4339    [007] ..s21  3206.989547: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4339    [007] ..s21  3206.989559: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4339    [007] ..s21  3206.989560: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4339    [007] ..s21  3206.989560: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4339    [007] ..s21  3206.989560: bpf_trace_printk: Calling katran XDP program
+
+         python3-4339    [007] ..s21  3206.989561: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4339    [007] ..s21  3206.989562: bpf_trace_printk:     Src port: 39723,       Dst port: 1883
+
+         python3-4339    [007] ..s21  3206.989562: bpf_trace_printk:     Src IP: 0xa0101c9,    Dst IP: 0xa013201
+
+         python3-4339    [007] ..s21  3206.989564: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4339    [007] ..s21  3206.989565: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4339    [007] ..s21  3206.989565: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4339    [007] ..s21  3206.989718: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4339    [007] ..s21  3206.989719: bpf_trace_printk: TCP packet
+ src IP: 0xa0101c9, dst IP: 0xa0132c8
+         python3-4339    [007] ..s21  3206.989719: bpf_trace_printk:  src Port: 39723,    dst Port: 1883
+         python3-4339    [007] ..s21  3206.989720: bpf_trace_printk: [mqtt_service]
+         python3-4339    [007] ..s21  3206.989720: bpf_trace_printk: Predicted topic: measurements/temperature
+
+         python3-4339    [007] ..s21  3206.989721: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4339    [007] ..s21  3206.989721: bpf_trace_printk: VIP: 0x132010a, port: 1883, proto: 6
+         python3-4339    [007] ..s21  3206.989722: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4339    [007] ..s21  3206.989722: bpf_trace_printk: Calling katran XDP program
+
+         python3-4339    [007] ..s21  3206.989723: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4339    [007] ..s21  3206.989725: bpf_trace_printk:     Src port: 39723,       Dst port: 1883
+
+         python3-4339    [007] ..s21  3206.989725: bpf_trace_printk:     Src IP: 0xa0101c9,    Dst IP: 0xa013201
+
+         python3-4339    [007] ..s21  3206.989727: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4339    [007] ..s21  3206.989727: bpf_trace_printk: Redirecting packet to real with index: 1,
+
+         python3-4339    [007] ..s21  3206.989728: bpf_trace_printk:     IPv4 real addr: 0xa0103c9
+         python3-4342    [005] ..s21  3206.991189: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4342    [005] ..s21  3206.991199: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cb, dst IP: 0xa0132c8
+         python3-4342    [005] ..s21  3206.991200: bpf_trace_printk:  src Port: 44903,    dst Port: 1883
+         python3-4342    [005] ..s21  3206.991201: bpf_trace_printk: [mqtt_service]
+         python3-4342    [005] ..s21  3206.991202: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4342    [005] ..s21  3206.991203: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4342    [005] ..s21  3206.991203: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4342    [005] ..s21  3206.991204: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4342    [005] ..s21  3206.991205: bpf_trace_printk: Calling katran XDP program
+
+         python3-4342    [005] ..s21  3206.991206: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4342    [005] ..s21  3206.991206: bpf_trace_printk:     Src port: 44903,       Dst port: 1883
+
+         python3-4342    [005] ..s21  3206.991207: bpf_trace_printk:     Src IP: 0xa0101cb,    Dst IP: 0xa013202
+
+         python3-4342    [005] ..s21  3206.991210: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4342    [005] ..s21  3206.991210: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4342    [005] ..s21  3206.991211: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4336    [005] ..s21  3206.991419: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4336    [005] ..s21  3206.991420: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cb, dst IP: 0xa0132c8
+         python3-4336    [005] ..s21  3206.991420: bpf_trace_printk:  src Port: 44903,    dst Port: 1883
+         python3-4336    [005] ..s21  3206.991421: bpf_trace_printk: [mqtt_service]
+         python3-4336    [005] ..s21  3206.991422: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4336    [005] ..s21  3206.991422: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4336    [005] ..s21  3206.991423: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4336    [005] ..s21  3206.991423: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4336    [005] ..s21  3206.991424: bpf_trace_printk: Calling katran XDP program
+
+         python3-4336    [005] ..s21  3206.991424: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4336    [005] ..s21  3206.991425: bpf_trace_printk:     Src port: 44903,       Dst port: 1883
+
+         python3-4336    [005] ..s21  3206.991425: bpf_trace_printk:     Src IP: 0xa0101cb,    Dst IP: 0xa013202
+
+         python3-4336    [005] ..s21  3206.991426: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4336    [005] ..s21  3206.991427: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4336    [005] ..s21  3206.991427: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4336    [005] ..s21  3206.994849: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4336    [005] ..s21  3206.994861: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cb, dst IP: 0xa0132c8
+         python3-4336    [005] ..s21  3206.994862: bpf_trace_printk:  src Port: 44903,    dst Port: 1883
+         python3-4336    [005] ..s21  3206.994862: bpf_trace_printk: [mqtt_service]
+         python3-4336    [005] ..s21  3206.994864: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4336    [005] ..s21  3206.994865: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4336    [005] ..s21  3206.994866: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4336    [005] ..s21  3206.994866: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4336    [005] ..s21  3206.994868: bpf_trace_printk: Calling katran XDP program
+
+         python3-4336    [005] ..s21  3206.994869: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4336    [005] ..s21  3206.994869: bpf_trace_printk:     Src port: 44903,       Dst port: 1883
+
+         python3-4336    [005] ..s21  3206.994870: bpf_trace_printk:     Src IP: 0xa0101cb,    Dst IP: 0xa013202
+
+         python3-4336    [005] ..s21  3206.994874: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4336    [005] ..s21  3206.994874: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4336    [005] ..s21  3206.994875: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+         python3-4336    [005] ..s21  3206.995068: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+         python3-4336    [005] ..s21  3206.995069: bpf_trace_printk: TCP packet
+ src IP: 0xa0101cb, dst IP: 0xa0132c8
+         python3-4336    [005] ..s21  3206.995070: bpf_trace_printk:  src Port: 44903,    dst Port: 1883
+         python3-4336    [005] ..s21  3206.995070: bpf_trace_printk: [mqtt_service]
+         python3-4336    [005] ..s21  3206.995071: bpf_trace_printk: Predicted topic: measurements/humidity
+
+         python3-4336    [005] ..s21  3206.995071: bpf_trace_printk: Forwarding packet based on predicted topic VIP
+         python3-4336    [005] ..s21  3206.995072: bpf_trace_printk: VIP: 0x232010a, port: 1883, proto: 6
+         python3-4336    [005] ..s21  3206.995072: bpf_trace_printk: Does not contain all the required MQTT hdr data (fixed header is 2 bytes min)
+         python3-4336    [005] ..s21  3206.995073: bpf_trace_printk: Calling katran XDP program
+
+         python3-4336    [005] ..s21  3206.995073: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+         python3-4336    [005] ..s21  3206.995074: bpf_trace_printk:     Src port: 44903,       Dst port: 1883
+
+         python3-4336    [005] ..s21  3206.995075: bpf_trace_printk:     Src IP: 0xa0101cb,    Dst IP: 0xa013202
+
+         python3-4336    [005] ..s21  3206.995076: bpf_trace_printk: [special_mqtt_service] Setting dest of inner IP to 0xa0132c8
+
+         python3-4336    [005] ..s21  3206.995076: bpf_trace_printk: Redirecting packet to real with index: 4,
+
+         python3-4336    [005] ..s21  3206.995077: bpf_trace_printk:     IPv4 real addr: 0xa0103cc
+          <idle>-0       [000] ..s21  3258.001753: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+          <idle>-0       [007] ..s21  3258.001770: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+          <idle>-0       [000] ..s21  3258.001773: bpf_trace_printk: [let_katran_decide] Not a TCP packet, passing to network stack
+          <idle>-0       [007] ..s21  3258.001774: bpf_trace_printk: [let_katran_decide] Not a TCP packet, passing to network stack
+          <idle>-0       [000] ..s21  3258.001774: bpf_trace_printk: Calling katran XDP program
+
+          <idle>-0       [007] ..s21  3258.001775: bpf_trace_printk: Calling katran XDP program
+
+          <idle>-0       [000] ..s21  3258.001776: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+          <idle>-0       [007] ..s21  3258.001777: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+          <idle>-0       [000] ..s21  3258.001779: bpf_trace_printk:     Src port: 1883,       Dst port: 40159
+
+          <idle>-0       [007] ..s21  3258.001780: bpf_trace_printk:     Src port: 1883,       Dst port: 47951
+
+          <idle>-0       [000] ..s21  3258.001780: bpf_trace_printk:     Src IP: 0xa0101cc,    Dst IP: 0xa0132c8
+
+          <idle>-0       [007] ..s21  3258.001782: bpf_trace_printk:     Src IP: 0xa0101ca,    Dst IP: 0xa0132c8
+
+          <idle>-0       [000] ..s21  3258.001799: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+          <idle>-0       [000] ..s21  3258.001800: bpf_trace_printk: [let_katran_decide] Not a TCP packet, passing to network stack
+          <idle>-0       [000] ..s21  3258.001800: bpf_trace_printk: Calling katran XDP program
+
+          <idle>-0       [000] ..s21  3258.001801: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+          <idle>-0       [000] ..s21  3258.001802: bpf_trace_printk:     Src port: 1883,       Dst port: 60917
+
+          <idle>-0       [000] ..s21  3258.001803: bpf_trace_printk:     Src IP: 0xa0101cd,    Dst IP: 0xa0132c8
+
+          <idle>-0       [007] ..s21  3258.001805: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+          <idle>-0       [007] ..s21  3258.001806: bpf_trace_printk: [let_katran_decide] Not a TCP packet, passing to network stack
+          <idle>-0       [007] ..s21  3258.001807: bpf_trace_printk: Calling katran XDP program
+
+          <idle>-0       [007] ..s21  3258.001808: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+          <idle>-0       [000] ..s21  3258.001808: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+          <idle>-0       [000] ..s21  3258.001809: bpf_trace_printk: [let_katran_decide] Not a TCP packet, passing to network stack
+          <idle>-0       [007] ..s21  3258.001809: bpf_trace_printk:     Src port: 1883,       Dst port: 46867
+
+          <idle>-0       [000] ..s21  3258.001810: bpf_trace_printk: Calling katran XDP program
+
+          <idle>-0       [007] ..s21  3258.001810: bpf_trace_printk:     Src IP: 0xa0101c9,    Dst IP: 0xa0132c8
+
+          <idle>-0       [000] ..s21  3258.001810: bpf_trace_printk: 
+
+*************************
+
+[Katran]: Parsing TCP packet:
+
+          <idle>-0       [000] ..s21  3258.001811: bpf_trace_printk:     Src port: 1883,       Dst port: 34265
+
+          <idle>-0       [000] ..s21  3258.001812: bpf_trace_printk:     Src IP: 0xa0101cb,    Dst IP: 0xa0132c8
+
+     ksoftirqd/0-17      [000] ..s11  3263.121698: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+     ksoftirqd/0-17      [000] ..s11  3263.121712: bpf_trace_printk: [let_katran_decide] Not an IPv4 packet, passing to network stack
+     ksoftirqd/0-17      [000] ..s11  3263.121713: bpf_trace_printk: Calling katran XDP program
+
+     ksoftirqd/0-17      [000] ..s11  3263.121719: bpf_trace_printk: 
+
+
+
+########################################################################
+
+[mqtt_fwd] got something from NIC
+
+     ksoftirqd/0-17      [000] ..s11  3263.121719: bpf_trace_printk: [let_katran_decide] Not an IPv4 packet, passing to network stack
+     ksoftirqd/0-17      [000] ..s11  3263.121720: bpf_trace_printk: Calling katran XDP program

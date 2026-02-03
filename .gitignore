@@ -53,3 +53,10 @@ __pycache__/
 *unused/
 experiments/
 
+# MQTT-topic based LB experiments Logs from brokers
+lb-n-reals/experiment_logs*/
+
+#  client observability BPF experiments
+lb-n-reals/client/Makefile
+lb-n-reals/client/include/
+lb-n-reals/client/tcp_seq.bpf.c

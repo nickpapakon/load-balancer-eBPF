@@ -1,0 +1,210 @@
++ ip route add 10.1.0.0/16 via 10.1.1.101 dev eth0
++ topics=("measurements/temperature" "measurements/temperature" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/other")
++ cd utils
++ python3 client_pub_opts.py -H 10.1.50.200 -t measurements/temperature -P 1883 -k 5 -N 100 -S 0.1 -c client_1
+Connecting to 10.1.50.200 port: 1883
+connect reason_code: Success
+Publishing: msgnum: 1
+mid: 1
+Client disconnected. userdata: None,  reason_code: Unspecified error
+Waiting for reconnection (TCP 3WHS in progress)...
+connect reason_code: Success
+Publishing: msgnum: 2
+mid: 2
+Publishing: msgnum: 3
+mid: 3
+Publishing: msgnum: 4
+mid: 4
+Publishing: msgnum: 5
+mid: 5
+Publishing: msgnum: 6
+mid: 6
+Publishing: msgnum: 7
+mid: 7
+Publishing: msgnum: 8
+mid: 8
+Publishing: msgnum: 9
+mid: 9
+Publishing: msgnum: 10
+mid: 10
+Publishing: msgnum: 11
+mid: 11
+Publishing: msgnum: 12
+mid: 12
+Publishing: msgnum: 13
+mid: 13
+Publishing: msgnum: 14
+mid: 14
+Publishing: msgnum: 15
+mid: 15
+Publishing: msgnum: 16
+mid: 16
+Publishing: msgnum: 17
+mid: 17
+Publishing: msgnum: 18
+mid: 18
+Publishing: msgnum: 19
+mid: 19
+Publishing: msgnum: 20
+mid: 20
+Publishing: msgnum: 21
+mid: 21
+Publishing: msgnum: 22
+mid: 22
+Publishing: msgnum: 23
+mid: 23
+Publishing: msgnum: 24
+mid: 24
+Publishing: msgnum: 25
+mid: 25
+Publishing: msgnum: 26
+mid: 26
+Publishing: msgnum: 27
+mid: 27
+Publishing: msgnum: 28
+mid: 28
+Publishing: msgnum: 29
+mid: 29
+Publishing: msgnum: 30
+mid: 30
+Publishing: msgnum: 31
+mid: 31
+Publishing: msgnum: 32
+mid: 32
+Publishing: msgnum: 33
+mid: 33
+Publishing: msgnum: 34
+mid: 34
+Publishing: msgnum: 35
+mid: 35
+Publishing: msgnum: 36
+mid: 36
+Publishing: msgnum: 37
+mid: 37
+Publishing: msgnum: 38
+mid: 38
+Publishing: msgnum: 39
+mid: 39
+Publishing: msgnum: 40
+mid: 40
+Publishing: msgnum: 41
+mid: 41
+Publishing: msgnum: 42
+mid: 42
+Publishing: msgnum: 43
+mid: 43
+Publishing: msgnum: 44
+mid: 44
+Publishing: msgnum: 45
+mid: 45
+Publishing: msgnum: 46
+mid: 46
+Publishing: msgnum: 47
+mid: 47
+Publishing: msgnum: 48
+mid: 48
+Publishing: msgnum: 49
+mid: 49
+Publishing: msgnum: 50
+mid: 50
+Publishing: msgnum: 51
+mid: 51
+Publishing: msgnum: 52
+mid: 52
+Publishing: msgnum: 53
+mid: 53
+Publishing: msgnum: 54
+mid: 54
+Publishing: msgnum: 55
+mid: 55
+Publishing: msgnum: 56
+mid: 56
+Publishing: msgnum: 57
+mid: 57
+Publishing: msgnum: 58
+mid: 58
+Publishing: msgnum: 59
+mid: 59
+Publishing: msgnum: 60
+mid: 60
+Publishing: msgnum: 61
+mid: 61
+Publishing: msgnum: 62
+mid: 62
+Publishing: msgnum: 63
+mid: 63
+Publishing: msgnum: 64
+mid: 64
+Publishing: msgnum: 65
+mid: 65
+Publishing: msgnum: 66
+mid: 66
+Publishing: msgnum: 67
+mid: 67
+Publishing: msgnum: 68
+mid: 68
+Publishing: msgnum: 69
+mid: 69
+Publishing: msgnum: 70
+mid: 70
+Publishing: msgnum: 71
+mid: 71
+Publishing: msgnum: 72
+mid: 72
+Publishing: msgnum: 73
+mid: 73
+Publishing: msgnum: 74
+mid: 74
+Publishing: msgnum: 75
+mid: 75
+Publishing: msgnum: 76
+mid: 76
+Publishing: msgnum: 77
+mid: 77
+Publishing: msgnum: 78
+mid: 78
+Publishing: msgnum: 79
+mid: 79
+Publishing: msgnum: 80
+mid: 80
+Publishing: msgnum: 81
+mid: 81
+Publishing: msgnum: 82
+mid: 82
+Publishing: msgnum: 83
+mid: 83
+Publishing: msgnum: 84
+mid: 84
+Publishing: msgnum: 85
+mid: 85
+Publishing: msgnum: 86
+mid: 86
+Publishing: msgnum: 87
+mid: 87
+Publishing: msgnum: 88
+mid: 88
+Publishing: msgnum: 89
+mid: 89
+Publishing: msgnum: 90
+mid: 90
+Publishing: msgnum: 91
+mid: 91
+Publishing: msgnum: 92
+mid: 92
+Publishing: msgnum: 93
+mid: 93
+Publishing: msgnum: 94
+mid: 94
+Publishing: msgnum: 95
+mid: 95
+Publishing: msgnum: 96
+mid: 96
+Publishing: msgnum: 97
+mid: 97
+Publishing: msgnum: 98
+mid: 98
+Publishing: msgnum: 99
+mid: 99
+Publishing: msgnum: 100
+mid: 100
+Client disconnected. userdata: None,  reason_code: Normal disconnection

@@ -1,0 +1,80 @@
+
+└──> docker stats --no-stream
+CONTAINER ID   NAME       CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O     PIDS
+c5700d9d9b35   gateway    0.00%     996KiB / 7.751GiB     0.01%     15.2kB / 14.9kB   0B / 0B       2
+70176cd31333   katran     0.53%     406.1MiB / 6GiB       6.61%     5.02kB / 5.98kB   0B / 61.4kB   13
+5bd8dbf17b3e   real_2     0.03%     4.043MiB / 7.751GiB   0.05%     1.69kB / 276B     0B / 0B       2
+517f9ce3e8f8   real_5     0.04%     4.066MiB / 7.751GiB   0.05%     2.15kB / 588B     0B / 0B       2
+1d1d2b98f2cd   real_4     0.13%     4.32MiB / 7.751GiB    0.05%     2.75kB / 906B     0B / 0B       2
+fb26b77c865c   real_3     0.03%     4.043MiB / 7.751GiB   0.05%     1.46kB / 222B     0B / 0B       2
+9d1bf7d1da7c   real_6     0.12%     4.07MiB / 7.751GiB    0.05%     3.97kB / 1.6kB    0B / 0B       2
+5fc5cf686887   real_1     0.10%     4.066MiB / 7.751GiB   0.05%     2.15kB / 654B     0B / 0B       2
+fc3a9329890b   client_2   0.18%     11.67MiB / 7.751GiB   0.15%     1.42kB / 905B     0B / 0B       3
+5072b99ab5cb   client_4   0.16%     11.66MiB / 7.751GiB   0.15%     1.3kB / 899B      0B / 0B       3
+f60a5b8c2c75   client_6   16.71%    11.66MiB / 7.751GiB   0.15%     1.52kB / 1.26kB   0B / 0B       3
+f2d19a194348   client_3   0.10%     11.67MiB / 7.751GiB   0.15%     1.19kB / 806B     0B / 0B       3
+5169ce8e8e2a   client_5   0.09%     11.67MiB / 7.751GiB   0.15%     1.24kB / 806B     0B / 0B       3
+b8f91237f1ae   client_1   0.07%     11.66MiB / 7.751GiB   0.15%     1.19kB / 809B     0B / 0B       3
+
+
+└──> docker stats --no-stream
+CONTAINER ID   NAME       CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O     PIDS
+f2d19a194348   client_3   1.03%     11.67MiB / 7.751GiB   0.15%     3.45kB / 4.07kB   0B / 0B       3
+5169ce8e8e2a   client_5   0.83%     11.67MiB / 7.751GiB   0.15%     3.57kB / 4.2kB    0B / 0B       3
+b8f91237f1ae   client_1   0.68%     11.66MiB / 7.751GiB   0.15%     3.45kB / 4.17kB   0B / 0B       3
+f60a5b8c2c75   client_6   0.95%     11.66MiB / 7.751GiB   0.15%     3.78kB / 4.67kB   0B / 0B       3
+5072b99ab5cb   client_4   0.79%     11.66MiB / 7.751GiB   0.15%     3.63kB / 4.2kB    0B / 0B       3
+fc3a9329890b   client_2   0.71%     11.67MiB / 7.751GiB   0.15%     3.68kB / 4.29kB   0B / 0B       3
+c5700d9d9b35   gateway    0.00%     996KiB / 7.751GiB     0.01%     70.9kB / 70.3kB   0B / 0B       2
+70176cd31333   katran     1.11%     406.1MiB / 6GiB       6.61%     25.1kB / 29.7kB   0B / 61.4kB   13
+5bd8dbf17b3e   real_2     0.04%     4.043MiB / 7.751GiB   0.05%     1.74kB / 276B     0B / 0B       2
+517f9ce3e8f8   real_5     0.04%     4.066MiB / 7.751GiB   0.05%     2.15kB / 588B     0B / 0B       2
+1d1d2b98f2cd   real_4     0.34%     4.07MiB / 7.751GiB    0.05%     14.3kB / 6.91kB   0B / 0B       2
+fb26b77c865c   real_3     0.04%     4.043MiB / 7.751GiB   0.05%     1.46kB / 222B     0B / 0B       2
+9d1bf7d1da7c   real_6     0.22%     4.07MiB / 7.751GiB    0.05%     7.94kB / 3.58kB   0B / 0B       2
+5fc5cf686887   real_1     0.31%     4.066MiB / 7.751GiB   0.05%     10.2kB / 4.68kB   0B / 0B       2
+
+
+└──> docker stats --no-stream
+CONTAINER ID   NAME       CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O     PIDS
+f2d19a194348   client_3   0.79%     11.67MiB / 7.751GiB   0.15%     6.42kB / 9.96kB   0B / 0B       3
+5169ce8e8e2a   client_5   0.81%     11.67MiB / 7.751GiB   0.15%     6.48kB / 9.96kB   0B / 0B       3
+b8f91237f1ae   client_1   1.08%     11.66MiB / 7.751GiB   0.15%     6.42kB / 10.2kB   0B / 0B       3
+f60a5b8c2c75   client_6   0.68%     11.91MiB / 7.751GiB   0.15%     6.49kB / 10.5kB   0B / 0B       3
+5072b99ab5cb   client_4   0.94%     11.9MiB / 7.751GiB    0.15%     6.6kB / 10.1kB    0B / 0B       3
+fc3a9329890b   client_2   0.94%     11.67MiB / 7.751GiB   0.15%     6.65kB / 10.3kB   0B / 0B       3
+c5700d9d9b35   gateway    0.00%     996KiB / 7.751GiB     0.01%     166kB / 165kB     0B / 0B       2
+70176cd31333   katran     1.72%     406.1MiB / 6GiB       6.61%     60.5kB / 70.4kB   0B / 61.4kB   13
+5bd8dbf17b3e   real_2     0.04%     4.043MiB / 7.751GiB   0.05%     2.38kB / 318B     0B / 0B       2
+517f9ce3e8f8   real_5     0.08%     4.07MiB / 7.751GiB    0.05%     2.19kB / 1.16kB   0B / 0B       2
+1d1d2b98f2cd   real_4     0.37%     4.07MiB / 7.751GiB    0.05%     34.4kB / 15kB     0B / 0B       2
+fb26b77c865c   real_3     0.04%     4.043MiB / 7.751GiB   0.05%     1.79kB / 264B     0B / 0B       2
+9d1bf7d1da7c   real_6     0.16%     4.078MiB / 7.751GiB   0.05%     14.6kB / 7.08kB   0B / 0B       2
+5fc5cf686887   real_1     0.55%     4.066MiB / 7.751GiB   0.05%     19.7kB / 8.71kB   0B / 0B       2
+
+
+└──> docker stats --no-stream
+CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O     PIDS
+c5700d9d9b35   gateway   0.00%     996KiB / 7.751GiB     0.01%     247kB / 246kB     0B / 0B       2
+70176cd31333   katran    0.03%     406.1MiB / 6GiB       6.61%     92.8kB / 107kB    0B / 61.4kB   13
+5bd8dbf17b3e   real_2    0.09%     4.043MiB / 7.751GiB   0.05%     2.67kB / 318B     0B / 0B       2
+517f9ce3e8f8   real_5    0.11%     4.07MiB / 7.751GiB    0.05%     2.19kB / 1.55kB   0B / 0B       2
+1d1d2b98f2cd   real_4    0.07%     4.059MiB / 7.751GiB   0.05%     53.2kB / 21.4kB   0B / 0B       2
+fb26b77c865c   real_3    0.07%     4.043MiB / 7.751GiB   0.05%     1.94kB / 264B     0B / 0B       2
+9d1bf7d1da7c   real_6    0.10%     4.074MiB / 7.751GiB   0.05%     19.3kB / 9.39kB   0B / 0B       2
+5fc5cf686887   real_1    0.06%     4.059MiB / 7.751GiB   0.05%     35.8kB / 14.3kB   0B / 0B       2
+
+
+└──> docker stats --no-stream
+CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O     PIDS
+c5700d9d9b35   gateway   0.00%     996KiB / 7.751GiB     0.01%     248kB / 248kB     0B / 0B       2
+70176cd31333   katran    0.02%     406.1MiB / 6GiB       6.61%     92.8kB / 107kB    0B / 61.4kB   13
+5bd8dbf17b3e   real_2    0.07%     4.043MiB / 7.751GiB   0.05%     2.67kB / 318B     0B / 0B       2
+517f9ce3e8f8   real_5    0.07%     4.07MiB / 7.751GiB    0.05%     2.23kB / 1.86kB   0B / 0B       2
+1d1d2b98f2cd   real_4    0.07%     4.059MiB / 7.751GiB   0.05%     53.2kB / 21.4kB   0B / 0B       2
+fb26b77c865c   real_3    0.07%     4.043MiB / 7.751GiB   0.05%     1.94kB / 264B     0B / 0B       2
+9d1bf7d1da7c   real_6    0.06%     4.074MiB / 7.751GiB   0.05%     19.4kB / 9.83kB   0B / 0B       2
+5fc5cf686887   real_1    0.06%     4.059MiB / 7.751GiB   0.05%     35.8kB / 14.3kB   0B / 0B       2
+
+
+└──> 

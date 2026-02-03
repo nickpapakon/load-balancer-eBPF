@@ -1,4 +1,4 @@
-FROM bpf_mqtt_base
+FROM mqtt_base
 
 LABEL os.version="Ubuntu 22.04.5 LTS"
 LABEL maintainer="docker-client"
@@ -11,10 +11,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /home/client-folder
 
-COPY ./get_deps.sh /home/client-folder/get_deps.sh
+# COPY ./get_deps.sh /home/client-folder/get_deps.sh
 
-RUN chmod +x get_deps.sh && \
-    ./get_deps.sh
+# RUN chmod +x get_deps.sh && \
+#     ./get_deps.sh
 
 COPY . .
 
