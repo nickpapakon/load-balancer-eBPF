@@ -457,7 +457,7 @@ docker exec -it katran sh -c "scripts/userspace.sh && scripts/debug.sh"
 # wait and notice logs until the above script reaches the last command `bpftool prog tracelog`
 ```
 
-- Start `clients` (setup script has been modified so that clients begin MQTT publishing without further action) and notice **CPU, memory usage, NET I/O**  of `reals` containers during the test (be ready publishing-test lasts only some seconds and no longer than minute depending the `TOTAL_MESSAGES` and `SLEEP_TIME` env variables). Maybe, later, use grafana to monitor them
+- Start `clients` (setup script has been modified so that clients begin MQTT publishing 100 messages without further action) and notice **CPU, memory usage, NET I/O**  of `reals` containers during the test (be ready publishing-test lasts only some seconds and no longer than minute depending the `TOTAL_MESSAGES` and `SLEEP_TIME` env variables). Maybe, later, use grafana to monitor them
 ```bash
 docker compose up --build -d client_[1-6]
 
@@ -474,9 +474,19 @@ chmod +x gather-logs.sh
 
 ### Experiment Observations
 
+```bash
+user$[~/load-balancer-eBPF/lb-n-reals]
+└──> python parse_logs.py --reals 6 --log_dir ./evolution/test-6
+Client 2 sent 99 PUBLISH messages to real 1
+Client 1 sent 99 PUBLISH messages to real 1
+Client 4 sent 99 PUBLISH messages to real 4
+Client 5 sent 99 PUBLISH messages to real 4
+Client 3 sent 99 PUBLISH messages to real 4
+Client 6 sent 100 PUBLISH messages to real 6
+```
 
 - We noticed that packets from the same client go to the same real/broker due to the 5-tuple based LB,
-Remember that when there is keep-alive setting enabled, connection remains alive between client and broker and is verified through PINGREQ/PINGRESP periodically, so the same src port is used for MQTT communication and thus the 5-tuple remains the same
+When there is keep-alive setting enabled, connection remains alive between client and broker and is verified through PINGREQ/PINGRESP periodically, so the same src port is used for MQTT communication and thus the 5-tuple remains the same and LB forwards to the same real/broker.
 - When there is a faulty prediction concerning the topic, the first MQTT PUBLISH message is lost
 
 
