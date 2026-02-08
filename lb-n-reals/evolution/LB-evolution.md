@@ -494,10 +494,11 @@ When there is keep-alive setting enabled, connection remains alive between clien
 
 - Parse logs
 - Compare with PUBLISH to a single broker
-- Grafana monitoring
-- Client in sleep mode for debug purposes
+- monitoring (cAdvisor, Prometheus, eBPF exporter, Grafana)
+- Next test with VIP reals overlapping and change of client IP
 - Other manner to measure using eBPF
 - BPF_PRINTs should be removed for performance
+- container resources limits
 - Katran performance
-- Comparison with Shared Subscriptions
+- Comparison with simple broker response and Shared Subscriptions
 - LPM eBPF Maps for support of wildcard `#` at the end of the topic 
