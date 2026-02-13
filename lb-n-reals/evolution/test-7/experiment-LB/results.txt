@@ -1,0 +1,10 @@
+Client 0 sent 99 PUBLISH messages to real 2
+Client 1 sent 99 PUBLISH messages to real 1
+Client 2 sent 99 PUBLISH messages to real 2
+Client 3 sent 99 PUBLISH messages to real 1
+Client 4 sent 99 PUBLISH messages to real 4
+Client 5 sent 99 PUBLISH messages to real 3
+Client 6 sent 99 PUBLISH messages to real 4
+Client 7 sent 99 PUBLISH messages to real 4
+Client 8 sent 99 PUBLISH messages to real 4
+Client 9 sent 100 PUBLISH messages to real 5

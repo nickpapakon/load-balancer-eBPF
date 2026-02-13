@@ -38,8 +38,7 @@ services:
       context: gateway/
     cap_add:
       - NET_ADMIN
-    depends_on:
-      - katran
+    restart: unless-stopped
     networks:
       gateway-client:
         ipv4_address: ${GATEWAY_CLIENT_IP}
@@ -60,6 +59,21 @@ services:
 
 ######  CLIENTS  #######
 
+  client_0:
+    container_name: client_0
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - gateway
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_0_IP}
+        mac_address: ${CLIENT_0_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=0
 
   client_1:
     container_name: client_1
@@ -67,6 +81,8 @@ services:
       context: client/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - gateway
     networks:
       gateway-client:
         ipv4_address: ${CLIENT_1_IP}
@@ -81,6 +97,8 @@ services:
       context: client/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - gateway
     networks:
       gateway-client:
         ipv4_address: ${CLIENT_2_IP}
@@ -88,13 +106,15 @@ services:
     env_file: .env
     environment:
       - CLIENT_NUM=2
-  
+
   client_3:
     container_name: client_3
     build:
       context: client/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - gateway
     networks:
       gateway-client:
         ipv4_address: ${CLIENT_3_IP}
@@ -109,6 +129,8 @@ services:
       context: client/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - gateway
     networks:
       gateway-client:
         ipv4_address: ${CLIENT_4_IP}
@@ -123,6 +145,8 @@ services:
       context: client/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - gateway
     networks:
       gateway-client:
         ipv4_address: ${CLIENT_5_IP}
@@ -137,6 +161,8 @@ services:
       context: client/
     cap_add:
       - NET_ADMIN
+    depends_on:
+      - gateway
     networks:
       gateway-client:
         ipv4_address: ${CLIENT_6_IP}
@@ -144,6 +170,56 @@ services:
     env_file: .env
     environment:
       - CLIENT_NUM=6
+
+
+  client_7:
+    container_name: client_7
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - gateway
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_7_IP}
+        mac_address: ${CLIENT_7_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=7
+
+
+  client_8:
+    container_name: client_8
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - gateway
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_8_IP}
+        mac_address: ${CLIENT_8_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=8
+
+  client_9:
+    container_name: client_9
+    build:
+      context: client/
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - gateway
+    networks:
+      gateway-client:
+        ipv4_address: ${CLIENT_9_IP}
+        mac_address: ${CLIENT_9_MAC}
+    env_file: .env
+    environment:
+      - CLIENT_NUM=9
 
 
 #####  REALS  #########
@@ -257,6 +333,52 @@ services:
     env_file: .env
     environment:
       - NUM=6
+
+
+
+###### Monitoring #######
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+    - 8080:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+    - 9090:9090
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+    - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+    - cadvisor
+
+
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+
+########## Volumes and Networks ##########
+
+volumes:
+  grafana-storage: {}
 
 
 networks:

@@ -1,0 +1,415 @@
++ ip route add 10.1.0.0/16 via 10.1.3.101 dev eth0
++ ip link add name ipip0 type ipip external
++ ip link set up dev ipip0
++ ip a a 127.0.0.42/32 dev ipip0
+Configuring Real Server NUM=4
++ '[' -z 4 ']'
++ echo 'Configuring Real Server NUM=4'
++ ip a a 10.1.50.0/24 dev lo
++ echo 'Set VIPs as loopback addresses'
+Set VIPs as loopback addresses
+++ sysctl -a
+++ awk '/\.rp_filter/ {print $1}'
+net.ipv4.conf.all.rp_filter
+net.ipv4.conf.all.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.all.rp_filter
++ sysctl net.ipv4.conf.all.rp_filter=0
+net.ipv4.conf.default.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.default.rp_filter
++ sysctl net.ipv4.conf.default.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.erspan0.rp_filter
++ sysctl net.ipv4.conf.erspan0.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.eth0.rp_filter
++ sysctl net.ipv4.conf.eth0.rp_filter=0
+net.ipv4.conf.default.rp_filter = 0
+net.ipv4.conf.erspan0.rp_filter
+net.ipv4.conf.erspan0.rp_filter = 0
+net.ipv4.conf.eth0.rp_filter
+net.ipv4.conf.eth0.rp_filter = 0
+net.ipv4.conf.gre0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.gre0.rp_filter
++ sysctl net.ipv4.conf.gre0.rp_filter=0
+net.ipv4.conf.gre0.rp_filter = 0
+net.ipv4.conf.gretap0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.gretap0.rp_filter
++ sysctl net.ipv4.conf.gretap0.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6_vti0.rp_filter
++ sysctl net.ipv4.conf.ip6_vti0.rp_filter=0
+net.ipv4.conf.gretap0.rp_filter = 0
+net.ipv4.conf.ip6_vti0.rp_filter
+net.ipv4.conf.ip6_vti0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6gre0.rp_filter
++ sysctl net.ipv4.conf.ip6gre0.rp_filter=0
+net.ipv4.conf.ip6gre0.rp_filter
+net.ipv4.conf.ip6gre0.rp_filter = 0
+net.ipv4.conf.ip6tnl0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6tnl0.rp_filter
++ sysctl net.ipv4.conf.ip6tnl0.rp_filter=0
+net.ipv4.conf.ip6tnl0.rp_filter = 0
+net.ipv4.conf.ip_vti0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip_vti0.rp_filter
++ sysctl net.ipv4.conf.ip_vti0.rp_filter=0
+net.ipv4.conf.ip_vti0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ipip0.rp_filter
++ sysctl net.ipv4.conf.ipip0.rp_filter=0
+net.ipv4.conf.ipip0.rp_filter
+net.ipv4.conf.ipip0.rp_filter = 0
+net.ipv4.conf.lo.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.lo.rp_filter
++ sysctl net.ipv4.conf.lo.rp_filter=0
+net.ipv4.conf.lo.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.sit0.rp_filter
++ sysctl net.ipv4.conf.sit0.rp_filter=0
+net.ipv4.conf.sit0.rp_filter
+net.ipv4.conf.sit0.rp_filter = 0
+net.ipv4.conf.tunl0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.tunl0.rp_filter
++ sysctl net.ipv4.conf.tunl0.rp_filter=0
+net.ipv4.conf.tunl0.rp_filter = 0
++ mosquitto -v -c /etc/mosquitto/conf.d/mosquitto.conf
+1771020759: mosquitto version 2.0.22 starting
+1771020759: Config loaded from /etc/mosquitto/conf.d/mosquitto.conf.
+1771020759: Opening ipv4 listen socket on port 1883.
+1771020759: Opening ipv6 listen socket on port 1883.
+1771020759: mosquitto version 2.0.22 running
+1771020779: New connection from 10.1.1.217:55743 on port 1883.
+1771020779: New client connected from 10.1.1.217:55743 as client_7 (p2, c1, k4).
+1771020779: No will message specified.
+1771020779: Sending CONNACK to client_7 (0, 0)
+1771020779: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (2 bytes))
+1771020779: New connection from 10.1.1.218:42869 on port 1883.
+1771020779: New client connected from 10.1.1.218:42869 as client_8 (p2, c1, k4).
+1771020779: No will message specified.
+1771020779: Sending CONNACK to client_8 (0, 0)
+1771020779: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (3 bytes))
+1771020779: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (2 bytes))
+1771020779: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (4 bytes))
+1771020779: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (3 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (5 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (4 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (6 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (5 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (7 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (6 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (8 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (7 bytes))
+1771020780: New connection from 10.1.1.216:40501 on port 1883.
+1771020780: New client connected from 10.1.1.216:40501 as client_6 (p2, c1, k4).
+1771020780: No will message specified.
+1771020780: Sending CONNACK to client_6 (0, 0)
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (9 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (8 bytes))
+1771020780: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (2 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (10 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (9 bytes))
+1771020780: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (3 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (11 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (10 bytes))
+1771020780: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (4 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (12 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (11 bytes))
+1771020780: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (5 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (13 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (12 bytes))
+1771020780: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (6 bytes))
+1771020780: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (14 bytes))
+1771020780: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (13 bytes))
+1771020780: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (7 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (15 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (14 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (8 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (16 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (15 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (9 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (17 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (16 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (10 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (18 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (17 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (11 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (19 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (18 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (12 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (20 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (19 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (13 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (21 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (20 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (14 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (22 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (21 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (15 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (23 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (22 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (16 bytes))
+1771020781: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (24 bytes))
+1771020781: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (23 bytes))
+1771020781: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (17 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (25 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (24 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (18 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (26 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (25 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (19 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (27 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (26 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (20 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (28 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (27 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (21 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (29 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (28 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (22 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (30 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (29 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (23 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (31 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (30 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (24 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (32 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (31 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (25 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (33 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (32 bytes))
+1771020782: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (26 bytes))
+1771020782: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (34 bytes))
+1771020782: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (33 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (27 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (35 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (34 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (28 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (36 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (35 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (29 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (37 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (36 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (30 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (38 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (37 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (31 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (39 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (38 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (32 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (40 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (39 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (33 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (41 bytes))
+1771020783: Received PINGREQ from client_7
+1771020783: Sending PINGRESP to client_7
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (40 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (34 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (42 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (41 bytes))
+1771020783: Received PINGREQ from client_8
+1771020783: Sending PINGRESP to client_8
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (35 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (43 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (42 bytes))
+1771020783: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (36 bytes))
+1771020783: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (44 bytes))
+1771020783: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (43 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (37 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (45 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (44 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (38 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (46 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (45 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (39 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (47 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (46 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (40 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (48 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (47 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (41 bytes))
+1771020784: Received PINGREQ from client_6
+1771020784: Sending PINGRESP to client_6
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (49 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (48 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (42 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (50 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (49 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (43 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (51 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (50 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (44 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (52 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (51 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (45 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (53 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (52 bytes))
+1771020784: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (46 bytes))
+1771020784: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (54 bytes))
+1771020784: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (53 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (47 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (55 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (54 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (48 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (56 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (55 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (49 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (57 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (56 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (50 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (58 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (57 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (51 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (59 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (58 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (52 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (60 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (59 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (53 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (61 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (60 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (54 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (62 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (61 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (55 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (63 bytes))
+1771020785: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (62 bytes))
+1771020785: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (56 bytes))
+1771020785: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (64 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (63 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (57 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (65 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (64 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (58 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (66 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (65 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (59 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (67 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (66 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (60 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (68 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (67 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (61 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (69 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (68 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (62 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (70 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (69 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (63 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (71 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (70 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (64 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (72 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (71 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (65 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (73 bytes))
+1771020786: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (72 bytes))
+1771020786: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (66 bytes))
+1771020786: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (74 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (73 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (67 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (75 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (74 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (68 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (76 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (75 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (69 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (77 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (76 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (70 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (78 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (77 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (71 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (79 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (78 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (72 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (80 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (79 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (73 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (81 bytes))
+1771020787: Received PINGREQ from client_7
+1771020787: Sending PINGRESP to client_7
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (80 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (74 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (82 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (81 bytes))
+1771020787: Received PINGREQ from client_8
+1771020787: Sending PINGRESP to client_8
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (75 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (83 bytes))
+1771020787: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (82 bytes))
+1771020787: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (76 bytes))
+1771020787: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (84 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (83 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (77 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (85 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (84 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (78 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (86 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (85 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (79 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (87 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (86 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (80 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (88 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (87 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (81 bytes))
+1771020788: Received PINGREQ from client_6
+1771020788: Sending PINGRESP to client_6
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (89 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (88 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (82 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (90 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (89 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (83 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (91 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (90 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (84 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (92 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (91 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (85 bytes))
+1771020788: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (93 bytes))
+1771020788: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (92 bytes))
+1771020788: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (86 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (94 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (93 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (87 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (95 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (94 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (88 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (96 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (95 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (89 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (97 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (96 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (90 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (98 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (97 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (91 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (99 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (98 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (92 bytes))
+1771020789: Received PUBLISH from client_7 (d0, q0, r0, m0, 'measurements/humidity', ... (100 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (99 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (93 bytes))
+1771020789: Received PUBLISH from client_8 (d0, q0, r0, m0, 'measurements/humidity', ... (100 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (94 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (95 bytes))
+1771020789: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (96 bytes))
+1771020790: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (97 bytes))
+1771020790: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (98 bytes))
+1771020790: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (99 bytes))
+1771020790: Received PUBLISH from client_6 (d0, q0, r0, m0, 'measurements/humidity', ... (100 bytes))
+1771020790: Received DISCONNECT from client_7
+1771020790: Client client_7 disconnected.
+1771020790: Received DISCONNECT from client_8
+1771020790: Client client_8 disconnected.
+1771020791: Received DISCONNECT from client_6
+1771020791: Client client_6 disconnected.

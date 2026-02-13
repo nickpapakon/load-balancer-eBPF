@@ -1,0 +1,306 @@
++ ip route add 10.1.0.0/16 via 10.1.3.101 dev eth0
++ ip link add name ipip0 type ipip external
++ ip link set up dev ipip0
++ ip a a 127.0.0.42/32 dev ipip0
+Configuring Real Server NUM=2
++ '[' -z 2 ']'
++ echo 'Configuring Real Server NUM=2'
++ ip a a 10.1.50.0/24 dev lo
++ echo 'Set VIPs as loopback addresses'
+Set VIPs as loopback addresses
+++ awk '/\.rp_filter/ {print $1}'
+++ sysctl -a
+net.ipv4.conf.all.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.all.rp_filter
++ sysctl net.ipv4.conf.all.rp_filter=0
+net.ipv4.conf.all.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.default.rp_filter
++ sysctl net.ipv4.conf.default.rp_filter=0
+net.ipv4.conf.default.rp_filter
+net.ipv4.conf.default.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
+net.ipv4.conf.erspan0.rp_filter
++ echo net.ipv4.conf.erspan0.rp_filter
++ sysctl net.ipv4.conf.erspan0.rp_filter=0
+net.ipv4.conf.erspan0.rp_filter = 0
+net.ipv4.conf.eth0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.eth0.rp_filter
++ sysctl net.ipv4.conf.eth0.rp_filter=0
+net.ipv4.conf.eth0.rp_filter = 0
+net.ipv4.conf.gre0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.gre0.rp_filter
++ sysctl net.ipv4.conf.gre0.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.gretap0.rp_filter
++ sysctl net.ipv4.conf.gretap0.rp_filter=0
+net.ipv4.conf.gre0.rp_filter = 0
+net.ipv4.conf.gretap0.rp_filter
+net.ipv4.conf.gretap0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6_vti0.rp_filter
+net.ipv4.conf.ip6_vti0.rp_filter
++ sysctl net.ipv4.conf.ip6_vti0.rp_filter=0
+net.ipv4.conf.ip6_vti0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6gre0.rp_filter
++ sysctl net.ipv4.conf.ip6gre0.rp_filter=0
+net.ipv4.conf.ip6gre0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
+net.ipv4.conf.ip6gre0.rp_filter = 0
+net.ipv4.conf.ip6tnl0.rp_filter
++ echo net.ipv4.conf.ip6tnl0.rp_filter
++ sysctl net.ipv4.conf.ip6tnl0.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip_vti0.rp_filter
++ sysctl net.ipv4.conf.ip_vti0.rp_filter=0
+net.ipv4.conf.ip6tnl0.rp_filter = 0
+net.ipv4.conf.ip_vti0.rp_filter
+net.ipv4.conf.ip_vti0.rp_filter = 0
+net.ipv4.conf.ipip0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ipip0.rp_filter
++ sysctl net.ipv4.conf.ipip0.rp_filter=0
+net.ipv4.conf.ipip0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.lo.rp_filter
++ sysctl net.ipv4.conf.lo.rp_filter=0
+net.ipv4.conf.lo.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
+net.ipv4.conf.lo.rp_filter = 0
+net.ipv4.conf.sit0.rp_filter
++ echo net.ipv4.conf.sit0.rp_filter
++ sysctl net.ipv4.conf.sit0.rp_filter=0
+net.ipv4.conf.sit0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.tunl0.rp_filter
++ sysctl net.ipv4.conf.tunl0.rp_filter=0
+net.ipv4.conf.tunl0.rp_filter
+net.ipv4.conf.tunl0.rp_filter = 0
++ mosquitto -v -c /etc/mosquitto/conf.d/mosquitto.conf
+1771020087: mosquitto version 2.0.22 starting
+1771020087: Config loaded from /etc/mosquitto/conf.d/mosquitto.conf.
+1771020087: Opening ipv4 listen socket on port 1883.
+1771020087: Opening ipv6 listen socket on port 1883.
+1771020087: mosquitto version 2.0.22 running
+1771020593: New connection from 10.1.1.202:54449 on port 1883.
+1771020593: New client connected from 10.1.1.202:54449 as client_2 (p2, c1, k4).
+1771020593: No will message specified.
+1771020593: Sending CONNACK to client_2 (0, 0)
+1771020593: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (2 bytes))
+1771020593: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (3 bytes))
+1771020593: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (4 bytes))
+1771020593: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (5 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (6 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (7 bytes))
+1771020594: New connection from 10.1.1.200:57665 on port 1883.
+1771020594: New client connected from 10.1.1.200:57665 as client_0 (p2, c1, k4).
+1771020594: No will message specified.
+1771020594: Sending CONNACK to client_0 (0, 0)
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (8 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (2 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (9 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (3 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (10 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (4 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (11 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (5 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (12 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (6 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (13 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (7 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (14 bytes))
+1771020594: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (8 bytes))
+1771020594: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (15 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (9 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (16 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (10 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (17 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (11 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (18 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (12 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (19 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (13 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (20 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (14 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (21 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (15 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (22 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (16 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (23 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (17 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (24 bytes))
+1771020595: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (18 bytes))
+1771020595: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (25 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (19 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (26 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (20 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (27 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (21 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (28 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (22 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (29 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (23 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (30 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (24 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (31 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (25 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (32 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (26 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (33 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (27 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (34 bytes))
+1771020596: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (28 bytes))
+1771020596: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (35 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (29 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (36 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (30 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (37 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (31 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (38 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (32 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (39 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (33 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (40 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (34 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (41 bytes))
+1771020597: Received PINGREQ from client_2
+1771020597: Sending PINGRESP to client_2
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (35 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (42 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (36 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (43 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (37 bytes))
+1771020597: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (44 bytes))
+1771020597: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (38 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (45 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (39 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (46 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (40 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (47 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (41 bytes))
+1771020598: Received PINGREQ from client_0
+1771020598: Sending PINGRESP to client_0
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (48 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (42 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (49 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (43 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (50 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (44 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (51 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (45 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (52 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (46 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (53 bytes))
+1771020598: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (47 bytes))
+1771020598: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (54 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (48 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (55 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (49 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (56 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (50 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (57 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (51 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (58 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (52 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (59 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (53 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (60 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (54 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (61 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (55 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (62 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (56 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (63 bytes))
+1771020599: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (57 bytes))
+1771020599: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (64 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (58 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (65 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (59 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (66 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (60 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (67 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (61 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (68 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (62 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (69 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (63 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (70 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (64 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (71 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (65 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (72 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (66 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (73 bytes))
+1771020600: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (67 bytes))
+1771020600: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (74 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (68 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (75 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (69 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (76 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (70 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (77 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (71 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (78 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (72 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (79 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (73 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (80 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (74 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (81 bytes))
+1771020601: Received PINGREQ from client_2
+1771020601: Sending PINGRESP to client_2
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (75 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (82 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (76 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (83 bytes))
+1771020601: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (77 bytes))
+1771020601: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (84 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (78 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (85 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (79 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (86 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (80 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (87 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (81 bytes))
+1771020602: Received PINGREQ from client_0
+1771020602: Sending PINGRESP to client_0
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (88 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (82 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (89 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (83 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (90 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (84 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (91 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (85 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (92 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (86 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (93 bytes))
+1771020602: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (87 bytes))
+1771020602: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (94 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (88 bytes))
+1771020603: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (95 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (89 bytes))
+1771020603: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (96 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (90 bytes))
+1771020603: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (97 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (91 bytes))
+1771020603: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (98 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (92 bytes))
+1771020603: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (99 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (93 bytes))
+1771020603: Received PUBLISH from client_2 (d0, q0, r0, m0, 'measurements/temperature', ... (100 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (94 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (95 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (96 bytes))
+1771020603: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (97 bytes))
+1771020604: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (98 bytes))
+1771020604: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (99 bytes))
+1771020604: Received PUBLISH from client_0 (d0, q0, r0, m0, 'measurements/temperature', ... (100 bytes))
+1771020604: Received DISCONNECT from client_2
+1771020604: Client client_2 disconnected.
+1771020605: Received DISCONNECT from client_0
+1771020605: Client client_0 disconnected.

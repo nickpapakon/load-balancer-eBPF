@@ -1,0 +1,228 @@
++ ip route add 10.1.0.0/16 via 10.1.3.101 dev eth0
++ ip link add name ipip0 type ipip external
++ ip link set up dev ipip0
++ ip a a 127.0.0.42/32 dev ipip0
++ '[' -z 5 ']'
++ echo 'Configuring Real Server NUM=5'
++ ip a a 10.1.50.0/24 dev lo
+Configuring Real Server NUM=5
+Set VIPs as loopback addresses
++ echo 'Set VIPs as loopback addresses'
+++ sysctl -a
+++ awk '/\.rp_filter/ {print $1}'
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.all.rp_filter
++ sysctl net.ipv4.conf.all.rp_filter=0
+net.ipv4.conf.all.rp_filter
+net.ipv4.conf.all.rp_filter = 0
+net.ipv4.conf.default.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.default.rp_filter
++ sysctl net.ipv4.conf.default.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.erspan0.rp_filter
++ sysctl net.ipv4.conf.erspan0.rp_filter=0
+net.ipv4.conf.default.rp_filter = 0
+net.ipv4.conf.erspan0.rp_filter
+net.ipv4.conf.erspan0.rp_filter = 0
+net.ipv4.conf.eth0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.eth0.rp_filter
++ sysctl net.ipv4.conf.eth0.rp_filter=0
+net.ipv4.conf.eth0.rp_filter = 0
+net.ipv4.conf.gre0.rp_filter
+net.ipv4.conf.gre0.rp_filter = 0
+net.ipv4.conf.gretap0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.gre0.rp_filter
++ sysctl net.ipv4.conf.gre0.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.gretap0.rp_filter
++ sysctl net.ipv4.conf.gretap0.rp_filter=0
+net.ipv4.conf.gretap0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6_vti0.rp_filter
++ sysctl net.ipv4.conf.ip6_vti0.rp_filter=0
+net.ipv4.conf.ip6_vti0.rp_filter
+net.ipv4.conf.ip6_vti0.rp_filter = 0
+net.ipv4.conf.ip6gre0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6gre0.rp_filter
++ sysctl net.ipv4.conf.ip6gre0.rp_filter=0
+net.ipv4.conf.ip6gre0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip6tnl0.rp_filter
+net.ipv4.conf.ip6tnl0.rp_filter
++ sysctl net.ipv4.conf.ip6tnl0.rp_filter=0
+net.ipv4.conf.ip6tnl0.rp_filter = 0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ip_vti0.rp_filter
+net.ipv4.conf.ip_vti0.rp_filter
++ sysctl net.ipv4.conf.ip_vti0.rp_filter=0
+net.ipv4.conf.ip_vti0.rp_filter = 0
+net.ipv4.conf.ipip0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.ipip0.rp_filter
++ sysctl net.ipv4.conf.ipip0.rp_filter=0
+net.ipv4.conf.ipip0.rp_filter = 0
+net.ipv4.conf.lo.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.lo.rp_filter
++ sysctl net.ipv4.conf.lo.rp_filter=0
+net.ipv4.conf.lo.rp_filter = 0
+net.ipv4.conf.sit0.rp_filter
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.sit0.rp_filter
++ sysctl net.ipv4.conf.sit0.rp_filter=0
++ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}')
++ echo net.ipv4.conf.tunl0.rp_filter
+net.ipv4.conf.sit0.rp_filter = 0
+net.ipv4.conf.tunl0.rp_filter
++ sysctl net.ipv4.conf.tunl0.rp_filter=0
+net.ipv4.conf.tunl0.rp_filter = 0
++ mosquitto -v -c /etc/mosquitto/conf.d/mosquitto.conf
+1771020086: mosquitto version 2.0.22 starting
+1771020086: Config loaded from /etc/mosquitto/conf.d/mosquitto.conf.
+1771020086: Opening ipv4 listen socket on port 1883.
+1771020086: Opening ipv6 listen socket on port 1883.
+1771020086: mosquitto version 2.0.22 running
+1771020592: New connection from 10.1.1.203:58447 on port 1883.
+1771020592: New client connected from 10.1.1.203:58447 as client_3 (p2, c1, k4).
+1771020592: No will message specified.
+1771020592: Sending CONNACK to client_3 (0, 0)
+1771020592: New connection from 10.1.1.202:52423 on port 1883.
+1771020592: New client connected from 10.1.1.202:52423 as client_2 (p2, c1, k4).
+1771020592: No will message specified.
+1771020592: Sending CONNACK to client_2 (0, 0)
+1771020592: New connection from 10.1.1.206:37069 on port 1883.
+1771020592: New client connected from 10.1.1.206:37069 as client_6 (p2, c1, k4).
+1771020592: No will message specified.
+1771020592: Sending CONNACK to client_6 (0, 0)
+1771020592: New connection from 10.1.1.207:41603 on port 1883.
+1771020592: New client connected from 10.1.1.207:41603 as client_7 (p2, c1, k4).
+1771020592: No will message specified.
+1771020592: Sending CONNACK to client_7 (0, 0)
+1771020593: New connection from 10.1.1.209:48249 on port 1883.
+1771020593: New client connected from 10.1.1.209:48249 as client_9 (p2, c1, k4).
+1771020593: No will message specified.
+1771020593: Sending CONNACK to client_9 (0, 0)
+1771020593: New connection from 10.1.1.205:33923 on port 1883.
+1771020593: New connection from 10.1.1.200:35175 on port 1883.
+1771020593: New client connected from 10.1.1.205:33923 as client_5 (p2, c1, k4).
+1771020593: No will message specified.
+1771020593: Sending CONNACK to client_5 (0, 0)
+1771020593: New client connected from 10.1.1.200:35175 as client_0 (p2, c1, k4).
+1771020593: No will message specified.
+1771020593: Sending CONNACK to client_0 (0, 0)
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (1 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (2 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (3 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (4 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (5 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (6 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (7 bytes))
+1771020593: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (8 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (9 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (10 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (11 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (12 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (13 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (14 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (15 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (16 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (17 bytes))
+1771020594: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (18 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (19 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (20 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (21 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (22 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (23 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (24 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (25 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (26 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (27 bytes))
+1771020595: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (28 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (29 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (30 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (31 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (32 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (33 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (34 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (35 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (36 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (37 bytes))
+1771020596: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (38 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (39 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (40 bytes))
+1771020597: Received PINGREQ from client_9
+1771020597: Sending PINGRESP to client_9
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (41 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (42 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (43 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (44 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (45 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (46 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (47 bytes))
+1771020597: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (48 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (49 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (50 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (51 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (52 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (53 bytes))
+1771020598: Client client_3 has exceeded timeout, disconnecting.
+1771020598: Client client_2 has exceeded timeout, disconnecting.
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (54 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (55 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (56 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (57 bytes))
+1771020598: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (58 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (59 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (60 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (61 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (62 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (63 bytes))
+1771020599: Client client_6 has exceeded timeout, disconnecting.
+1771020599: Client client_7 has exceeded timeout, disconnecting.
+1771020599: Client client_5 has exceeded timeout, disconnecting.
+1771020599: Client client_0 has exceeded timeout, disconnecting.
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (64 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (65 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (66 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (67 bytes))
+1771020599: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (68 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (69 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (70 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (71 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (72 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (73 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (74 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (75 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (76 bytes))
+1771020600: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (77 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (78 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (79 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (80 bytes))
+1771020601: Received PINGREQ from client_9
+1771020601: Sending PINGRESP to client_9
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (81 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (82 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (83 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (84 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (85 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (86 bytes))
+1771020601: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (87 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (88 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (89 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (90 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (91 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (92 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (93 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (94 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (95 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (96 bytes))
+1771020602: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (97 bytes))
+1771020603: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (98 bytes))
+1771020603: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (99 bytes))
+1771020603: Received PUBLISH from client_9 (d0, q0, r0, m0, 'measurements/other', ... (100 bytes))
+1771020604: Received DISCONNECT from client_9
+1771020604: Client client_9 disconnected.

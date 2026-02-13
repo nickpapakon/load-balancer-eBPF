@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# logging of commands, exit if any cmd fails
+set -euxo pipefail
+
+# Set up the servers and Load Balancer and monitoring stack
+if [ "$CONFIG_AND_OPERATE_LB" -eq 1 ]; then
+    docker compose up --build -d katran gateway real_[1-6] cadvisor prometheus grafana 
+    echo "Waiting for containers to be up, configured and operational ..." 
+    sleep 40
+fi
+
+# KATRAN CONFIG DONE
+# EXPERIMENT STARTS HERE
+
+# Run the clients to generate load (Experiments) 
+docker compose up --build -d client_[0-9] 
+echo "Wait enough time for the experiment to run and gather data..."
+sleep 40 
+
+# Gather logs from all containers, parse them and save the results along with environment variables for reproducibility
+rm -f experiment_logs/*
+mkdir -p experiment_logs/
+chmod +x gather-logs.sh
+./gather-logs.sh
+
+source ../.venv/bin/activate
+python parse_logs.py --reals 6 --log_dir experiment_logs/ | sort > experiment_logs/results.txt
+cp .env experiment_logs/
+
+echo "Experiment completed. Logs and environment variables have been saved in the experiment_logs/ directory."
