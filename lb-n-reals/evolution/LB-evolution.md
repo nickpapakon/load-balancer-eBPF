@@ -502,3 +502,61 @@ When there is keep-alive setting enabled, connection remains alive between clien
 - Katran performance
 - Comparison with simple broker response and Shared Subscriptions
 - LPM eBPF Maps for support of wildcard `#` at the end of the topic 
+
+
+## Test 7
+
+Test 7 procedure is automated using the `test-7.sh` script (which uses multiple times the `experiment.sh` script)
+```bash
+cd lb-n-reals
+chmod +x experiment.sh 
+chmod +x test-7.sh
+./test-7.sh
+```
+
+### Clients publish to topics
+
+| client     | topic                      |
+| ---------- | -------------------------- |
+|  0,1,2,3   | `measurements/temperature` |
+| 4,5,6,7,8  | `measurements/humidity`    |
+|   9        | `measurements/other`       |
+
+
+### Topic to VIP  &  VIP to reals   mappings
+
+| topic                      | VIP         | Reals (brokers)  |
+| ---------------------------| ----------- | ---------------- |
+| `measurements/temperature` | VIP_A       | 1,2              |
+| `measurements/humidity`    | VIP_B       | 3,4              |
+| other topics               | VIP_DEFAULT | 5,6              |
+
+
+### Topology
+
+- 10 clients
+- 6 reals/brokers
+- 1 LB (Katran with mqtt_fwd program)
+- Gateway that connects all the subnets
+
+### Procedure
+
+All the following steps are done automatically by the `experiment.sh` script. The procedure is the following:
+- Start katran, gateway and reals containers. Katran container will load BPF programs and configure BPF maps from the setup. 
+- Wait till Katran is ready (check logs) and then start clients container that will publish MQTT messages to the LB (each client publishes 100 messages in 10 seconds).
+- When client publishes finish, gather logs and parse them with `parse_logs.py` script to verify that messages were sent to the correct brokers and that the first message of each client was lost due to false topic prediction (as expected).
+- Check the `evolution/test-7/experiment*/results.txt` in order to inspect which publish messages are successfully delivered and validate that they are sent to one of the responsible brokers for the published topic and that the first message of each client is lost due to false topic prediction (as expected).
+- Also you can notice CPU, MEM, NET I/O of reals containers during the test using the grafana dashboard with connection to `http://prometheus:9090`
+
+
+This procedure will be repeated 3 times (as in `test-7.sh`).
+1. Clients publish only to 1 broker
+2. Client publish to the LB and LB forwards to the responsible brokers. However, the first publish message of each client may be lost due to the fact that LB has not seen this client IP previously and thus does not have a correct prediction of the topic that this client will publish to (and thus the TCP 3WHS and MQTT CONNECT are forwarded to a non-responsible broker). After the first message, LB learns the topic that each client publishes to and thus forwards correctly all the next messages.
+3. Clients change IP and publish again (simulates the begginning of a new DHCP lease time period). As in the previous case, the first message is lost due to false topic prediction (new client IP) but all the next messages are correctly forwarded to the responsible brokers.
+
+
+### Outcomes 
+
+- When clients change IP or publish for first time, the first message is lost due to false topic prediction 
+- All the next messages are correctly forwarded to the responsible brokers by the LB based on the topic of the message 
+- Messages are load balanced per client as LB uses the 5-tuple for forwarding. Consequently, messages from the same client are forwarded to the same broker (as clients use keep-alive and thus the same src port for MQTT communication)
