@@ -568,3 +568,57 @@ This procedure will be repeated 3 times (as in `test-7.sh`).
 - These metrics are shown in `evolution/test-7/test-7.png`
 - For better metrics import Grafana dashboard from [cAdvisor Docker Insights](https://grafana.com/grafana/dashboards/19908-docker-container-monitoring-with-prometheus-and-cadvisor/)
 - Experiment phases (1: 10.25-10.30 ,  2: 10.30-10.35, 3: 10.35-10.40) are shown in the graph 
+
+
+
+
+
+## Test 8
+
+This tests shows that LB can also change the payload of the MQTT PUBLISH message. Here, `mqtt_fwd` program is modified so that it changes the first 5 characters of the payload to uppercase. `mqtt_fwd` program assumes that will only receive MQTT PUBLISH messages with topic `measurements/temperature` and thus it forwards the curdata pointer by 24 chars (length of topic). 
+
+Inspect **frame.number 29,31** in the capture to see the change of the payload `(caution -> CAUTIon)`
+
+### Warnings
+
+However, many factors were not taken into consideration
+- TCP header checksum was not re-computed (this may cause client drop the segment as it may be invalid)
+- forwarding the `curdata` pointer by a variable `topic_len` causes pointer invalidation and verifier rejects the bpf program. It may be done in another way using better boundary checks, though here, we assumed fixed len topic for simplicity
+- If more bytes are added or some removed from the payload (using `bpf_xdp_adjust_(head|tail)`  - also the TCP header fields that indigate segment/payload length should be updated), then this change is inconsistent with the information/state variables that client keeps. For instance,
+Client sends a 400 bytes segment with SEG.SEQ=0  so keeps the state variables SND.UNA = 0, SND.NXT = 400
+If the load balancer changes the segment from 400 to 300 bytes (by removing some payload for example), 
+the server that receives this segment will give an ACK with SEG.ACK = 300.
+When client receives the ACK, client sees  SEG.ACK = 300  and compares with SND.NXT = 400, so understands that the last 100 bytes were not ACKed.
+So client retransmits bytes 301-400 setting SEG.SEQ=0, and state variables SND.UNA = 300, SND.NXT = 400...
+More weird things may happen if LB increases the segment size (so client would receive an ACK - e.g. 500 that would be greater than SND.NXT)
+
+For all these cases, modifying the payload of TCP is **NOT recommended** and may cause a series of unwanted events. 
+
+### Procedure
+
+```bash
+docker compose up --build -d
+
+docker exec -it gateway sh
+tcpdump -n -i any -nnXXtttt -w /tmp/gateway_any_capture.pcap -C 3 -G 600 
+
+docker exec -it client_1 sh
+# 3 times
+mosquitto_pub -h ${MQTT_VIP}  -p ${MQTT_PORT} -m "caution: the first 5 characters will be converted to uppercase by the LB" -t "measurements/temperature" --qos 0
+
+mkdir experiment_logs
+chmod +x gather-logs.sh
+./gather-logs.sh
+source ../.venv/bin/activate
+python parse_logs.py --reals 6 --log_dir experiment_logs/ | sort > experiment_logs/results.txt
+cp .env experiment_logs/
+
+# Notice the logs (Messages received by brokers)
+### real_6
+Received PUBLISH from auto-80261A0F-AEEB-4CE6-D285-407F101905F7 (d0, q0, r0, m0, 'measurements/temperature', ... (72 bytes))
+### real_5
+Received PUBLISH from auto-7CDEE752-B8D6-466A-EACA-78762F3823FC (d0, q0, r0, m0, 'measurements/temperature', ... (72 bytes))
+Received PUBLISH from auto-2F327F23-28BA-9202-475D-0390AA132D52 (d0, q0, r0, m0, 'measurements/temperature', ... (72 bytes))
+```
+
+
