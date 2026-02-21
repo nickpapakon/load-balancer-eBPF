@@ -118,16 +118,25 @@ print("Connecting to "+args.host+" port: "+str(port))
 mqttc.connect(args.host, port, args.keepalive)
 
 mqttc.loop_start()
+previous_time = time.time()
 
 for x in range (1, 1 + args.nummsgs):
-    time.sleep(args.delay)
+    time_elapsed = time.time() - previous_time
+    if time_elapsed < args.delay:
+        time.sleep(args.delay - time_elapsed)
+    else:
+        print(f"Warning: Publishing is taking longer than the specified delay of {args.delay} seconds.\
+               Time elapsed since last publish - (elapsed_time): {time_elapsed:.2f} seconds.")
 
+    previous_time = time.time()
     if not mqttc.is_connected():
         print("Waiting for reconnection (TCP 3WHS in progress)...")
         while not mqttc.is_connected():
             time.sleep(0.5)
 
-    msg_txt = x*"#"
+    # avoid fragmentantion by keeping 
+    # message size + headers < typical MTU of 1500 bytes
+    msg_txt = 1000*"#"
     print(f"Publishing: msgnum: {x}")
     try:
         infot = mqttc.publish(args.topic, msg_txt, qos=args.qos)

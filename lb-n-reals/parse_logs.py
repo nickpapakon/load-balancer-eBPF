@@ -6,10 +6,11 @@ if __name__ == '__main__':
     parser.add_argument("--reals", type=int, default=6)
     parser.add_argument("--log_dir", type=str, default=".")
     args = parser.parse_args()
-    sent_publish_msgs = {}
-    # (client, real_num) -> number of messages
     
-    for real_num in range(1, 1 + args.reals):
+    # client_id -> {real_num -> count}
+    sent_publish_msgs = {}
+    
+    for real_num in range(0, 1 + args.reals):
         with open(f"{args.log_dir}/real_{real_num}.log", "r") as logfile:
             lines = logfile.readlines()
 
@@ -22,16 +23,14 @@ if __name__ == '__main__':
             client = int(publish_msg.group(1))
             topic = publish_msg.group(2)
             message_len = int(publish_msg.group(3))
-            key = (client, real_num)
 
-            if key not in sent_publish_msgs:
-                sent_publish_msgs[key] = 0
-            sent_publish_msgs[key] += 1
+            if client not in sent_publish_msgs:
+                sent_publish_msgs[client] = {}
+            if real_num not in sent_publish_msgs[client]:
+                sent_publish_msgs[client][real_num] = 0
+            sent_publish_msgs[client][real_num] += 1
         
-    for key, value in sent_publish_msgs.items():
-        print(f"Client {key[0]} sent {value} PUBLISH messages to real {key[1]}")
-
-
-
-    
-    
+    for client, reals in sent_publish_msgs.items():
+        print(f"\n client_{client} sent to ", end="")
+        for real_num, count in reals.items():
+            print(f"    real_{real_num}: {count}", end="")

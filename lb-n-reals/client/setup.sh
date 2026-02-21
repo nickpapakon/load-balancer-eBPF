@@ -31,7 +31,7 @@ cd utils
 DESTINATION_IP=${MQTT_VIP}
 
 if [ "$ONE_REAL_ONLY" -eq 1 ]; then
-    DESTINATION_IP=${REAL_1_IP}
+    DESTINATION_IP=${REAL_0_IP}
 fi
 
 python3 client_pub_opts.py -H ${DESTINATION_IP} -t ${topics[$CLIENT_NUM]} -P ${MQTT_PORT} -k ${KEEP_ALIVE} -N ${TOTAL_MESSAGES} -S ${SLEEP_TIME} -c client_${CLIENT_NUM}

@@ -224,6 +224,26 @@ services:
 
 #####  REALS  #########
 
+  real_0:
+    container_name: real_0
+    build:
+      context: real/
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
+    networks:
+      gateway-reals:
+        ipv4_address: ${REAL_0_IP}
+        mac_address: ${REAL_0_MAC}
+    env_file: .env
+    environment:
+      - NUM=0
+
+
+
   real_1:
     container_name: real_1
     build:

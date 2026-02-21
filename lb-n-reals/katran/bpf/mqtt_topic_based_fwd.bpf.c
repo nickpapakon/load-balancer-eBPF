@@ -111,6 +111,12 @@ int mqtt_fwd(struct xdp_md *ctx)
             // 1st byte is control header byte (Control header fields parsed)
             if (BPF_PRINT) bpf_printk("This segment Contains MQTT packet");
             if (BPF_PRINT) bpf_printk("MQTT Packet type: %d", mqtt_h->bits.type);
+
+            // [Check QoS=0]: only QoS = 0 supported
+            if (mqtt_h->bits.qos){
+                if (BPF_PRINT) bpf_printk("[xdp_aborted] Qos > 0 is NOT supported");
+                goto abort;
+            }
             
             // forward pointer by a char (control header)
             readChar(&curdata);
@@ -126,10 +132,11 @@ int mqtt_fwd(struct xdp_md *ctx)
             }
 
             curdata += rc;
-            if(curdata + remaining_length != (void *)data_end){
-                if (BPF_PRINT) bpf_printk("[xdp_aborted] Remaining length does not match data length");
-                goto abort;
-            } 
+            // [Removed MQTT remaining Length check]: a TCP segment may carry many MQTT messages (retransmission), don't drop
+            // if(curdata + remaining_length != (void *)data_end){
+            //     if (BPF_PRINT) bpf_printk("[xdp_aborted] Remaining length does not match data length");
+            //     goto abort;
+            // } 
             
             // [Check MQTT packet type]: Only process PUBLISH packets for LB decision
             // []: other packet types will be forwarded based on predicted topic (if any)

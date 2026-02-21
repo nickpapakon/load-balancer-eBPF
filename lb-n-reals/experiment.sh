@@ -5,18 +5,33 @@ set -euxo pipefail
 
 # Set up the servers and Load Balancer and monitoring stack
 if [ "$CONFIG_AND_OPERATE_LB" -eq 1 ]; then
-    docker compose up --build -d katran gateway real_[1-6] cadvisor prometheus grafana 
+    docker compose up --build -d katran gateway real_[0-6] cadvisor prometheus grafana 
     echo "Waiting for containers to be up, configured and operational ..." 
     sleep 40
 fi
 
 # KATRAN CONFIG DONE
 # EXPERIMENT STARTS HERE
+# environment variables from .env should have been set
+TOTAL_TIME=$(echo "$TOTAL_MESSAGES * $SLEEP_TIME" | bc)
 
 # Run the clients to generate load (Experiments) 
 docker compose up --build -d client_[0-9] 
 echo "Wait enough time for the experiment to run and gather data..."
-sleep 40 
+# WAIT_TIME=$(echo "$TOTAL_TIME + 30" | bc) # add some extra time to ensure all messages are published and received
+# sleep $WAIT_TIME
+
+# Wait until all client containers are down
+while [ $(docker compose ps | grep client | wc -l) -gt 0 ]; do
+    echo "Waiting for client containers to stop..."
+    sleep 5
+done
+# while docker compose ps --status running | grep -qE 'client_[0-9]'; do
+#     echo "Waiting for client containers to stop..."
+#     sleep 5
+# done
+
+sleep 10 # add some extra time to ensure all messages are published and received
 
 # Gather logs from all containers, parse them and save the results along with environment variables for reproducibility
 rm -f experiment_logs/*

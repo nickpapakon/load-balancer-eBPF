@@ -4,3 +4,9 @@ scrape_configs:
   static_configs:
   - targets:
     - cadvisor:8080
+  # metric_relabel_configs:
+  #     # This looks for the container_last_seen metric
+  #     # If a container hasn't been seen in the last few seconds, it's likely stopped
+  #     - source_labels: [container_label_com_docker_compose_service]
+  #       regex: '.+'
+  #       action: keep

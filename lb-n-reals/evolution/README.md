@@ -561,7 +561,7 @@ This procedure will be repeated 3 times (as in `test-7.sh`).
 - All the next messages are correctly forwarded to the responsible brokers by the LB based on the topic of the message 
 - Messages are load balanced per client as LB uses the 5-tuple for forwarding. Consequently, messages from the same client are forwarded to the same broker (as clients use keep-alive and thus the same src port for MQTT communication)
 
-## Monitoring of test results
+### Monitoring of test results
 
 - Use of cAdvisor for container metrics along with Prometheus and Grafana for visualization.
 - the `evolution/test-7/grafana.db` contains the dashboard made that contain metrics (`container_memory_rss`, `container_memory_usage_bytes`, `container_network_receive_packets_total`, `container_pressure_cpu_waiting_seconds_total`) 
