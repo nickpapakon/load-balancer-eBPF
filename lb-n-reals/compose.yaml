@@ -8,12 +8,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '8.0'
-          memory: 6G
-          pids: 4096
+          cpus: '2.0'
+          memory: 1G
         reservations:
-          cpus: '6.0'
-          memory: 6G
+          cpus: '2.0'
+          memory: 1G
     privileged: true                    # recommended for XDP/AF_XDP access
     cap_add:
       - NET_ADMIN
@@ -36,6 +35,14 @@ services:
     container_name: gateway
     build:
       context: gateway/
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '1.0'
+          memory: 512M
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -63,6 +70,14 @@ services:
     container_name: client_0
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -79,6 +94,14 @@ services:
     container_name: client_1
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -95,6 +118,14 @@ services:
     container_name: client_2
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -111,6 +142,14 @@ services:
     container_name: client_3
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -127,6 +166,14 @@ services:
     container_name: client_4
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -143,6 +190,14 @@ services:
     container_name: client_5
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -159,6 +214,14 @@ services:
     container_name: client_6
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -176,6 +239,14 @@ services:
     container_name: client_7
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -193,6 +264,14 @@ services:
     container_name: client_8
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -209,6 +288,14 @@ services:
     container_name: client_9
     build:
       context: client/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -228,6 +315,14 @@ services:
     container_name: real_0
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -248,6 +343,14 @@ services:
     container_name: real_1
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -266,6 +369,14 @@ services:
     container_name: real_2
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -284,6 +395,14 @@ services:
     container_name: real_3
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -302,6 +421,14 @@ services:
     container_name: real_4
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -321,6 +448,14 @@ services:
     container_name: real_5
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -340,6 +475,14 @@ services:
     container_name: real_6
     build:
       context: real/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
     privileged: true
     cap_add:
       - NET_ADMIN
