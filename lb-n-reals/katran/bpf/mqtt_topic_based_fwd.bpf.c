@@ -217,14 +217,29 @@ int mqtt_fwd(struct xdp_md *ctx)
                         if (BPF_PRINT) bpf_printk("No VIP mapping found for actual topic");
                     }
 
-                    // [MQTT payload injection]: convert the first 5 characters of they payload to uppercase
+                    // [MQTT payload injection]: 
+                    // []: convert the first 5 characters of the payload to uppercase
                     // curdata shows to MQTT payload as packet id is not present in MQTT PUBLISH messages with QoS=0
-                    curdata += topic_len;
-                    for(int i=0; i<5; i++){
-                        if (i >= topic_len) break;
-                        if ((void *)(curdata + i + 1) > (void *)data_end) break;
-                        if(curdata[i]>='a' && curdata[i]<='z') curdata[i] += 'A' - 'a';
+                    // len("measurements/temperature")  -   ** Assuming this is the topic *** CHANGE
+                    curdata += 24;
+                    if((void *)(curdata) + 1 > (void *)data_end){
+                        if (BPF_PRINT) bpf_printk("[xdp_aborted] MQTT publish packet does not contain payload");
+                        goto abort; 
                     }
+                    if ((void *)(curdata) + 5 > (void *)data_end) {
+                        if (BPF_PRINT) bpf_printk("[xdp_aborted] MQTT publish packet does not contain at least 5 bytes payload");
+                        goto abort; 
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        // Create a pointer for the specific byte we want to access
+                        unsigned char *ptr = (unsigned char *)(curdata + i);
+                        if ((void *)(ptr + 1) > data_end) break;
+                        unsigned char val = *ptr;
+                        if (val >= 'a' && val <= 'z') {
+                            *ptr = val - ('a' - 'A');
+                        }
+                    }
+                    // end of MQTT payload injection 
                 }
             } // is a MQTT Publish packet
         } // contains at least Fixed Header

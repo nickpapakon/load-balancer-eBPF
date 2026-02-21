@@ -34,7 +34,7 @@ if [ "$ONE_REAL_ONLY" -eq 1 ]; then
     DESTINATION_IP=${REAL_1_IP}
 fi
 
-python3 client_pub_opts.py -H ${DESTINATION_IP} -t ${topics[$CLIENT_NUM]} -P ${MQTT_PORT} -k ${KEEP_ALIVE} -N ${TOTAL_MESSAGES} -S ${SLEEP_TIME} -c client_${CLIENT_NUM}
+# python3 client_pub_opts.py -H ${DESTINATION_IP} -t ${topics[$CLIENT_NUM]} -P ${MQTT_PORT} -k ${KEEP_ALIVE} -N ${TOTAL_MESSAGES} -S ${SLEEP_TIME} -c client_${CLIENT_NUM}
 
 # sleep so that container does not exit (if PAUSE is set to 1) and we can inspect it
 if [ "$PAUSE" -eq 1 ]; then
