@@ -1,0 +1,9 @@
++ ip route add 10.1.0.0/16 via 10.1.1.101 dev eth0
++ topics=("measurements/temperature" "measurements/temperature" "measurements/temperature" "measurements/temperature" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/other")
++ sleep 10
++ cd utils
++ DESTINATION_IP=10.1.50.200
++ '[' '' -eq 1 ']'
+/home/client-folder/setup.sh: line 33: [: : integer expression expected
++ '[' 1 -eq 1 ']'
++ sleep infinity
