@@ -111,12 +111,6 @@ int mqtt_fwd(struct xdp_md *ctx)
             // 1st byte is control header byte (Control header fields parsed)
             if (BPF_PRINT) bpf_printk("This segment Contains MQTT packet");
             if (BPF_PRINT) bpf_printk("MQTT Packet type: %d", mqtt_h->bits.type);
-
-            // [Check QoS=0]: only QoS = 0 supported
-            if (mqtt_h->bits.qos){
-                if (BPF_PRINT) bpf_printk("[xdp_aborted] Qos > 0 is NOT supported");
-                goto abort;
-            }
             
             // forward pointer by a char (control header)
             readChar(&curdata);
@@ -216,16 +210,8 @@ int mqtt_fwd(struct xdp_md *ctx)
                     } else {
                         if (BPF_PRINT) bpf_printk("No VIP mapping found for actual topic");
                     }
-
-                    // [MQTT payload injection]: convert the first 5 characters of they payload to uppercase
-                    // curdata shows to MQTT payload as packet id is not present in MQTT PUBLISH messages with QoS=0
-                    curdata += topic_len;
-                    for(int i=0; i<5; i++){
-                        if (i >= topic_len) break;
-                        if ((void *)(curdata + i + 1) > (void *)data_end) break;
-                        if(curdata[i]>='a' && curdata[i]<='z') curdata[i] += 'A' - 'a';
-                    }
                 }
+                
             } // is a MQTT Publish packet
         } // contains at least Fixed Header
     } // packet destined to MQTT_PORT
