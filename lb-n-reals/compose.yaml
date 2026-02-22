@@ -318,11 +318,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -346,11 +346,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -372,11 +372,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -398,11 +398,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -424,11 +424,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -451,11 +451,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -478,11 +478,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.01'
+          memory: 8M
     privileged: true
     cap_add:
       - NET_ADMIN
