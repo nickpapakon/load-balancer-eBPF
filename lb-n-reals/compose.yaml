@@ -8,11 +8,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2.0'
-          memory: 1G
+          cpus: '0.5'
+          memory: 512M
         reservations:
-          cpus: '2.0'
-          memory: 1G
+          cpus: '0.5'
+          memory: 512M
     privileged: true                    # recommended for XDP/AF_XDP access
     cap_add:
       - NET_ADMIN
@@ -38,11 +38,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 512M
+          cpus: '0.05'
+          memory: 8M
         reservations:
-          cpus: '1.0'
-          memory: 512M
+          cpus: '0.05'
+          memory: 8M
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -56,6 +56,9 @@ services:
       gateway-reals:
         ipv4_address: ${GATEWAY_REAL_IP}
         mac_address:  ${GATEWAY_REAL_MAC}
+      gateway-shared-subs-broker:
+        ipv4_address: ${GATEWAY_SHARED_SUBS_BROKER_IP}
+        mac_address: ${GATEWAY_SHARED_SUBS_BROKER_MAC}
       gateway-scratch-lb:
         ipv4_address: ${GATEWAY_SCRATCH_LB_IP}
         mac_address:  ${GATEWAY_SCRATCH_LB_MAC}
@@ -73,11 +76,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -97,11 +100,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -121,11 +124,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -145,11 +148,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -169,11 +172,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -193,11 +196,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -217,11 +220,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -242,11 +245,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -267,11 +270,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -291,11 +294,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
         reservations:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.05'
+          memory: 32M
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -499,6 +502,33 @@ services:
 
 
 
+###### Central Broker that handles MQTT v5 Shared Subscriptions #######
+
+  shared_subs_broker:
+    container_name: shared_subs_broker
+    build:
+      context: shared_subs_broker/
+    deploy:           # use same limits as Katran for a fair comparison
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
+    networks:
+      gateway-shared-subs-broker:
+        ipv4_address: ${SHARED_SUBS_BROKER_IP}
+        mac_address: ${SHARED_SUBS_BROKER_MAC}
+    env_file: .env
+
+
 ###### Monitoring #######
 
   cadvisor:
@@ -522,6 +552,7 @@ services:
     - --config.file=/etc/prometheus/prometheus.yml
     volumes:
     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    - prometheus_data:/prometheus
     depends_on:
     - cadvisor
 
@@ -531,7 +562,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3013:3000
     volumes:
       - grafana-storage:/var/lib/grafana
     depends_on:
@@ -542,6 +573,7 @@ services:
 
 volumes:
   grafana-storage: {}
+  prometheus_data:
 
 
 networks:
@@ -565,3 +597,8 @@ networks:
     ipam:
       config:
         - subnet: ${GATEWAY_SCRATCH_LB_SUBNET}
+  gateway-shared-subs-broker:
+    driver: macvlan
+    ipam:
+      config:
+        - subnet: ${GATEWAY_SHARED_SUBS_BROKER_SUBNET}

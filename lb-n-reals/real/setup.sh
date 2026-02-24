@@ -36,5 +36,28 @@ for sc in $(sysctl -a | awk '/\.rp_filter/ {print $1}'); do  echo $sc ; sysctl $
 # run the application
 # uvicorn app:app --host 0.0.0.0 --port 8000
 
-# run mosquitto broker
-mosquitto -v -c /etc/mosquitto/conf.d/mosquitto.conf
+
+topics=(    
+    "non_existing_topic"
+    "\$share/vip_a/measurements/temperature" 
+    "\$share/vip_a/measurements/temperature" 
+    "\$share/vip_b/measurements/humidity" 
+    "\$share/vip_b/measurements/humidity" 
+    "\$share/vip_default/measurements/other"
+    "\$share/vip_default/measurements/other"
+)
+
+
+while ! ping -c 1 -W 1 "$GATEWAY_REAL_IP" > /dev/null 2>&1; do
+    echo "[client] Waiting for $GATEWAY_REAL_IP to become reachable..."
+    sleep 5
+done
+
+
+if [ "$SHARED_SUBS" -eq 1 ]; then
+  # use shared subscription to receive messages load-balanced by the broker, in the shared-subs scenario
+  mosquitto_sub -h ${SHARED_SUBS_BROKER_IP} -p ${MQTT_PORT} -t ${topics[$NUM]}
+else
+  # operate as a real mosquitto broker, to receive messages directly from clients in the one-real-only scenario
+  mosquitto -v -c /etc/mosquitto/conf.d/mosquitto.conf
+fi

@@ -15,14 +15,14 @@ if __name__ == '__main__':
             lines = logfile.readlines()
 
         for line in lines:
-            regex_pattern = r"PUBLISH from client_([0-9]+).*(measurements[^']+).*([0-9]+)\s+bytes"
+            regex_pattern = r"(PUBLISH|MESSAGE) from client_([0-9]+).*(measurements[^']+).*([0-9]+)\s+bytes"
             publish_msg = re.search(regex_pattern, line)
             if not publish_msg:
                 continue
             
-            client = int(publish_msg.group(1))
-            topic = publish_msg.group(2)
-            message_len = int(publish_msg.group(3))
+            client = int(publish_msg.group(2))
+            topic = publish_msg.group(3)
+            message_len = int(publish_msg.group(4))
 
             if client not in sent_publish_msgs:
                 sent_publish_msgs[client] = {}

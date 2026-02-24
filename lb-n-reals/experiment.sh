@@ -3,14 +3,27 @@
 # logging of commands, exit if any cmd fails
 set -euxo pipefail
 
+# Set up containers for monitoring
+docker compose up --build -d cadvisor prometheus grafana
+
 # Set up the servers and Load Balancer and monitoring stack
 if [ "$CONFIG_AND_OPERATE_LB" -eq 1 ]; then
-    docker compose up --build -d katran gateway real_[0-6] cadvisor prometheus grafana 
+    docker compose up --build -d katran gateway real_[0-6]  
     echo "Waiting for containers to be up, configured and operational ..." 
     sleep 40
 fi
 
-# KATRAN CONFIG DONE
+
+if [ "$SHARED_SUBS" -eq 1 ]; then
+    echo "Configuring MQTT broker for Shared Subscriptions experiment..."
+    docker compose up --build -d gateway shared_subs_broker
+    sleep 10 # wait for the shared subscription broker to be up and running
+    docker compose up --build -d real_[0-6]  # reals will subscribe to the shared subscription broker
+    sleep 10
+    echo "MQTT broker configured for Shared Subscriptions experiment."
+fi
+
+# KATRAN / Shared Subscriptions CONFIG DONE
 # EXPERIMENT STARTS HERE
 # environment variables from .env should have been set
 TOTAL_TIME=$(echo "$TOTAL_MESSAGES * $SLEEP_TIME" | bc)

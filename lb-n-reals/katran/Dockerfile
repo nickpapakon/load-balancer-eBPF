@@ -4,7 +4,7 @@ USER simple_user
 
 # if needed to re-build Katran because a src file changed
 # change the argument below to invalidate docker build cache for the Katran build step
-ARG KATRAN_BUILD_CACHE_BUSTER=10
+ARG KATRAN_BUILD_CACHE_BUSTER=0
 RUN git pull
 
 ARG KATRAN_BPF_DIR=/home/simple_user/katran/katran/lib/bpf
@@ -12,6 +12,14 @@ ARG KATRAN_BPF_DIR=/home/simple_user/katran/katran/lib/bpf
 WORKDIR ${KATRAN_BPF_DIR}
 
 WORKDIR /home/simple_user/katran
+
+ENV ENABLE_KATRAN_BPF_PRINTK=0
+
+# enable bpf_printk if env var is set
+RUN if [ "$ENABLE_KATRAN_BPF_PRINTK" -eq 1 ]; then \
+        sed -i 's/^#define DIPLOMA_DEBUG.*/#define DIPLOMA_DEBUG 1/' ${KATRAN_BPF_DIR}/balancer.bpf.c; \
+        sleep 5; \
+    fi
 
 RUN echo "[Katran Build] build and test Katran" && \
     export BUILD_AND_TEST=1 && \

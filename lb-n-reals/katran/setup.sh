@@ -26,6 +26,12 @@ ip route add ${GENERAL_SUBNET} via ${GATEWAY_KATRAN_IP} dev eth0
 # cd /home/simple_user/xdp-tutorial/basic00-loader
 # ./loader eth0
 
+if [ "$ENABLE_BPF_PRINTK" -eq 1 ]; then \
+    sed -i 's/^#define BPF_PRINT.*/#define BPF_PRINT 1/' /home/simple_user/katran/katran/lib/bpf/mqtt_topic_based_fwd.bpf.c
+else
+    sed -i 's/^#define BPF_PRINT.*/#define BPF_PRINT 0/' /home/simple_user/katran/katran/lib/bpf/mqtt_topic_based_fwd.bpf.c
+fi
+
 cd /home/simple_user/katran
 cp ../Makefile .
 

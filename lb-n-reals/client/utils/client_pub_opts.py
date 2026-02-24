@@ -118,6 +118,11 @@ print("Connecting to "+args.host+" port: "+str(port))
 mqttc.connect(args.host, port, args.keepalive)
 
 mqttc.loop_start()
+
+time.sleep(5)  # wait for all clients to connect before starting to publish messages
+
+publish_start = time.time()
+
 previous_time = time.time()
 
 for x in range (1, 1 + args.nummsgs):
@@ -136,7 +141,8 @@ for x in range (1, 1 + args.nummsgs):
 
     # avoid fragmentantion by keeping 
     # message size + headers < typical MTU of 1500 bytes
-    msg_txt = 1000*"#"
+    msg_txt = 900*"#"
+    msg_txt = f"\n\t\t [Custom MQTT Message/Payload] Received MESSAGE from {args.clientid} ( '{args.topic}', {100 + len(msg_txt)} bytes \n" + msg_txt
     print(f"Publishing: msgnum: {x}")
     try:
         infot = mqttc.publish(args.topic, msg_txt, qos=args.qos)
@@ -144,6 +150,10 @@ for x in range (1, 1 + args.nummsgs):
     except Exception as e:
         print(f"Publish failed with Exception: {e}")
 
-    
+
+publish_end = time.time()
+total_time = publish_end - publish_start
+print(f"Published {args.nummsgs} messages in {total_time:.2f} seconds. Average time per message: {total_time/args.nummsgs:.2f} seconds.")
+
 mqttc.loop_stop()
 mqttc.disconnect()
