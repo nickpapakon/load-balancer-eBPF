@@ -622,3 +622,95 @@ Received PUBLISH from auto-2F327F23-28BA-9202-475D-0390AA132D52 (d0, q0, r0, m0,
 ```
 
 
+## Test 9
+
+Procedure is done automatically bey executing `./test-9.sh`.
+
+### Clients publish to topics
+
+| client     | topic                      |
+| ---------- | -------------------------- |
+|  0,1,2,3   | `measurements/temperature` |
+| 4,5,6,7,8  | `measurements/humidity`    |
+|   9        | `measurements/other`       |
+
+
+### Topic to VIP  &  VIP to reals   mappings
+
+| topic                      | VIP         | Reals (brokers)  |
+| ---------------------------| ----------- | ---------------- |
+| `measurements/temperature` | VIP_A       | 1,2              |
+| `measurements/humidity`    | VIP_B       | 3,4              |
+| other topics               | VIP_DEFAULT | 5,6              |
+
+
+### Procedure
+
+This test was conducted in 3 phases. In all these phases these are common:
+- 10 clients
+- Each message is approximately 1000 Bytes
+- Each client makes a total of 1000 MQTT Publish messages at a 10Hz frequency
+- Each client publishes to a specific topic specified in `client/setup.sh`
+
+Consequently the network traffic (computing only MQTT PUBLISH message frames that are the vast majority) is around
+```
+MQTT PUBLISH frames traffic ~= (10 clients) * (1000 B) / (0.1 sec) = 100,000 B/sec   = 100 kB/sec  (800 kbps)
+```
+
+The 3 different phases are the following. Client publish to
+1. a single broker `real_0`
+2. `katran`, the eBPF Load Balancer (actually `mqtt_fwd` + `balancer_ingress`)  which is in front of 6 brokers `real_[1-6]`  (L4 Load Balancing)
+3. `shared_subs_broker`, a broker that maintains shared subscriptions , done from  6 containers `real_[1-6]`  and forwards the appropriate PUBLISH messages (L7 Load Balancing)
+
+Notes:
+- Logging has been disabled both in `katran` and `shared_subs_broker` to avoid performance overheads (as it would be in production environments)
+- Results are kept in `evolution/test_9_2/` directory. 
+- `experiment_results.txt` contains the actual results in term of received PUBLISH messages by the brokers.
+- `monitoring` contains images with graphs from grafana about CPU Usage, Received Network Traffic, Memory Usage.
+- `my_custom_dashboard.json` is a json that can be loaded in grafana (Dashboards > New > Import - connect to prometheus data-source on `http://prometheus:9090`). 
+- `prometheus` folder contains the timeseries-database snapshot that can be used to re-inspect the data gathered by cAdvisor for the containers at runtime and stored in prometheus. 
+
+### Conclusions
+
+
+- In **Single Broker Test**, all messages are published to 
+`real_0` (that's why it's **max CPU usage gets 83.1%** and **max received network traffic rate 106 KiB/s**)
+- In **Load Balancer Test**, Load Balancing is done per client (as know katran sends the packet with the same 5-tuple to the same real if there exists a session in the LRU session eBPF map). So, clients publish to 4 reals (selected by the hash) and 
+
+| Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
+| -------- | -------- | -------------- | --------------------------------- |
+| real_2   | 0,1,2,3  | 69.6%          | 85.6 KiB/s                        |
+| real_3   | 4,6      | 35.1%          | 42.4 KiB/s	                       |
+| real_4   | 5,7,8    | 52.5%          | 63.8 KiB/s                        |
+| real_6   | 9        | 19.7%          | 21.2 KiB/s                        |
+
+`katran` container has **Max CPU Usage: 0.06%** and **Max Received Network Traffic Rate 106 KiB/s** 
+
+As expected the first message from each client is lost due to the fact that the `mqtt_fwd` program makes false prediction on the future MQTT topic (as this client IP has not been seen before and does not exist in the eBPF Map) 
+
+***Ignore the messages published to real_0. These just exist in the .txt because the container real_0 was not restarted***
+
+- In **Shared Subscriptions Test**, Load Balancing is done per message and thus it is fairer. `shared_subs_broker` is a broker that maintains the subscription lists and e.g. each time a publish to `measurements/temperature` arrives, this should be forwarded to one of `real_1` or `real_2`, who have previously subscribed to `$share/vip_a/measurements/temperature` (shared subscription)
+
+| Real     |  Max CPU Usage | Max Received Network Traffic Rate |
+| -------- | -------------- | --------------------------------- |
+| real_1   | 35.0%          | 21.3 KiB/s                        |
+| real_2   | 30.3%          | 21.3 KiB/s                        |
+| real_3   | 38.6%          | 26.4 KiB/s	                    |
+| real_4   | 37.5%          | 26.4 KiB/s                        |
+| real_5   | 26.2%          | 5.26 KiB/s                        |
+| real_6   | 24.8%          | 5.27 KiB/s                        |
+
+`shared_subs_broker` container has **Max CPU Usage: 3.86%** and **Max Received Network Traffic Rate 113 KiB/s** 
+
+### Container resources
+
+For all containers `deploy-resources` section has `limits`=`reservations` to ensure isolation.
+
+| Container             |  CPUs | Memory |
+| --------------------- | ----- | ------ |
+| katran                | 0.5   | 512M   |
+| shared_subs_broker    | 0.5   | 512M   |
+| real_.*               | 0.01  | 8M	 |
+| client_.*             | 0.05  | 32M    |
+| geteway               | 0.05  | 8M     |

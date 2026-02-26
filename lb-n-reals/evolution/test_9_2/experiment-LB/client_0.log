@@ -1,0 +1,2028 @@
++ ip route add 10.1.0.0/16 via 10.1.1.101 dev eth0
++ topics=("measurements/temperature" "measurements/temperature" "measurements/temperature" "measurements/temperature" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/humidity" "measurements/other")
++ sleep 10
++ cd utils
++ DESTINATION_IP=10.1.50.200
++ '[' 0 -eq 1 ']'
++ '[' 0 -eq 1 ']'
++ ping -c 1 -W 1 10.1.1.101
++ echo '[client] Waiting for 10.1.1.101 to become reachable...'
++ sleep 5
+[client] Waiting for 10.1.1.101 to become reachable...
++ ping -c 1 -W 1 10.1.1.101
++ echo '[client] Waiting for 10.1.1.101 to become reachable...'
++ sleep 5
+[client] Waiting for 10.1.1.101 to become reachable...
++ ping -c 1 -W 1 10.1.1.101
++ python3 client_pub_opts.py -H 10.1.50.200 -t measurements/temperature -P 1883 -k 4 -N 1000 -S 0.1 -c client_0
+Connecting to 10.1.50.200 port: 1883
+connect reason_code: Success
+Publishing: msgnum: 1
+mid: 1
+Client disconnected. userdata: None,  reason_code: Unspecified error
+Waiting for reconnection (TCP 3WHS in progress)...
+connect reason_code: Success
+Publishing: msgnum: 2
+mid: 2
+Warning: Publishing is taking longer than the specified delay of 0.1 seconds.               Time elapsed since last publish - (elapsed_time): 1.00 seconds.
+Publishing: msgnum: 3
+mid: 3
+Publishing: msgnum: 4
+mid: 4
+Publishing: msgnum: 5
+mid: 5
+Publishing: msgnum: 6
+mid: 6
+Publishing: msgnum: 7
+mid: 7
+Publishing: msgnum: 8
+mid: 8
+Publishing: msgnum: 9
+mid: 9
+Publishing: msgnum: 10
+mid: 10
+Publishing: msgnum: 11
+mid: 11
+Publishing: msgnum: 12
+mid: 12
+Publishing: msgnum: 13
+mid: 13
+Publishing: msgnum: 14
+mid: 14
+Publishing: msgnum: 15
+mid: 15
+Publishing: msgnum: 16
+mid: 16
+Publishing: msgnum: 17
+mid: 17
+Publishing: msgnum: 18
+mid: 18
+Publishing: msgnum: 19
+mid: 19
+Publishing: msgnum: 20
+mid: 20
+Publishing: msgnum: 21
+mid: 21
+Publishing: msgnum: 22
+mid: 22
+Publishing: msgnum: 23
+mid: 23
+Publishing: msgnum: 24
+mid: 24
+Publishing: msgnum: 25
+mid: 25
+Publishing: msgnum: 26
+mid: 26
+Publishing: msgnum: 27
+mid: 27
+Publishing: msgnum: 28
+mid: 28
+Publishing: msgnum: 29
+mid: 29
+Publishing: msgnum: 30
+mid: 30
+Publishing: msgnum: 31
+mid: 31
+Publishing: msgnum: 32
+mid: 32
+Publishing: msgnum: 33
+mid: 33
+Publishing: msgnum: 34
+mid: 34
+Publishing: msgnum: 35
+mid: 35
+Publishing: msgnum: 36
+mid: 36
+Publishing: msgnum: 37
+mid: 37
+Publishing: msgnum: 38
+mid: 38
+Publishing: msgnum: 39
+mid: 39
+Publishing: msgnum: 40
+mid: 40
+Publishing: msgnum: 41
+mid: 41
+Publishing: msgnum: 42
+mid: 42
+Publishing: msgnum: 43
+mid: 43
+Publishing: msgnum: 44
+mid: 44
+Publishing: msgnum: 45
+mid: 45
+Publishing: msgnum: 46
+mid: 46
+Publishing: msgnum: 47
+mid: 47
+Publishing: msgnum: 48
+mid: 48
+Publishing: msgnum: 49
+mid: 49
+Publishing: msgnum: 50
+mid: 50
+Warning: Publishing is taking longer than the specified delay of 0.1 seconds.               Time elapsed since last publish - (elapsed_time): 0.54 seconds.
+Publishing: msgnum: 51
+mid: 51
+Publishing: msgnum: 52
+mid: 52
+Publishing: msgnum: 53
+mid: 53
+Publishing: msgnum: 54
+mid: 54
+Publishing: msgnum: 55
+mid: 55
+Publishing: msgnum: 56
+mid: 56
+Publishing: msgnum: 57
+mid: 57
+Publishing: msgnum: 58
+mid: 58
+Publishing: msgnum: 59
+mid: 59
+Publishing: msgnum: 60
+mid: 60
+Publishing: msgnum: 61
+mid: 61
+Publishing: msgnum: 62
+mid: 62
+Publishing: msgnum: 63
+mid: 63
+Publishing: msgnum: 64
+mid: 64
+Publishing: msgnum: 65
+mid: 65
+Publishing: msgnum: 66
+mid: 66
+Publishing: msgnum: 67
+mid: 67
+Publishing: msgnum: 68
+mid: 68
+Publishing: msgnum: 69
+mid: 69
+Publishing: msgnum: 70
+mid: 70
+Publishing: msgnum: 71
+mid: 71
+Publishing: msgnum: 72
+mid: 72
+Publishing: msgnum: 73
+mid: 73
+Publishing: msgnum: 74
+mid: 74
+Publishing: msgnum: 75
+mid: 75
+Publishing: msgnum: 76
+mid: 76
+Publishing: msgnum: 77
+mid: 77
+Publishing: msgnum: 78
+mid: 78
+Publishing: msgnum: 79
+mid: 79
+Publishing: msgnum: 80
+mid: 80
+Publishing: msgnum: 81
+mid: 81
+Publishing: msgnum: 82
+mid: 82
+Publishing: msgnum: 83
+mid: 83
+Publishing: msgnum: 84
+mid: 84
+Publishing: msgnum: 85
+mid: 85
+Publishing: msgnum: 86
+mid: 86
+Publishing: msgnum: 87
+mid: 87
+Publishing: msgnum: 88
+mid: 88
+Publishing: msgnum: 89
+mid: 89
+Publishing: msgnum: 90
+mid: 90
+Publishing: msgnum: 91
+mid: 91
+Publishing: msgnum: 92
+mid: 92
+Publishing: msgnum: 93
+mid: 93
+Publishing: msgnum: 94
+mid: 94
+Publishing: msgnum: 95
+mid: 95
+Publishing: msgnum: 96
+mid: 96
+Publishing: msgnum: 97
+mid: 97
+Publishing: msgnum: 98
+mid: 98
+Publishing: msgnum: 99
+mid: 99
+Publishing: msgnum: 100
+mid: 100
+Publishing: msgnum: 101
+mid: 101
+Publishing: msgnum: 102
+mid: 102
+Publishing: msgnum: 103
+mid: 103
+Publishing: msgnum: 104
+mid: 104
+Publishing: msgnum: 105
+mid: 105
+Publishing: msgnum: 106
+mid: 106
+Publishing: msgnum: 107
+mid: 107
+Publishing: msgnum: 108
+mid: 108
+Publishing: msgnum: 109
+mid: 109
+Publishing: msgnum: 110
+mid: 110
+Publishing: msgnum: 111
+mid: 111
+Publishing: msgnum: 112
+mid: 112
+Publishing: msgnum: 113
+mid: 113
+Publishing: msgnum: 114
+mid: 114
+Publishing: msgnum: 115
+mid: 115
+Publishing: msgnum: 116
+mid: 116
+Publishing: msgnum: 117
+mid: 117
+Publishing: msgnum: 118
+mid: 118
+Publishing: msgnum: 119
+mid: 119
+Publishing: msgnum: 120
+mid: 120
+Publishing: msgnum: 121
+mid: 121
+Publishing: msgnum: 122
+mid: 122
+Publishing: msgnum: 123
+mid: 123
+Publishing: msgnum: 124
+mid: 124
+Publishing: msgnum: 125
+mid: 125
+Publishing: msgnum: 126
+mid: 126
+Publishing: msgnum: 127
+mid: 127
+Publishing: msgnum: 128
+mid: 128
+Publishing: msgnum: 129
+mid: 129
+Publishing: msgnum: 130
+mid: 130
+Publishing: msgnum: 131
+mid: 131
+Publishing: msgnum: 132
+mid: 132
+Publishing: msgnum: 133
+mid: 133
+Publishing: msgnum: 134
+mid: 134
+Publishing: msgnum: 135
+mid: 135
+Publishing: msgnum: 136
+mid: 136
+Publishing: msgnum: 137
+mid: 137
+Publishing: msgnum: 138
+mid: 138
+Publishing: msgnum: 139
+mid: 139
+Publishing: msgnum: 140
+mid: 140
+Publishing: msgnum: 141
+mid: 141
+Publishing: msgnum: 142
+mid: 142
+Publishing: msgnum: 143
+mid: 143
+Publishing: msgnum: 144
+mid: 144
+Publishing: msgnum: 145
+mid: 145
+Publishing: msgnum: 146
+mid: 146
+Publishing: msgnum: 147
+mid: 147
+Publishing: msgnum: 148
+mid: 148
+Publishing: msgnum: 149
+mid: 149
+Publishing: msgnum: 150
+mid: 150
+Publishing: msgnum: 151
+mid: 151
+Publishing: msgnum: 152
+mid: 152
+Publishing: msgnum: 153
+mid: 153
+Publishing: msgnum: 154
+mid: 154
+Publishing: msgnum: 155
+mid: 155
+Publishing: msgnum: 156
+mid: 156
+Publishing: msgnum: 157
+mid: 157
+Publishing: msgnum: 158
+mid: 158
+Publishing: msgnum: 159
+mid: 159
+Publishing: msgnum: 160
+mid: 160
+Publishing: msgnum: 161
+mid: 161
+Publishing: msgnum: 162
+mid: 162
+Publishing: msgnum: 163
+mid: 163
+Publishing: msgnum: 164
+mid: 164
+Publishing: msgnum: 165
+mid: 165
+Publishing: msgnum: 166
+mid: 166
+Publishing: msgnum: 167
+mid: 167
+Publishing: msgnum: 168
+mid: 168
+Publishing: msgnum: 169
+mid: 169
+Publishing: msgnum: 170
+mid: 170
+Publishing: msgnum: 171
+mid: 171
+Publishing: msgnum: 172
+mid: 172
+Publishing: msgnum: 173
+mid: 173
+Publishing: msgnum: 174
+mid: 174
+Publishing: msgnum: 175
+mid: 175
+Publishing: msgnum: 176
+mid: 176
+Publishing: msgnum: 177
+mid: 177
+Publishing: msgnum: 178
+mid: 178
+Publishing: msgnum: 179
+mid: 179
+Publishing: msgnum: 180
+mid: 180
+Publishing: msgnum: 181
+mid: 181
+Publishing: msgnum: 182
+mid: 182
+Publishing: msgnum: 183
+mid: 183
+Publishing: msgnum: 184
+mid: 184
+Publishing: msgnum: 185
+mid: 185
+Publishing: msgnum: 186
+mid: 186
+Publishing: msgnum: 187
+mid: 187
+Publishing: msgnum: 188
+mid: 188
+Publishing: msgnum: 189
+mid: 189
+Publishing: msgnum: 190
+mid: 190
+Publishing: msgnum: 191
+mid: 191
+Publishing: msgnum: 192
+mid: 192
+Publishing: msgnum: 193
+mid: 193
+Publishing: msgnum: 194
+mid: 194
+Publishing: msgnum: 195
+mid: 195
+Publishing: msgnum: 196
+mid: 196
+Publishing: msgnum: 197
+mid: 197
+Publishing: msgnum: 198
+mid: 198
+Publishing: msgnum: 199
+mid: 199
+Publishing: msgnum: 200
+mid: 200
+Publishing: msgnum: 201
+mid: 201
+Publishing: msgnum: 202
+mid: 202
+Publishing: msgnum: 203
+mid: 203
+Publishing: msgnum: 204
+mid: 204
+Publishing: msgnum: 205
+mid: 205
+Publishing: msgnum: 206
+mid: 206
+Publishing: msgnum: 207
+mid: 207
+Publishing: msgnum: 208
+mid: 208
+Publishing: msgnum: 209
+mid: 209
+Publishing: msgnum: 210
+mid: 210
+Publishing: msgnum: 211
+mid: 211
+Publishing: msgnum: 212
+mid: 212
+Publishing: msgnum: 213
+mid: 213
+Publishing: msgnum: 214
+mid: 214
+Publishing: msgnum: 215
+mid: 215
+Publishing: msgnum: 216
+mid: 216
+Publishing: msgnum: 217
+mid: 217
+Publishing: msgnum: 218
+mid: 218
+Publishing: msgnum: 219
+mid: 219
+Publishing: msgnum: 220
+mid: 220
+Publishing: msgnum: 221
+mid: 221
+Publishing: msgnum: 222
+mid: 222
+Publishing: msgnum: 223
+mid: 223
+Publishing: msgnum: 224
+mid: 224
+Publishing: msgnum: 225
+mid: 225
+Publishing: msgnum: 226
+mid: 226
+Publishing: msgnum: 227
+mid: 227
+Publishing: msgnum: 228
+mid: 228
+Publishing: msgnum: 229
+mid: 229
+Publishing: msgnum: 230
+mid: 230
+Publishing: msgnum: 231
+mid: 231
+Publishing: msgnum: 232
+mid: 232
+Publishing: msgnum: 233
+mid: 233
+Publishing: msgnum: 234
+mid: 234
+Publishing: msgnum: 235
+mid: 235
+Publishing: msgnum: 236
+mid: 236
+Publishing: msgnum: 237
+mid: 237
+Publishing: msgnum: 238
+mid: 238
+Publishing: msgnum: 239
+mid: 239
+Publishing: msgnum: 240
+mid: 240
+Publishing: msgnum: 241
+mid: 241
+Publishing: msgnum: 242
+mid: 242
+Publishing: msgnum: 243
+mid: 243
+Publishing: msgnum: 244
+mid: 244
+Publishing: msgnum: 245
+mid: 245
+Publishing: msgnum: 246
+mid: 246
+Publishing: msgnum: 247
+mid: 247
+Publishing: msgnum: 248
+mid: 248
+Publishing: msgnum: 249
+mid: 249
+Publishing: msgnum: 250
+mid: 250
+Publishing: msgnum: 251
+mid: 251
+Publishing: msgnum: 252
+mid: 252
+Publishing: msgnum: 253
+mid: 253
+Publishing: msgnum: 254
+mid: 254
+Publishing: msgnum: 255
+mid: 255
+Publishing: msgnum: 256
+mid: 256
+Publishing: msgnum: 257
+mid: 257
+Publishing: msgnum: 258
+mid: 258
+Publishing: msgnum: 259
+mid: 259
+Publishing: msgnum: 260
+mid: 260
+Publishing: msgnum: 261
+mid: 261
+Publishing: msgnum: 262
+mid: 262
+Publishing: msgnum: 263
+mid: 263
+Publishing: msgnum: 264
+mid: 264
+Publishing: msgnum: 265
+mid: 265
+Publishing: msgnum: 266
+mid: 266
+Publishing: msgnum: 267
+mid: 267
+Publishing: msgnum: 268
+mid: 268
+Publishing: msgnum: 269
+mid: 269
+Publishing: msgnum: 270
+mid: 270
+Publishing: msgnum: 271
+mid: 271
+Publishing: msgnum: 272
+mid: 272
+Publishing: msgnum: 273
+mid: 273
+Publishing: msgnum: 274
+mid: 274
+Publishing: msgnum: 275
+mid: 275
+Publishing: msgnum: 276
+mid: 276
+Publishing: msgnum: 277
+mid: 277
+Publishing: msgnum: 278
+mid: 278
+Publishing: msgnum: 279
+mid: 279
+Publishing: msgnum: 280
+mid: 280
+Publishing: msgnum: 281
+mid: 281
+Publishing: msgnum: 282
+mid: 282
+Publishing: msgnum: 283
+mid: 283
+Publishing: msgnum: 284
+mid: 284
+Publishing: msgnum: 285
+mid: 285
+Publishing: msgnum: 286
+mid: 286
+Publishing: msgnum: 287
+mid: 287
+Publishing: msgnum: 288
+mid: 288
+Publishing: msgnum: 289
+mid: 289
+Publishing: msgnum: 290
+mid: 290
+Publishing: msgnum: 291
+mid: 291
+Publishing: msgnum: 292
+mid: 292
+Publishing: msgnum: 293
+mid: 293
+Publishing: msgnum: 294
+mid: 294
+Publishing: msgnum: 295
+mid: 295
+Publishing: msgnum: 296
+mid: 296
+Publishing: msgnum: 297
+mid: 297
+Publishing: msgnum: 298
+mid: 298
+Publishing: msgnum: 299
+mid: 299
+Publishing: msgnum: 300
+mid: 300
+Publishing: msgnum: 301
+mid: 301
+Publishing: msgnum: 302
+mid: 302
+Publishing: msgnum: 303
+mid: 303
+Publishing: msgnum: 304
+mid: 304
+Publishing: msgnum: 305
+mid: 305
+Publishing: msgnum: 306
+mid: 306
+Publishing: msgnum: 307
+mid: 307
+Publishing: msgnum: 308
+mid: 308
+Publishing: msgnum: 309
+mid: 309
+Publishing: msgnum: 310
+mid: 310
+Publishing: msgnum: 311
+mid: 311
+Publishing: msgnum: 312
+mid: 312
+Publishing: msgnum: 313
+mid: 313
+Publishing: msgnum: 314
+mid: 314
+Publishing: msgnum: 315
+mid: 315
+Publishing: msgnum: 316
+mid: 316
+Publishing: msgnum: 317
+mid: 317
+Publishing: msgnum: 318
+mid: 318
+Publishing: msgnum: 319
+mid: 319
+Publishing: msgnum: 320
+mid: 320
+Publishing: msgnum: 321
+mid: 321
+Publishing: msgnum: 322
+mid: 322
+Publishing: msgnum: 323
+mid: 323
+Publishing: msgnum: 324
+mid: 324
+Publishing: msgnum: 325
+mid: 325
+Publishing: msgnum: 326
+mid: 326
+Publishing: msgnum: 327
+mid: 327
+Publishing: msgnum: 328
+mid: 328
+Publishing: msgnum: 329
+mid: 329
+Publishing: msgnum: 330
+mid: 330
+Publishing: msgnum: 331
+mid: 331
+Publishing: msgnum: 332
+mid: 332
+Publishing: msgnum: 333
+mid: 333
+Publishing: msgnum: 334
+mid: 334
+Publishing: msgnum: 335
+mid: 335
+Publishing: msgnum: 336
+mid: 336
+Publishing: msgnum: 337
+mid: 337
+Publishing: msgnum: 338
+mid: 338
+Publishing: msgnum: 339
+mid: 339
+Publishing: msgnum: 340
+mid: 340
+Publishing: msgnum: 341
+mid: 341
+Publishing: msgnum: 342
+mid: 342
+Publishing: msgnum: 343
+mid: 343
+Publishing: msgnum: 344
+mid: 344
+Publishing: msgnum: 345
+mid: 345
+Publishing: msgnum: 346
+mid: 346
+Publishing: msgnum: 347
+mid: 347
+Publishing: msgnum: 348
+mid: 348
+Publishing: msgnum: 349
+mid: 349
+Publishing: msgnum: 350
+mid: 350
+Publishing: msgnum: 351
+mid: 351
+Publishing: msgnum: 352
+mid: 352
+Publishing: msgnum: 353
+mid: 353
+Publishing: msgnum: 354
+mid: 354
+Publishing: msgnum: 355
+mid: 355
+Publishing: msgnum: 356
+mid: 356
+Publishing: msgnum: 357
+mid: 357
+Publishing: msgnum: 358
+mid: 358
+Publishing: msgnum: 359
+mid: 359
+Publishing: msgnum: 360
+mid: 360
+Publishing: msgnum: 361
+mid: 361
+Publishing: msgnum: 362
+mid: 362
+Publishing: msgnum: 363
+mid: 363
+Publishing: msgnum: 364
+mid: 364
+Publishing: msgnum: 365
+mid: 365
+Publishing: msgnum: 366
+mid: 366
+Publishing: msgnum: 367
+mid: 367
+Publishing: msgnum: 368
+mid: 368
+Publishing: msgnum: 369
+mid: 369
+Publishing: msgnum: 370
+mid: 370
+Publishing: msgnum: 371
+mid: 371
+Publishing: msgnum: 372
+mid: 372
+Publishing: msgnum: 373
+mid: 373
+Publishing: msgnum: 374
+mid: 374
+Publishing: msgnum: 375
+mid: 375
+Publishing: msgnum: 376
+mid: 376
+Publishing: msgnum: 377
+mid: 377
+Publishing: msgnum: 378
+mid: 378
+Publishing: msgnum: 379
+mid: 379
+Publishing: msgnum: 380
+mid: 380
+Publishing: msgnum: 381
+mid: 381
+Publishing: msgnum: 382
+mid: 382
+Publishing: msgnum: 383
+mid: 383
+Publishing: msgnum: 384
+mid: 384
+Publishing: msgnum: 385
+mid: 385
+Publishing: msgnum: 386
+mid: 386
+Publishing: msgnum: 387
+mid: 387
+Publishing: msgnum: 388
+mid: 388
+Publishing: msgnum: 389
+mid: 389
+Publishing: msgnum: 390
+mid: 390
+Publishing: msgnum: 391
+mid: 391
+Publishing: msgnum: 392
+mid: 392
+Publishing: msgnum: 393
+mid: 393
+Publishing: msgnum: 394
+mid: 394
+Publishing: msgnum: 395
+mid: 395
+Publishing: msgnum: 396
+mid: 396
+Publishing: msgnum: 397
+mid: 397
+Publishing: msgnum: 398
+mid: 398
+Publishing: msgnum: 399
+mid: 399
+Publishing: msgnum: 400
+mid: 400
+Publishing: msgnum: 401
+mid: 401
+Publishing: msgnum: 402
+mid: 402
+Publishing: msgnum: 403
+mid: 403
+Publishing: msgnum: 404
+mid: 404
+Publishing: msgnum: 405
+mid: 405
+Publishing: msgnum: 406
+mid: 406
+Publishing: msgnum: 407
+mid: 407
+Publishing: msgnum: 408
+mid: 408
+Publishing: msgnum: 409
+mid: 409
+Publishing: msgnum: 410
+mid: 410
+Publishing: msgnum: 411
+mid: 411
+Publishing: msgnum: 412
+mid: 412
+Publishing: msgnum: 413
+mid: 413
+Publishing: msgnum: 414
+mid: 414
+Publishing: msgnum: 415
+mid: 415
+Publishing: msgnum: 416
+mid: 416
+Publishing: msgnum: 417
+mid: 417
+Publishing: msgnum: 418
+mid: 418
+Publishing: msgnum: 419
+mid: 419
+Publishing: msgnum: 420
+mid: 420
+Publishing: msgnum: 421
+mid: 421
+Publishing: msgnum: 422
+mid: 422
+Publishing: msgnum: 423
+mid: 423
+Publishing: msgnum: 424
+mid: 424
+Publishing: msgnum: 425
+mid: 425
+Publishing: msgnum: 426
+mid: 426
+Publishing: msgnum: 427
+mid: 427
+Publishing: msgnum: 428
+mid: 428
+Publishing: msgnum: 429
+mid: 429
+Publishing: msgnum: 430
+mid: 430
+Publishing: msgnum: 431
+mid: 431
+Publishing: msgnum: 432
+mid: 432
+Publishing: msgnum: 433
+mid: 433
+Publishing: msgnum: 434
+mid: 434
+Publishing: msgnum: 435
+mid: 435
+Publishing: msgnum: 436
+mid: 436
+Publishing: msgnum: 437
+mid: 437
+Publishing: msgnum: 438
+mid: 438
+Publishing: msgnum: 439
+mid: 439
+Publishing: msgnum: 440
+mid: 440
+Publishing: msgnum: 441
+mid: 441
+Publishing: msgnum: 442
+mid: 442
+Publishing: msgnum: 443
+mid: 443
+Publishing: msgnum: 444
+mid: 444
+Publishing: msgnum: 445
+mid: 445
+Publishing: msgnum: 446
+mid: 446
+Publishing: msgnum: 447
+mid: 447
+Publishing: msgnum: 448
+mid: 448
+Publishing: msgnum: 449
+mid: 449
+Publishing: msgnum: 450
+mid: 450
+Publishing: msgnum: 451
+mid: 451
+Publishing: msgnum: 452
+mid: 452
+Publishing: msgnum: 453
+mid: 453
+Publishing: msgnum: 454
+mid: 454
+Publishing: msgnum: 455
+mid: 455
+Publishing: msgnum: 456
+mid: 456
+Publishing: msgnum: 457
+mid: 457
+Publishing: msgnum: 458
+mid: 458
+Publishing: msgnum: 459
+mid: 459
+Publishing: msgnum: 460
+mid: 460
+Publishing: msgnum: 461
+mid: 461
+Publishing: msgnum: 462
+mid: 462
+Publishing: msgnum: 463
+mid: 463
+Publishing: msgnum: 464
+mid: 464
+Publishing: msgnum: 465
+mid: 465
+Publishing: msgnum: 466
+mid: 466
+Publishing: msgnum: 467
+mid: 467
+Publishing: msgnum: 468
+mid: 468
+Publishing: msgnum: 469
+mid: 469
+Publishing: msgnum: 470
+mid: 470
+Publishing: msgnum: 471
+mid: 471
+Publishing: msgnum: 472
+mid: 472
+Publishing: msgnum: 473
+mid: 473
+Publishing: msgnum: 474
+mid: 474
+Publishing: msgnum: 475
+mid: 475
+Publishing: msgnum: 476
+mid: 476
+Publishing: msgnum: 477
+mid: 477
+Publishing: msgnum: 478
+mid: 478
+Publishing: msgnum: 479
+mid: 479
+Publishing: msgnum: 480
+mid: 480
+Publishing: msgnum: 481
+mid: 481
+Publishing: msgnum: 482
+mid: 482
+Publishing: msgnum: 483
+mid: 483
+Publishing: msgnum: 484
+mid: 484
+Publishing: msgnum: 485
+mid: 485
+Publishing: msgnum: 486
+mid: 486
+Publishing: msgnum: 487
+mid: 487
+Publishing: msgnum: 488
+mid: 488
+Publishing: msgnum: 489
+mid: 489
+Publishing: msgnum: 490
+mid: 490
+Publishing: msgnum: 491
+mid: 491
+Publishing: msgnum: 492
+mid: 492
+Publishing: msgnum: 493
+mid: 493
+Publishing: msgnum: 494
+mid: 494
+Publishing: msgnum: 495
+mid: 495
+Publishing: msgnum: 496
+mid: 496
+Publishing: msgnum: 497
+mid: 497
+Publishing: msgnum: 498
+mid: 498
+Publishing: msgnum: 499
+mid: 499
+Publishing: msgnum: 500
+mid: 500
+Publishing: msgnum: 501
+mid: 501
+Publishing: msgnum: 502
+mid: 502
+Publishing: msgnum: 503
+mid: 503
+Publishing: msgnum: 504
+mid: 504
+Publishing: msgnum: 505
+mid: 505
+Publishing: msgnum: 506
+mid: 506
+Publishing: msgnum: 507
+mid: 507
+Publishing: msgnum: 508
+mid: 508
+Publishing: msgnum: 509
+mid: 509
+Publishing: msgnum: 510
+mid: 510
+Publishing: msgnum: 511
+mid: 511
+Publishing: msgnum: 512
+mid: 512
+Publishing: msgnum: 513
+mid: 513
+Publishing: msgnum: 514
+mid: 514
+Publishing: msgnum: 515
+mid: 515
+Publishing: msgnum: 516
+mid: 516
+Publishing: msgnum: 517
+mid: 517
+Publishing: msgnum: 518
+mid: 518
+Publishing: msgnum: 519
+mid: 519
+Publishing: msgnum: 520
+mid: 520
+Publishing: msgnum: 521
+mid: 521
+Publishing: msgnum: 522
+mid: 522
+Publishing: msgnum: 523
+mid: 523
+Publishing: msgnum: 524
+mid: 524
+Publishing: msgnum: 525
+mid: 525
+Publishing: msgnum: 526
+mid: 526
+Publishing: msgnum: 527
+mid: 527
+Publishing: msgnum: 528
+mid: 528
+Publishing: msgnum: 529
+mid: 529
+Publishing: msgnum: 530
+mid: 530
+Publishing: msgnum: 531
+mid: 531
+Publishing: msgnum: 532
+mid: 532
+Publishing: msgnum: 533
+mid: 533
+Publishing: msgnum: 534
+mid: 534
+Publishing: msgnum: 535
+mid: 535
+Publishing: msgnum: 536
+mid: 536
+Publishing: msgnum: 537
+mid: 537
+Publishing: msgnum: 538
+mid: 538
+Publishing: msgnum: 539
+mid: 539
+Publishing: msgnum: 540
+mid: 540
+Publishing: msgnum: 541
+mid: 541
+Publishing: msgnum: 542
+mid: 542
+Publishing: msgnum: 543
+mid: 543
+Publishing: msgnum: 544
+mid: 544
+Publishing: msgnum: 545
+mid: 545
+Publishing: msgnum: 546
+mid: 546
+Publishing: msgnum: 547
+mid: 547
+Publishing: msgnum: 548
+mid: 548
+Publishing: msgnum: 549
+mid: 549
+Publishing: msgnum: 550
+mid: 550
+Publishing: msgnum: 551
+mid: 551
+Publishing: msgnum: 552
+mid: 552
+Publishing: msgnum: 553
+mid: 553
+Publishing: msgnum: 554
+mid: 554
+Publishing: msgnum: 555
+mid: 555
+Publishing: msgnum: 556
+mid: 556
+Publishing: msgnum: 557
+mid: 557
+Publishing: msgnum: 558
+mid: 558
+Publishing: msgnum: 559
+mid: 559
+Publishing: msgnum: 560
+mid: 560
+Publishing: msgnum: 561
+mid: 561
+Publishing: msgnum: 562
+mid: 562
+Publishing: msgnum: 563
+mid: 563
+Publishing: msgnum: 564
+mid: 564
+Publishing: msgnum: 565
+mid: 565
+Publishing: msgnum: 566
+mid: 566
+Publishing: msgnum: 567
+mid: 567
+Publishing: msgnum: 568
+mid: 568
+Publishing: msgnum: 569
+mid: 569
+Publishing: msgnum: 570
+mid: 570
+Publishing: msgnum: 571
+mid: 571
+Publishing: msgnum: 572
+mid: 572
+Publishing: msgnum: 573
+mid: 573
+Publishing: msgnum: 574
+mid: 574
+Publishing: msgnum: 575
+mid: 575
+Publishing: msgnum: 576
+mid: 576
+Publishing: msgnum: 577
+mid: 577
+Publishing: msgnum: 578
+mid: 578
+Publishing: msgnum: 579
+mid: 579
+Publishing: msgnum: 580
+mid: 580
+Publishing: msgnum: 581
+mid: 581
+Publishing: msgnum: 582
+mid: 582
+Publishing: msgnum: 583
+mid: 583
+Publishing: msgnum: 584
+mid: 584
+Publishing: msgnum: 585
+mid: 585
+Publishing: msgnum: 586
+mid: 586
+Publishing: msgnum: 587
+mid: 587
+Publishing: msgnum: 588
+mid: 588
+Publishing: msgnum: 589
+mid: 589
+Publishing: msgnum: 590
+mid: 590
+Publishing: msgnum: 591
+mid: 591
+Publishing: msgnum: 592
+mid: 592
+Publishing: msgnum: 593
+mid: 593
+Publishing: msgnum: 594
+mid: 594
+Publishing: msgnum: 595
+mid: 595
+Publishing: msgnum: 596
+mid: 596
+Publishing: msgnum: 597
+mid: 597
+Publishing: msgnum: 598
+mid: 598
+Publishing: msgnum: 599
+mid: 599
+Publishing: msgnum: 600
+mid: 600
+Publishing: msgnum: 601
+mid: 601
+Publishing: msgnum: 602
+mid: 602
+Publishing: msgnum: 603
+mid: 603
+Publishing: msgnum: 604
+mid: 604
+Publishing: msgnum: 605
+mid: 605
+Publishing: msgnum: 606
+mid: 606
+Publishing: msgnum: 607
+mid: 607
+Publishing: msgnum: 608
+mid: 608
+Publishing: msgnum: 609
+mid: 609
+Publishing: msgnum: 610
+mid: 610
+Publishing: msgnum: 611
+mid: 611
+Publishing: msgnum: 612
+mid: 612
+Publishing: msgnum: 613
+mid: 613
+Publishing: msgnum: 614
+mid: 614
+Publishing: msgnum: 615
+mid: 615
+Publishing: msgnum: 616
+mid: 616
+Publishing: msgnum: 617
+mid: 617
+Publishing: msgnum: 618
+mid: 618
+Publishing: msgnum: 619
+mid: 619
+Publishing: msgnum: 620
+mid: 620
+Publishing: msgnum: 621
+mid: 621
+Publishing: msgnum: 622
+mid: 622
+Publishing: msgnum: 623
+mid: 623
+Publishing: msgnum: 624
+mid: 624
+Publishing: msgnum: 625
+mid: 625
+Publishing: msgnum: 626
+mid: 626
+Publishing: msgnum: 627
+mid: 627
+Publishing: msgnum: 628
+mid: 628
+Publishing: msgnum: 629
+mid: 629
+Publishing: msgnum: 630
+mid: 630
+Publishing: msgnum: 631
+mid: 631
+Publishing: msgnum: 632
+mid: 632
+Publishing: msgnum: 633
+mid: 633
+Publishing: msgnum: 634
+mid: 634
+Publishing: msgnum: 635
+mid: 635
+Publishing: msgnum: 636
+mid: 636
+Publishing: msgnum: 637
+mid: 637
+Publishing: msgnum: 638
+mid: 638
+Publishing: msgnum: 639
+mid: 639
+Publishing: msgnum: 640
+mid: 640
+Publishing: msgnum: 641
+mid: 641
+Publishing: msgnum: 642
+mid: 642
+Publishing: msgnum: 643
+mid: 643
+Publishing: msgnum: 644
+mid: 644
+Publishing: msgnum: 645
+mid: 645
+Publishing: msgnum: 646
+mid: 646
+Publishing: msgnum: 647
+mid: 647
+Publishing: msgnum: 648
+mid: 648
+Publishing: msgnum: 649
+mid: 649
+Publishing: msgnum: 650
+mid: 650
+Publishing: msgnum: 651
+mid: 651
+Publishing: msgnum: 652
+mid: 652
+Publishing: msgnum: 653
+mid: 653
+Publishing: msgnum: 654
+mid: 654
+Publishing: msgnum: 655
+mid: 655
+Publishing: msgnum: 656
+mid: 656
+Publishing: msgnum: 657
+mid: 657
+Publishing: msgnum: 658
+mid: 658
+Publishing: msgnum: 659
+mid: 659
+Publishing: msgnum: 660
+mid: 660
+Publishing: msgnum: 661
+mid: 661
+Publishing: msgnum: 662
+mid: 662
+Publishing: msgnum: 663
+mid: 663
+Publishing: msgnum: 664
+mid: 664
+Publishing: msgnum: 665
+mid: 665
+Publishing: msgnum: 666
+mid: 666
+Publishing: msgnum: 667
+mid: 667
+Publishing: msgnum: 668
+mid: 668
+Publishing: msgnum: 669
+mid: 669
+Publishing: msgnum: 670
+mid: 670
+Publishing: msgnum: 671
+mid: 671
+Publishing: msgnum: 672
+mid: 672
+Publishing: msgnum: 673
+mid: 673
+Publishing: msgnum: 674
+mid: 674
+Publishing: msgnum: 675
+mid: 675
+Publishing: msgnum: 676
+mid: 676
+Publishing: msgnum: 677
+mid: 677
+Publishing: msgnum: 678
+mid: 678
+Publishing: msgnum: 679
+mid: 679
+Publishing: msgnum: 680
+mid: 680
+Publishing: msgnum: 681
+mid: 681
+Publishing: msgnum: 682
+mid: 682
+Publishing: msgnum: 683
+mid: 683
+Publishing: msgnum: 684
+mid: 684
+Publishing: msgnum: 685
+mid: 685
+Publishing: msgnum: 686
+mid: 686
+Publishing: msgnum: 687
+mid: 687
+Publishing: msgnum: 688
+mid: 688
+Publishing: msgnum: 689
+mid: 689
+Publishing: msgnum: 690
+mid: 690
+Publishing: msgnum: 691
+mid: 691
+Publishing: msgnum: 692
+mid: 692
+Publishing: msgnum: 693
+mid: 693
+Publishing: msgnum: 694
+mid: 694
+Publishing: msgnum: 695
+mid: 695
+Publishing: msgnum: 696
+mid: 696
+Publishing: msgnum: 697
+mid: 697
+Publishing: msgnum: 698
+mid: 698
+Publishing: msgnum: 699
+mid: 699
+Publishing: msgnum: 700
+mid: 700
+Publishing: msgnum: 701
+mid: 701
+Publishing: msgnum: 702
+mid: 702
+Publishing: msgnum: 703
+mid: 703
+Publishing: msgnum: 704
+mid: 704
+Publishing: msgnum: 705
+mid: 705
+Publishing: msgnum: 706
+mid: 706
+Publishing: msgnum: 707
+mid: 707
+Publishing: msgnum: 708
+mid: 708
+Publishing: msgnum: 709
+mid: 709
+Publishing: msgnum: 710
+mid: 710
+Publishing: msgnum: 711
+mid: 711
+Publishing: msgnum: 712
+mid: 712
+Publishing: msgnum: 713
+mid: 713
+Publishing: msgnum: 714
+mid: 714
+Publishing: msgnum: 715
+mid: 715
+Publishing: msgnum: 716
+mid: 716
+Publishing: msgnum: 717
+mid: 717
+Publishing: msgnum: 718
+mid: 718
+Publishing: msgnum: 719
+mid: 719
+Publishing: msgnum: 720
+mid: 720
+Publishing: msgnum: 721
+mid: 721
+Publishing: msgnum: 722
+mid: 722
+Publishing: msgnum: 723
+mid: 723
+Publishing: msgnum: 724
+mid: 724
+Publishing: msgnum: 725
+mid: 725
+Publishing: msgnum: 726
+mid: 726
+Publishing: msgnum: 727
+mid: 727
+Publishing: msgnum: 728
+mid: 728
+Publishing: msgnum: 729
+mid: 729
+Publishing: msgnum: 730
+mid: 730
+Publishing: msgnum: 731
+mid: 731
+Publishing: msgnum: 732
+mid: 732
+Publishing: msgnum: 733
+mid: 733
+Publishing: msgnum: 734
+mid: 734
+Publishing: msgnum: 735
+mid: 735
+Publishing: msgnum: 736
+mid: 736
+Publishing: msgnum: 737
+mid: 737
+Publishing: msgnum: 738
+mid: 738
+Publishing: msgnum: 739
+mid: 739
+Publishing: msgnum: 740
+mid: 740
+Publishing: msgnum: 741
+mid: 741
+Publishing: msgnum: 742
+mid: 742
+Publishing: msgnum: 743
+mid: 743
+Publishing: msgnum: 744
+mid: 744
+Publishing: msgnum: 745
+mid: 745
+Publishing: msgnum: 746
+mid: 746
+Publishing: msgnum: 747
+mid: 747
+Publishing: msgnum: 748
+mid: 748
+Publishing: msgnum: 749
+mid: 749
+Publishing: msgnum: 750
+mid: 750
+Publishing: msgnum: 751
+mid: 751
+Publishing: msgnum: 752
+mid: 752
+Publishing: msgnum: 753
+mid: 753
+Publishing: msgnum: 754
+mid: 754
+Publishing: msgnum: 755
+mid: 755
+Publishing: msgnum: 756
+mid: 756
+Publishing: msgnum: 757
+mid: 757
+Publishing: msgnum: 758
+mid: 758
+Publishing: msgnum: 759
+mid: 759
+Publishing: msgnum: 760
+mid: 760
+Publishing: msgnum: 761
+mid: 761
+Publishing: msgnum: 762
+mid: 762
+Publishing: msgnum: 763
+mid: 763
+Publishing: msgnum: 764
+mid: 764
+Publishing: msgnum: 765
+mid: 765
+Publishing: msgnum: 766
+mid: 766
+Publishing: msgnum: 767
+mid: 767
+Publishing: msgnum: 768
+mid: 768
+Publishing: msgnum: 769
+mid: 769
+Publishing: msgnum: 770
+mid: 770
+Publishing: msgnum: 771
+mid: 771
+Publishing: msgnum: 772
+mid: 772
+Publishing: msgnum: 773
+mid: 773
+Publishing: msgnum: 774
+mid: 774
+Publishing: msgnum: 775
+mid: 775
+Publishing: msgnum: 776
+mid: 776
+Publishing: msgnum: 777
+mid: 777
+Publishing: msgnum: 778
+mid: 778
+Publishing: msgnum: 779
+mid: 779
+Publishing: msgnum: 780
+mid: 780
+Publishing: msgnum: 781
+mid: 781
+Publishing: msgnum: 782
+mid: 782
+Publishing: msgnum: 783
+mid: 783
+Publishing: msgnum: 784
+mid: 784
+Publishing: msgnum: 785
+mid: 785
+Publishing: msgnum: 786
+mid: 786
+Publishing: msgnum: 787
+mid: 787
+Publishing: msgnum: 788
+mid: 788
+Publishing: msgnum: 789
+mid: 789
+Publishing: msgnum: 790
+mid: 790
+Publishing: msgnum: 791
+mid: 791
+Publishing: msgnum: 792
+mid: 792
+Publishing: msgnum: 793
+mid: 793
+Publishing: msgnum: 794
+mid: 794
+Publishing: msgnum: 795
+mid: 795
+Publishing: msgnum: 796
+mid: 796
+Publishing: msgnum: 797
+mid: 797
+Publishing: msgnum: 798
+mid: 798
+Publishing: msgnum: 799
+mid: 799
+Publishing: msgnum: 800
+mid: 800
+Publishing: msgnum: 801
+mid: 801
+Publishing: msgnum: 802
+mid: 802
+Publishing: msgnum: 803
+mid: 803
+Publishing: msgnum: 804
+mid: 804
+Publishing: msgnum: 805
+mid: 805
+Publishing: msgnum: 806
+mid: 806
+Publishing: msgnum: 807
+mid: 807
+Publishing: msgnum: 808
+mid: 808
+Publishing: msgnum: 809
+mid: 809
+Publishing: msgnum: 810
+mid: 810
+Publishing: msgnum: 811
+mid: 811
+Publishing: msgnum: 812
+mid: 812
+Publishing: msgnum: 813
+mid: 813
+Publishing: msgnum: 814
+mid: 814
+Publishing: msgnum: 815
+mid: 815
+Publishing: msgnum: 816
+mid: 816
+Publishing: msgnum: 817
+mid: 817
+Publishing: msgnum: 818
+mid: 818
+Publishing: msgnum: 819
+mid: 819
+Publishing: msgnum: 820
+mid: 820
+Publishing: msgnum: 821
+mid: 821
+Publishing: msgnum: 822
+mid: 822
+Publishing: msgnum: 823
+mid: 823
+Publishing: msgnum: 824
+mid: 824
+Publishing: msgnum: 825
+mid: 825
+Publishing: msgnum: 826
+mid: 826
+Publishing: msgnum: 827
+mid: 827
+Publishing: msgnum: 828
+mid: 828
+Publishing: msgnum: 829
+mid: 829
+Publishing: msgnum: 830
+mid: 830
+Publishing: msgnum: 831
+mid: 831
+Publishing: msgnum: 832
+mid: 832
+Publishing: msgnum: 833
+mid: 833
+Publishing: msgnum: 834
+mid: 834
+Publishing: msgnum: 835
+mid: 835
+Publishing: msgnum: 836
+mid: 836
+Publishing: msgnum: 837
+mid: 837
+Publishing: msgnum: 838
+mid: 838
+Publishing: msgnum: 839
+mid: 839
+Publishing: msgnum: 840
+mid: 840
+Publishing: msgnum: 841
+mid: 841
+Publishing: msgnum: 842
+mid: 842
+Publishing: msgnum: 843
+mid: 843
+Publishing: msgnum: 844
+mid: 844
+Publishing: msgnum: 845
+mid: 845
+Publishing: msgnum: 846
+mid: 846
+Publishing: msgnum: 847
+mid: 847
+Publishing: msgnum: 848
+mid: 848
+Publishing: msgnum: 849
+mid: 849
+Publishing: msgnum: 850
+mid: 850
+Publishing: msgnum: 851
+mid: 851
+Publishing: msgnum: 852
+mid: 852
+Publishing: msgnum: 853
+mid: 853
+Publishing: msgnum: 854
+mid: 854
+Publishing: msgnum: 855
+mid: 855
+Publishing: msgnum: 856
+mid: 856
+Publishing: msgnum: 857
+mid: 857
+Publishing: msgnum: 858
+mid: 858
+Publishing: msgnum: 859
+mid: 859
+Publishing: msgnum: 860
+mid: 860
+Publishing: msgnum: 861
+mid: 861
+Publishing: msgnum: 862
+mid: 862
+Publishing: msgnum: 863
+mid: 863
+Publishing: msgnum: 864
+mid: 864
+Publishing: msgnum: 865
+mid: 865
+Publishing: msgnum: 866
+mid: 866
+Publishing: msgnum: 867
+mid: 867
+Publishing: msgnum: 868
+mid: 868
+Publishing: msgnum: 869
+mid: 869
+Publishing: msgnum: 870
+mid: 870
+Publishing: msgnum: 871
+mid: 871
+Publishing: msgnum: 872
+mid: 872
+Publishing: msgnum: 873
+mid: 873
+Publishing: msgnum: 874
+mid: 874
+Publishing: msgnum: 875
+mid: 875
+Publishing: msgnum: 876
+mid: 876
+Publishing: msgnum: 877
+mid: 877
+Publishing: msgnum: 878
+mid: 878
+Publishing: msgnum: 879
+mid: 879
+Publishing: msgnum: 880
+mid: 880
+Publishing: msgnum: 881
+mid: 881
+Publishing: msgnum: 882
+mid: 882
+Publishing: msgnum: 883
+mid: 883
+Publishing: msgnum: 884
+mid: 884
+Publishing: msgnum: 885
+mid: 885
+Publishing: msgnum: 886
+mid: 886
+Publishing: msgnum: 887
+mid: 887
+Publishing: msgnum: 888
+mid: 888
+Publishing: msgnum: 889
+mid: 889
+Publishing: msgnum: 890
+mid: 890
+Publishing: msgnum: 891
+mid: 891
+Publishing: msgnum: 892
+mid: 892
+Publishing: msgnum: 893
+mid: 893
+Publishing: msgnum: 894
+mid: 894
+Publishing: msgnum: 895
+mid: 895
+Publishing: msgnum: 896
+mid: 896
+Publishing: msgnum: 897
+mid: 897
+Publishing: msgnum: 898
+mid: 898
+Publishing: msgnum: 899
+mid: 899
+Publishing: msgnum: 900
+mid: 900
+Publishing: msgnum: 901
+mid: 901
+Publishing: msgnum: 902
+mid: 902
+Publishing: msgnum: 903
+mid: 903
+Publishing: msgnum: 904
+mid: 904
+Publishing: msgnum: 905
+mid: 905
+Publishing: msgnum: 906
+mid: 906
+Publishing: msgnum: 907
+mid: 907
+Publishing: msgnum: 908
+mid: 908
+Publishing: msgnum: 909
+mid: 909
+Publishing: msgnum: 910
+mid: 910
+Publishing: msgnum: 911
+mid: 911
+Publishing: msgnum: 912
+mid: 912
+Publishing: msgnum: 913
+mid: 913
+Publishing: msgnum: 914
+mid: 914
+Publishing: msgnum: 915
+mid: 915
+Publishing: msgnum: 916
+mid: 916
+Publishing: msgnum: 917
+mid: 917
+Publishing: msgnum: 918
+mid: 918
+Publishing: msgnum: 919
+mid: 919
+Publishing: msgnum: 920
+mid: 920
+Publishing: msgnum: 921
+mid: 921
+Publishing: msgnum: 922
+mid: 922
+Publishing: msgnum: 923
+mid: 923
+Publishing: msgnum: 924
+mid: 924
+Publishing: msgnum: 925
+mid: 925
+Publishing: msgnum: 926
+mid: 926
+Publishing: msgnum: 927
+mid: 927
+Publishing: msgnum: 928
+mid: 928
+Publishing: msgnum: 929
+mid: 929
+Publishing: msgnum: 930
+mid: 930
+Publishing: msgnum: 931
+mid: 931
+Publishing: msgnum: 932
+mid: 932
+Publishing: msgnum: 933
+mid: 933
+Publishing: msgnum: 934
+mid: 934
+Publishing: msgnum: 935
+mid: 935
+Publishing: msgnum: 936
+mid: 936
+Publishing: msgnum: 937
+mid: 937
+Publishing: msgnum: 938
+mid: 938
+Publishing: msgnum: 939
+mid: 939
+Publishing: msgnum: 940
+mid: 940
+Publishing: msgnum: 941
+mid: 941
+Publishing: msgnum: 942
+mid: 942
+Publishing: msgnum: 943
+mid: 943
+Publishing: msgnum: 944
+mid: 944
+Publishing: msgnum: 945
+mid: 945
+Publishing: msgnum: 946
+mid: 946
+Publishing: msgnum: 947
+mid: 947
+Publishing: msgnum: 948
+mid: 948
+Publishing: msgnum: 949
+mid: 949
+Publishing: msgnum: 950
+mid: 950
+Publishing: msgnum: 951
+mid: 951
+Publishing: msgnum: 952
+mid: 952
+Publishing: msgnum: 953
+mid: 953
+Publishing: msgnum: 954
+mid: 954
+Publishing: msgnum: 955
+mid: 955
+Publishing: msgnum: 956
+mid: 956
+Publishing: msgnum: 957
+mid: 957
+Publishing: msgnum: 958
+mid: 958
+Publishing: msgnum: 959
+mid: 959
+Publishing: msgnum: 960
+mid: 960
+Publishing: msgnum: 961
+mid: 961
+Publishing: msgnum: 962
+mid: 962
+Publishing: msgnum: 963
+mid: 963
+Publishing: msgnum: 964
+mid: 964
+Publishing: msgnum: 965
+mid: 965
+Publishing: msgnum: 966
+mid: 966
+Publishing: msgnum: 967
+mid: 967
+Publishing: msgnum: 968
+mid: 968
+Publishing: msgnum: 969
+mid: 969
+Publishing: msgnum: 970
+mid: 970
+Publishing: msgnum: 971
+mid: 971
+Publishing: msgnum: 972
+mid: 972
+Publishing: msgnum: 973
+mid: 973
+Publishing: msgnum: 974
+mid: 974
+Publishing: msgnum: 975
+mid: 975
+Publishing: msgnum: 976
+mid: 976
+Publishing: msgnum: 977
+mid: 977
+Publishing: msgnum: 978
+mid: 978
+Publishing: msgnum: 979
+mid: 979
+Publishing: msgnum: 980
+mid: 980
+Publishing: msgnum: 981
+mid: 981
+Publishing: msgnum: 982
+mid: 982
+Publishing: msgnum: 983
+mid: 983
+Publishing: msgnum: 984
+mid: 984
+Publishing: msgnum: 985
+mid: 985
+Publishing: msgnum: 986
+mid: 986
+Publishing: msgnum: 987
+mid: 987
+Publishing: msgnum: 988
+mid: 988
+Publishing: msgnum: 989
+mid: 989
+Publishing: msgnum: 990
+mid: 990
+Publishing: msgnum: 991
+mid: 991
+Publishing: msgnum: 992
+mid: 992
+Publishing: msgnum: 993
+mid: 993
+Publishing: msgnum: 994
+mid: 994
+Publishing: msgnum: 995
+mid: 995
+Publishing: msgnum: 996
+mid: 996
+Publishing: msgnum: 997
+mid: 997
+Publishing: msgnum: 998
+mid: 998
+Publishing: msgnum: 999
+mid: 999
+Publishing: msgnum: 1000
+mid: 1000
+Published 1000 messages in 102.73 seconds. Average time per message: 0.10 seconds.
+Client disconnected. userdata: None,  reason_code: Normal disconnection
++ '[' '' -eq 1 ']'
+/home/client-folder/setup.sh: line 49: [: : integer expression expected

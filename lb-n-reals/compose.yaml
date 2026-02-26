@@ -521,7 +521,7 @@ services:
       - NET_ADMIN
       - SYS_ADMIN
     volumes:
-      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
+      - ./mosquitto_no_logs.conf:/etc/mosquitto/conf.d/mosquitto.conf
     networks:
       gateway-shared-subs-broker:
         ipv4_address: ${SHARED_SUBS_BROKER_IP}
@@ -550,6 +550,7 @@ services:
     - 9090:9090
     command:
     - --config.file=/etc/prometheus/prometheus.yml
+    - --web.enable-admin-api
     volumes:
     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     - prometheus_data:/prometheus

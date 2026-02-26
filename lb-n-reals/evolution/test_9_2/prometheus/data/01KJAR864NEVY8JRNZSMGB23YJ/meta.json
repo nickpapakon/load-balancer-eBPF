@@ -1,0 +1,18 @@
+{
+	"ulid": "01KJAR864NEVY8JRNZSMGB23YJ",
+	"minTime": 1771963768497,
+	"maxTime": 1771970400000,
+	"stats": {
+		"numSamples": 1766626,
+		"numFloatSamples": 1766626,
+		"numSeries": 11065,
+		"numChunks": 22362
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01KJAR864NEVY8JRNZSMGB23YJ"
+		]
+	},
+	"version": 1
+}

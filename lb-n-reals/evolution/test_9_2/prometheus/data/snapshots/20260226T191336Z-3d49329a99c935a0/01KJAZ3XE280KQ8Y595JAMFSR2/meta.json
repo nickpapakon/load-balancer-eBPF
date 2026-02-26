@@ -1,0 +1,18 @@
+{
+	"ulid": "01KJAZ3XE280KQ8Y595JAMFSR2",
+	"minTime": 1772031388121,
+	"maxTime": 1772035200000,
+	"stats": {
+		"numSamples": 140611,
+		"numFloatSamples": 140611,
+		"numSeries": 4150,
+		"numChunks": 4150
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01KJAZ3XE280KQ8Y595JAMFSR2"
+		]
+	},
+	"version": 1
+}
