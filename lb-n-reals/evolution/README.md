@@ -649,7 +649,7 @@ Procedure is done automatically bey executing `./test-9.sh`.
 This test was conducted in 3 phases. In all these phases these are common:
 - 10 clients
 - Each message is approximately 1000 Bytes
-- Each client makes a total of 1000 MQTT Publish messages at a 16.7 Hz frequency  (1 message per 0.06 secs)
+- Each client makes a total of 1000 MQTT Publish messages at a  16.7 Hz frequency  (1 message per 0.06 secs)
 - Each client publishes to a specific topic specified in `client/setup.sh`
 
 Consequently the network traffic (computing only MQTT PUBLISH message frames that are the vast majority) is around
@@ -675,7 +675,7 @@ Notes:
 
 - In **Single Broker Test**, all messages are published to 
 `real_0` (that's why it's **max CPU usage gets 100%** and **max received network traffic rate 173 KiB/s**)
-- In **Load Balancer Test**, Load Balancing is done per client (as know katran sends the packet with the same 5-tuple to the same real if there exists a session in the LRU session eBPF map). So, clients publish to 4 reals (selected by the hash) and 
+- In **Load Balancer Test**, Load Balancing is done per client (as know katran sends the packet with the same 5-tuple to the same real if there exists a session in the LRU session eBPF map). So, clients publish to these reals (selected by the hash) and 
 
 | Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
 | -------- | -------- | -------------- | --------------------------------- |
@@ -685,7 +685,7 @@ Notes:
 | real_4   | 7,8      |   47.0%        |      67.4 KiB/s                   |
 | real_5   | 9        |   22.4%        |      34.3 KiB/s                   |
 
-`katran` container has **Max CPU Usage: 0.06%** and **Max Received Network Traffic Rate 106 KiB/s** 
+`katran` container has **Max CPU Usage: 0.34%** and **Max Received Network Traffic Rate 168 KiB/s** 
 
 As expected the first message from each client is lost due to the fact that the `mqtt_fwd` program makes false prediction on the future MQTT topic (as this client IP has not been seen before and does not exist in the eBPF Map) 
 
@@ -695,14 +695,14 @@ As expected the first message from each client is lost due to the fact that the 
 
 | Real     |  Max CPU Usage | Max Received Network Traffic Rate |
 | -------- | -------------- | --------------------------------- |
-| real_1   | 35.0%          | 21.3 KiB/s                        |
-| real_2   | 30.3%          | 21.3 KiB/s                        |
-| real_3   | 38.6%          | 26.4 KiB/s	                    |
-| real_4   | 37.5%          | 26.4 KiB/s                        |
-| real_5   | 26.2%          | 5.26 KiB/s                        |
-| real_6   | 24.8%          | 5.27 KiB/s                        |
+| real_1   | 48.1%          | 31.6 KiB/s                        |
+| real_2   | 47.0%          | 31.5 KiB/s                        |
+| real_3   | 60.1%          | 38.9 KiB/s	                    |
+| real_4   | 58.3%          | 38.9 KiB/s                        |
+| real_5   | 27.4%          | 7.77 KiB/s                        |
+| real_6   | 28.3%          | 7.77 KiB/s                        |
 
-`shared_subs_broker` container has **Max CPU Usage: 3.86%** and **Max Received Network Traffic Rate 113 KiB/s** 
+`shared_subs_broker` container has **Max CPU Usage: 28.9%** and **Max Received Network Traffic Rate 166 KiB/s** 
 
 ### Container resources
 
