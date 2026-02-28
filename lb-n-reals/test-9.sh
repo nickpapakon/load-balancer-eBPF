@@ -7,6 +7,7 @@ COLOR_OFF="\033[0m"
 
 # clear log files
 rm -rf experiment-*/
+rm -rf experiment_*/
 
 # Experiments
 
@@ -16,8 +17,9 @@ sed -i 's/^SHARED_SUBS=.*/SHARED_SUBS=0/' .env      # ensure SHARED_SUBS is 0 fo
 sed -i 's/^ONE_REAL_ONLY=.*/ONE_REAL_ONLY=1/' .env   # Set ONE_REAL_ONLY to 1 for 1st experiment
 export CONFIG_AND_OPERATE_LB=1 && export $(grep -v '^#' .env | xargs) && ./experiment.sh
 mv experiment_logs/ experiment-single-broker/
-sleep 180
 end_1=$(date '+%d/%m/%Y_%H:%M:%S')
+sleep 120
+
 
 
 start_2=$(date '+%d/%m/%Y_%H:%M:%S')
@@ -26,8 +28,9 @@ sed -i 's/^SHARED_SUBS=.*/SHARED_SUBS=0/' .env      # ensure SHARED_SUBS is 0 fo
 sed -i 's/^ONE_REAL_ONLY=.*/ONE_REAL_ONLY=0/' .env  # Set ONE_REAL_ONLY to 0 for 2nd experiment
 export CONFIG_AND_OPERATE_LB=0 && export $(grep -v '^#' .env | xargs) && ./experiment.sh
 mv experiment_logs/ experiment-LB/
-sleep 180
 end_2=$(date '+%d/%m/%Y_%H:%M:%S')
+sleep 120
+
 
 start_3=$(date '+%d/%m/%Y_%H:%M:%S')
 echo -e "${COLOR_GREEN}  [3]: Shared Subscription broker experiment: ${COLOR_OFF} Is .env ready ?"

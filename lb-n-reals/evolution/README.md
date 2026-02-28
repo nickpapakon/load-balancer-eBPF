@@ -649,12 +649,12 @@ Procedure is done automatically bey executing `./test-9.sh`.
 This test was conducted in 3 phases. In all these phases these are common:
 - 10 clients
 - Each message is approximately 1000 Bytes
-- Each client makes a total of 1000 MQTT Publish messages at a 10Hz frequency
+- Each client makes a total of 1000 MQTT Publish messages at a 16.7 Hz frequency  (1 message per 0.06 secs)
 - Each client publishes to a specific topic specified in `client/setup.sh`
 
 Consequently the network traffic (computing only MQTT PUBLISH message frames that are the vast majority) is around
 ```
-MQTT PUBLISH frames traffic ~= (10 clients) * (1000 B) / (0.1 sec) = 100,000 B/sec   = 100 kB/sec  (800 kbps)
+MQTT PUBLISH frames traffic ~= (10 clients) * (1000 B) / (0.06 sec) = 166,666 B/sec  ~=  167 kB/sec  (1.3 Mbps)
 ```
 
 The 3 different phases are the following. Client publish to
@@ -664,7 +664,7 @@ The 3 different phases are the following. Client publish to
 
 Notes:
 - Logging has been disabled both in `katran` and `shared_subs_broker` to avoid performance overheads (as it would be in production environments)
-- Results are kept in `evolution/test_9_2/` directory. 
+- Results are kept in `evolution/test_9_3/` directory. 
 - `experiment_results.txt` contains the actual results in term of received PUBLISH messages by the brokers.
 - `monitoring` contains images with graphs from grafana about CPU Usage, Received Network Traffic, Memory Usage.
 - `my_custom_dashboard.json` is a json that can be loaded in grafana (Dashboards > New > Import - connect to prometheus data-source on `http://prometheus:9090`). 
@@ -674,21 +674,22 @@ Notes:
 
 
 - In **Single Broker Test**, all messages are published to 
-`real_0` (that's why it's **max CPU usage gets 83.1%** and **max received network traffic rate 106 KiB/s**)
+`real_0` (that's why it's **max CPU usage gets 100%** and **max received network traffic rate 173 KiB/s**)
 - In **Load Balancer Test**, Load Balancing is done per client (as know katran sends the packet with the same 5-tuple to the same real if there exists a session in the LRU session eBPF map). So, clients publish to 4 reals (selected by the hash) and 
 
 | Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
 | -------- | -------- | -------------- | --------------------------------- |
-| real_2   | 0,1,2,3  | 69.6%          | 85.6 KiB/s                        |
-| real_3   | 4,6      | 35.1%          | 42.4 KiB/s	                       |
-| real_4   | 5,7,8    | 52.5%          | 63.8 KiB/s                        |
-| real_6   | 9        | 19.7%          | 21.2 KiB/s                        |
+| real_1   | 0,1,3    |   66.0%        |       100 KiB/s                   |
+| real_2   | 2        |   24.7%        |      34.1 KiB/s                   |
+| real_3   | 4,5,6    |   65.2%        | 	   100 KiB/s                   |
+| real_4   | 7,8      |   47.0%        |      67.4 KiB/s                   |
+| real_5   | 9        |   22.4%        |      34.3 KiB/s                   |
 
 `katran` container has **Max CPU Usage: 0.06%** and **Max Received Network Traffic Rate 106 KiB/s** 
 
 As expected the first message from each client is lost due to the fact that the `mqtt_fwd` program makes false prediction on the future MQTT topic (as this client IP has not been seen before and does not exist in the eBPF Map) 
 
-***Ignore the messages published to real_0. These just exist in the .txt because the container real_0 was not restarted***
+*Ignore the messages published to real_0. These just exist in the .txt because the container real_0 was not restarted*
 
 - In **Shared Subscriptions Test**, Load Balancing is done per message and thus it is fairer. `shared_subs_broker` is a broker that maintains the subscription lists and e.g. each time a publish to `measurements/temperature` arrives, this should be forwarded to one of `real_1` or `real_2`, who have previously subscribed to `$share/vip_a/measurements/temperature` (shared subscription)
 
@@ -709,8 +710,8 @@ For all containers `deploy-resources` section has `limits`=`reservations` to ens
 
 | Container             |  CPUs | Memory |
 | --------------------- | ----- | ------ |
-| katran                | 0.5   | 512M   |
-| shared_subs_broker    | 0.5   | 512M   |
+| katran                | 0.1   | 512M   |
+| shared_subs_broker    | 0.1   | 512M   |
 | real_.*               | 0.01  | 8M	 |
 | client_.*             | 0.05  | 32M    |
-| geteway               | 0.05  | 8M     |
+| gateway               | 1     | 512M   |

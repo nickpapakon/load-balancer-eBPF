@@ -8,10 +8,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.1'
           memory: 512M
         reservations:
-          cpus: '0.5'
+          cpus: '0.1'
           memory: 512M
     privileged: true                    # recommended for XDP/AF_XDP access
     cap_add:
@@ -38,8 +38,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.05'
-          memory: 8M
+          cpus: '1'
+          memory: 512M
         reservations:
           cpus: '0.05'
           memory: 8M
@@ -511,10 +511,10 @@ services:
     deploy:           # use same limits as Katran for a fair comparison
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.1'
           memory: 512M
         reservations:
-          cpus: '0.5'
+          cpus: '0.1'
           memory: 512M
     privileged: true
     cap_add:
