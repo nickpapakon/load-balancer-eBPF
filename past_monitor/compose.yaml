@@ -1,0 +1,32 @@
+services:
+
+  prometheus_sample:
+    image: prom/prometheus:latest
+    container_name: prometheus_sample
+    ports:
+    - 9095:9090
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --web.enable-admin-api
+    volumes:
+    - ../lb-n-reals/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    - /home/nikolaospapa3/Documents/ECE-NTUA/Diploma-Thesis/repos/load-balancer-eBPF/lb-n-reals/evolution/test_9_3/prometheus:/prometheus
+    # [CHANGE] replace the above path with the actual path to your prometheus.yml file and a directory for prometheus data storage
+
+
+# Grafana configuration
+# Got to Connections > Add new data source > Prometheus > URL: http://prometheus_sample:9090 > Save & Test
+# Go to Dashboards -> New -> Import > my_custom_dashboard.json > Select Prometheus as the data source > Import
+  grafana_sample:
+    image: grafana/grafana-enterprise
+    container_name: grafana_sample
+    restart: unless-stopped
+    ports:
+      - 3016:3000
+    volumes:
+      - sample-grafana-storage:/var/lib/grafana
+    depends_on:
+      - prometheus_sample
+
+volumes:
+  sample-grafana-storage:
