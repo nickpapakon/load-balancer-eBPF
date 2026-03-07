@@ -11,6 +11,7 @@ Architecture: x86-64
 ```
 The test was NOT successful on WSL / Windows environments. 
 Be conscious if you try to test this in a host different than Ubuntu.
+
 *Any attempt to run this compose project should be done on OSes running Linux kernel (check Katran Requirements for detailed info) due to the eBPF dependency.* 
 
 ## Docker setup
@@ -44,7 +45,11 @@ Tests that contain multiple experiments, comparing the following  setups, are do
 - single broker
 - Load Balancing using the eBPF Load Balancer
 - Load Balancing using Shared Subscriptions
-Load Balancer evolution and tests results have been kept inside `lb-n-reals/evolution/`. For a quick understanding, read the introduction and the last test done. You can switch to the appropriate branch to inspect the code and configuration at the time of each experiment. **Caution**: the operation of the setup depends on the `mqtt_LB` branch of the [forked Katran repo](https://github.com/nickpapakon/katran/tree/mqtt_LB) .
+
+Load Balancer evolution and tests results have been kept inside `lb-n-reals/evolution/`. 
+For a quick understanding, read the introduction and the last test done. 
+
+You can switch to the appropriate branch to inspect the code and configuration at the time of each experiment. **Caution**: the operation of the setup depends on the `mqtt_LB` branch of the [forked Katran repo](https://github.com/nickpapakon/katran/tree/mqtt_LB) .
 
 ## Monitoring
 
