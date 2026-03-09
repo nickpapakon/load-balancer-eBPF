@@ -721,10 +721,12 @@ For all containers `deploy-resources` section has `limits`=`reservations` to ens
 
 All the below constraints should be applied when using the eBPF Load Balancr (`mqtt_fwd` + `Katran`)
 - Each client publishes to a single topic and a fixed destination IP: `MQTT_VIP`.
+- MQTT topics up to 256 characters length are supported
 - The first Publish message of each client may be lost. Whenever client IP changes (e.g. once a day due to DHCP lease time expiry), again the first Publish may be lost.
 - Clients should check the connection state and re-establish connection if needed.
 - All clients should have different IPs. Client behind PAT have the same IP and consequently, their messages will be delivered successfully only if all of them publish to the same topic. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/11)
 - `max_entries` of the eBPF Map `mqtt_client_ip_to_topic` specifies the max number of clients that can be supported. (This number can be up to 200,000 but not much more due to memory allocation limits - if you use enormous max_entries, you may experience error at the BPF loading phase - `libbpf: map 'mqtt_client_ip_to_topic': failed to create: -ENOMEM`)
+- VIPs (in Katran project), topic_to_vip and client_ip_to_topic mappings are now configured with max 512 entries but can change in file `lb-n-reals/katran/bpf/mqtt_topic_based_fwd.h`
 - Only Unencrypted MQTT is supported
 - Additionally, Katran constraints should be met also (no IP options set, no fragmented packets, L3 topology and Katran should be able to offload to the Default Gateway via his MAC, same NIC for ingress/egress, max packet size 3.5 k, DSR mode) [Katran Requirements](https://github.com/facebookincubator/katran?tab=readme-ov-file#environment-requirements-for-katran-to-run)
 
