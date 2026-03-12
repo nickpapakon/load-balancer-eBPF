@@ -14,5 +14,5 @@ sudo ./build/example_grpc/katran_server_grpc -balancer_prog ./deps/bpfprog/bpf/b
 
 cd /home/simple_user/scripts
 echo "Waiting for katran_server_grpc to start and load the bpf progs..."
-sleep 10
+sleep 15
 ./userspace.sh && ./debug.sh

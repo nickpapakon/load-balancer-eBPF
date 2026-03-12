@@ -3,6 +3,9 @@
 # logging of commands, exit if any cmd fails
 set -euxo pipefail
 
+COLOR_GREEN="\033[0;32m"
+COLOR_OFF="\033[0m"
+
 # Set up containers for monitoring
 docker compose up --build -d cadvisor prometheus grafana
 
@@ -29,7 +32,7 @@ fi
 TOTAL_TIME=$(echo "$TOTAL_MESSAGES * $SLEEP_TIME" | bc)
 
 # Run the clients to generate load (Experiments) 
-docker compose up --build -d client_[0-9] 
+docker compose up --build -d client_*
 echo "Wait enough time for the experiment to run and gather data..."
 # WAIT_TIME=$(echo "$TOTAL_TIME + 30" | bc) # add some extra time to ensure all messages are published and received
 # sleep $WAIT_TIME
@@ -39,7 +42,7 @@ while [ $(docker compose ps | grep client | wc -l) -gt 0 ]; do
     echo "Waiting for client containers to stop..."
     sleep 5
 done
-# while docker compose ps --status running | grep -qE 'client_[0-9]'; do
+# while docker compose ps --status running | grep -qE 'client_*'; do
 #     echo "Waiting for client containers to stop..."
 #     sleep 5
 # done

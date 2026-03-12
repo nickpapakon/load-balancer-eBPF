@@ -730,3 +730,25 @@ All the below constraints should be applied when using the eBPF Load Balancr (`m
 - Only Unencrypted MQTT is supported
 - Additionally, Katran constraints should be met also (no IP options set, no fragmented packets, L3 topology and Katran should be able to offload to the Default Gateway via his MAC, same NIC for ingress/egress, max packet size 3.5 k, DSR mode) [Katran Requirements](https://github.com/facebookincubator/katran?tab=readme-ov-file#environment-requirements-for-katran-to-run)
 
+
+## Test 10
+
+```bash
+# Install Node exporter and run
+./node_exporter --collector.textfile.directory=/var/lib/node_exporter/textfile_metrics/
+
+
+# Run the test
+# CAUTION: Periodically look at the console beacause this script waits for user input
+cd lb-n-reals
+./test.sh
+
+# When prompted to run the python program to scrape xdp prog metrics
+# Open another terminal
+source .venv/bin/activate
+cd lb-n-reals
+python scrape_xdp_prog_metrics.py
+
+# Press enter to the terminal running ./test.sh
+
+```

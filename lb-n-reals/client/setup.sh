@@ -10,8 +10,9 @@ ip route add ${GENERAL_SUBNET} via ${GATEWAY_CLIENT_IP} dev eth0
 
 
 
-# TOPICS published by clients 0,1,2,..,9 respectively
-topics=(    
+# TOPICS: 4 temperature, 5 humidity, 1 other
+# Each client publishes topics[$CLIENT_NUM % 10]
+topics=(
     "measurements/temperature" 
     "measurements/temperature" 
     "measurements/temperature" 
@@ -43,7 +44,8 @@ while ! ping -c 1 -W 1 "$GATEWAY_CLIENT_IP" > /dev/null 2>&1; do
     sleep 5
 done
 
-python3 client_pub_opts.py -H ${DESTINATION_IP} -t ${topics[$CLIENT_NUM]} -P ${MQTT_PORT} -k ${KEEP_ALIVE} -N ${TOTAL_MESSAGES} -S ${SLEEP_TIME} -c client_${CLIENT_NUM}
+TOPIC_INDEX=$(( CLIENT_NUM % 10 ))
+python3 client_pub_opts.py -H ${DESTINATION_IP} -t ${topics[$TOPIC_INDEX]} -P ${MQTT_PORT} -k ${KEEP_ALIVE} -N ${TOTAL_MESSAGES} -S ${SLEEP_TIME} -c client_${CLIENT_NUM}
 
 # sleep so that container does not exit (if PAUSE is set to 1) and we can inspect it
 if [ "$PAUSE" -eq 1 ]; then

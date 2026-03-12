@@ -19,6 +19,8 @@
 // also change the MAX_SUPPORTED_TOPIC_LENGTH in userspace/update-map
 #define MAX_SUPPORTED_TOPIC_LENGTH 256 // TODO - CHANGE to 80 ? 
 #define MAX_VIPS 512
+#define MAX_TOPIC_MAPPINGS 512
+#define MAX_CLIENTS 200000
 #define NO_FLAGS 0
 #define VIP_DEFAULT       (unsigned int)(10 + (1 << 8) + (50 << 16) + (250 << 24))
 
@@ -58,7 +60,7 @@ struct {
   __uint(type, BPF_MAP_TYPE_HASH);
   __type(key, struct ip_addr_union);
   __type(value, struct mqtt_topic_entry);
-  __uint(max_entries, MAX_VIPS);
+  __uint(max_entries, MAX_CLIENTS);
   __uint(map_flags, NO_FLAGS);
 } mqtt_client_ip_to_topic SEC(".maps");
 
@@ -67,7 +69,7 @@ struct {
   __uint(type, BPF_MAP_TYPE_HASH);
   __type(key, struct mqtt_topic_entry);
   __type(value, struct vip_definition);
-  __uint(max_entries, MAX_VIPS);
+  __uint(max_entries, MAX_TOPIC_MAPPINGS);
   __uint(map_flags, NO_FLAGS);
 } mqtt_topic_to_vip SEC(".maps");
 

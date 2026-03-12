@@ -20,6 +20,9 @@ set -euxo pipefail
 # Actual changes:
 # rx-gro: on [requested off]
 
+# enable bpf stats
+sysctl -w kernel.bpf_stats_enabled=1
+
 # static route
 ip route add ${GENERAL_SUBNET} via ${GATEWAY_KATRAN_IP} dev eth0
 
