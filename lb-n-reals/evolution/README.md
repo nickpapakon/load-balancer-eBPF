@@ -688,20 +688,6 @@ For all containers `deploy-resources` section has `limits`=`reservations` to ens
 | gateway               | 1     | 512M   |
 
 
-### Constraints
-
-All the below constraints should be applied when using the eBPF Load Balancr (`mqtt_fwd` + `Katran`)
-- Each client publishes to a single topic and a fixed destination IP: `MQTT_VIP`.
-- MQTT topics up to 256 characters length are supported
-- The first Publish message of each client may be lost. Whenever client IP changes (e.g. once a day due to DHCP lease time expiry), again the first Publish may be lost.
-- Clients should check the connection state and re-establish connection if needed.
-- All clients should have different IPs. Client behind PAT have the same IP and consequently, their messages will be delivered successfully only if all of them publish to the same topic. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/11)
-- `max_entries` of the eBPF Map `mqtt_client_ip_to_topic` specifies the max number of clients that can be supported. (This number can be up to 200,000 but not much more due to memory allocation limits - if you use enormous max_entries, you may experience error at the BPF loading phase - `libbpf: map 'mqtt_client_ip_to_topic': failed to create: -ENOMEM`)
-- VIPs (in Katran project), topic_to_vip and client_ip_to_topic mappings are now configured with max 512 entries but can change in file `lb-n-reals/katran/bpf/mqtt_topic_based_fwd.h`
-- Only Unencrypted MQTT is supported
-- Additionally, Katran constraints should be met also (no IP options set, no fragmented packets, L3 topology and Katran should be able to offload to the Default Gateway via his MAC, same NIC for ingress/egress, max packet size 3.5 k, DSR mode) [Katran Requirements](https://github.com/facebookincubator/katran?tab=readme-ov-file#environment-requirements-for-katran-to-run)
-
-
 
 ### Observations - Test 9 A
 
@@ -718,6 +704,8 @@ All the below constraints should be applied when using the eBPF Load Balancr (`m
 | real_5   | 9        |   22.4%        |      34.3 KiB/s                   |
 
 `katran` container has **Max CPU Usage: 0.34%** and **Max Received Network Traffic Rate 168 KiB/s** 
+
+**Warning: This CPU Usage measured by cAdvisor is Katran userspace CPU usage and does not represent the CPU Usage of the XDP program - that's why we need phase B**
 
 As expected the first message from each client is lost due to the fact that the `mqtt_fwd` program makes false prediction on the future MQTT topic (as this client IP has not been seen before and does not exist in the eBPF Map) 
 
@@ -738,6 +726,8 @@ As expected the first message from each client is lost due to the fact that the 
 
 
 ### Procedure for Phase B
+
+In phase B, we gather the xdp programs runtime using `node_exporter` and asking katran container via `docker exec katran bpftool ...`. Periodic Docker exec commands increase katran's userspace CPU usage and thus this will not be representing a real circumstance. In this experiment we compare the XDP program's vs Shared Subscriptions Broker CPU usage.
 
 ```bash
 # Install Node exporter 
@@ -773,10 +763,66 @@ python scrape_xdp_prog_metrics.py
 
 ### Observations - Test 9 B
 
+- In **Single Broker Test**, `real_0`'s **max CPU usage gets 101%** and **max received network traffic rate 165 KiB/s**
+- In **Load Balancer Test**, `katran's xdp_root program` has **Max CPU Usage: 1.74 %** and katran container has **Max Received Network Traffic Rate 167 KiB/s** 
+- In **Shared Subscriptions Test**, `shared_subs_broker` container has **Max CPU Usage: 25.0%** and **Max Received Network Traffic Rate 181 KiB/s** 
 
 
 
-### Time ranges
+For more details,
 
-- Test 9_a (test_9_3): 
-- Test 9_b (test_9_4): 
+<details>
+<summary> (Load Balancer Test) Load Balancing is done per client: </summary>
+
+| Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
+| -------- | -------- | -------------- | --------------------------------- |
+| real_1   | 0        |   26.7%        |       34.8 KiB/s                   |
+| real_2   | 1,2,3    |   67.7%        |       103  KiB/s                   |
+| real_3   | 5,6,7    |   63.1%        | 	   100  KiB/s                   |
+| real_4   | 4,8      |   43.8%        |       65.4 KiB/s                   |
+| real_6   | 9        |   23.3%        |       32.1 KiB/s                   |
+
+</details>
+
+
+<details>
+<summary> (Shared Subscriptions Test) Load Balancing is done per message: </summary>
+
+| Real     |  Max CPU Usage | Max Received Network Traffic Rate |
+| -------- | -------------- | --------------------------------- |
+| real_1   | 41.0%          |       34.2 KiB/s                        |
+| real_2   | 43.0%          |       34.3 KiB/s                        |
+| real_3   | 51.8%          |       42.8 KiB/s	                      |
+| real_4   | 79.0%          |       32.8 KiB/s                        |
+| real_5   | 23.5%          |       8.65 KiB/s                        |
+| real_6   | 19.3%          |       8.68 KiB/s                        |
+
+</details>
+
+
+### Summary - Comparison
+
+| Metric | eBPF Load Balancer | MQTT Shared Subscriptions Broker |
+|--------|--------------------|----------------------------------|
+| CPU Usage | **~2.1%** (1.74% (kern) +  0.34% (usr)) | 25.0% |
+| Load Balancing | per client | **per message** (more balanced) |
+| Flexibility | many constraints (see below) | **conforms** with all MQTT rules | 
+
+### Constraints
+
+All the below constraints should be applied when using the eBPF Load Balancer (`mqtt_fwd` + `Katran`)
+- **Each client publishes to a single topic** and a fixed destination IP: `MQTT_VIP`.
+- **The first Publish message of each client may be lost**. Whenever client IP changes (e.g. once a day due to DHCP lease time expiry), again the first Publish may be lost.
+- **All clients should have different IPs**. Client behind PAT have the same IP and consequently, their messages will be delivered successfully only if all of them publish to the same topic. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/11)
+- MQTT topics up to 256 characters length are supported
+- Clients should check the connection state and re-establish connection if needed.
+- Only Unencrypted MQTT over **TCP/IPv4** is supported.
+
+- `max_entries` of the eBPF Map `mqtt_client_ip_to_topic` specifies the max number of clients that can be supported. (This number can be up to 200,000 but not much more due to memory allocation limits - if you use enormous max_entries, you may experience error at the BPF loading phase - `libbpf: map 'mqtt_client_ip_to_topic': failed to create: -ENOMEM`). If more than the specified clients publish simultaneously, the topic prediction mechanism will possibly fail and the majority of messages will be lost. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/12)
+- VIPs (in Katran project), `topic_to_vip` and `client_ip_to_topic` mappings are now configured with max 512 entries but can change in file `lb-n-reals/katran/bpf/mqtt_topic_based_fwd.h`
+
+- Additionally, Katran constraints should be met also (no IP options set, no fragmented packets, L3 topology and Katran should be able to offload to the Default Gateway via his MAC, same NIC for ingress/egress, max packet size 3.5 k, DSR mode) [Katran Requirements](https://github.com/facebookincubator/katran?tab=readme-ov-file#environment-requirements-for-katran-to-run)
+
+
+
+
