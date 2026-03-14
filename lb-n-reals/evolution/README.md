@@ -709,6 +709,8 @@ For all containers `deploy-resources` section has `limits`=`reservations` to ens
 
 As expected the first message from each client is lost due to the fact that the `mqtt_fwd` program makes false prediction on the future MQTT topic (as this client IP has not been seen before and does not exist in the eBPF Map) 
 
+Katran shows a significant memory usage during initialization (perhaps due to the memory allocation of the BPF maps which are in the order of tens of MBs)
+
 *Ignore the messages published to real_0. These just exist in the .txt because the container real_0 was not restarted*
 
 - In **Shared Subscriptions Test**, Load Balancing is done per message and thus it is fairer. `shared_subs_broker` is a broker that maintains the subscription lists and e.g. each time a publish to `measurements/temperature` arrives, this should be forwarded to one of `real_1` or `real_2`, who have previously subscribed to `$share/vip_a/measurements/temperature` (shared subscription)
