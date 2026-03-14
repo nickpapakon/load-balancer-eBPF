@@ -624,7 +624,13 @@ Received PUBLISH from auto-2F327F23-28BA-9202-475D-0390AA132D52 (d0, q0, r0, m0,
 
 ## Test 9
 
-Procedure is done automatically bey executing `./test-9.sh`.
+This test is conducted in two phases (A,B) with similar setup, In phase B, some extra statistics are enabled that show the CPU Usage of the xdp programs. However, the collection procedure of these stats affects Katran's userspace resources usage. 
+
+Procedure is done automatically by executing `./test.sh`. 
+
+Be careful to press enter when the script promts the user to do so.
+
+On phase B some more actions are required (described later).
 
 ### Clients publish to topics
 
@@ -664,14 +670,40 @@ The 3 different phases are the following. Client publish to
 
 Notes:
 - Logging has been disabled both in `katran` and `shared_subs_broker` to avoid performance overheads (as it would be in production environments)
-- Results are kept in `evolution/test_9_3/` directory. 
+- Results are kept in `evolution/test_9_a/` directory. 
 - `experiment_results.txt` contains the actual results in term of received PUBLISH messages by the brokers.
 - `monitoring` contains images with graphs from grafana about CPU Usage, Received Network Traffic, Memory Usage.
-- `my_custom_dashboard.json` is a json that can be loaded in grafana (Dashboards > New > Import - connect to prometheus data-source on `http://prometheus:9090`). 
-- `prometheus` folder contains the timeseries-database snapshot that can be used to re-inspect the data gathered by cAdvisor for the containers at runtime and stored in prometheus. 
 
-### Conclusions
 
+### Container resources
+
+For all containers `deploy-resources` section has `limits`=`reservations` to ensure isolation.
+
+| Container             |  CPUs | Memory |
+| --------------------- | ----- | ------ |
+| katran                | 0.1   | 512M   |
+| shared_subs_broker    | 0.1   | 512M   |
+| real_.*               | 0.01  | 8M	 |
+| client_.*             | 0.05  | 32M    |
+| gateway               | 1     | 512M   |
+
+
+### Constraints
+
+All the below constraints should be applied when using the eBPF Load Balancr (`mqtt_fwd` + `Katran`)
+- Each client publishes to a single topic and a fixed destination IP: `MQTT_VIP`.
+- MQTT topics up to 256 characters length are supported
+- The first Publish message of each client may be lost. Whenever client IP changes (e.g. once a day due to DHCP lease time expiry), again the first Publish may be lost.
+- Clients should check the connection state and re-establish connection if needed.
+- All clients should have different IPs. Client behind PAT have the same IP and consequently, their messages will be delivered successfully only if all of them publish to the same topic. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/11)
+- `max_entries` of the eBPF Map `mqtt_client_ip_to_topic` specifies the max number of clients that can be supported. (This number can be up to 200,000 but not much more due to memory allocation limits - if you use enormous max_entries, you may experience error at the BPF loading phase - `libbpf: map 'mqtt_client_ip_to_topic': failed to create: -ENOMEM`)
+- VIPs (in Katran project), topic_to_vip and client_ip_to_topic mappings are now configured with max 512 entries but can change in file `lb-n-reals/katran/bpf/mqtt_topic_based_fwd.h`
+- Only Unencrypted MQTT is supported
+- Additionally, Katran constraints should be met also (no IP options set, no fragmented packets, L3 topology and Katran should be able to offload to the Default Gateway via his MAC, same NIC for ingress/egress, max packet size 3.5 k, DSR mode) [Katran Requirements](https://github.com/facebookincubator/katran?tab=readme-ov-file#environment-requirements-for-katran-to-run)
+
+
+
+### Observations - Test 9 A
 
 - In **Single Broker Test**, all messages are published to 
 `real_0` (that's why it's **max CPU usage gets 100%** and **max received network traffic rate 173 KiB/s**)
@@ -704,39 +736,24 @@ As expected the first message from each client is lost due to the fact that the 
 
 `shared_subs_broker` container has **Max CPU Usage: 28.9%** and **Max Received Network Traffic Rate 166 KiB/s** 
 
-### Container resources
 
-For all containers `deploy-resources` section has `limits`=`reservations` to ensure isolation.
-
-| Container             |  CPUs | Memory |
-| --------------------- | ----- | ------ |
-| katran                | 0.1   | 512M   |
-| shared_subs_broker    | 0.1   | 512M   |
-| real_.*               | 0.01  | 8M	 |
-| client_.*             | 0.05  | 32M    |
-| gateway               | 1     | 512M   |
-
-
-### Constraints
-
-All the below constraints should be applied when using the eBPF Load Balancr (`mqtt_fwd` + `Katran`)
-- Each client publishes to a single topic and a fixed destination IP: `MQTT_VIP`.
-- MQTT topics up to 256 characters length are supported
-- The first Publish message of each client may be lost. Whenever client IP changes (e.g. once a day due to DHCP lease time expiry), again the first Publish may be lost.
-- Clients should check the connection state and re-establish connection if needed.
-- All clients should have different IPs. Client behind PAT have the same IP and consequently, their messages will be delivered successfully only if all of them publish to the same topic. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/11)
-- `max_entries` of the eBPF Map `mqtt_client_ip_to_topic` specifies the max number of clients that can be supported. (This number can be up to 200,000 but not much more due to memory allocation limits - if you use enormous max_entries, you may experience error at the BPF loading phase - `libbpf: map 'mqtt_client_ip_to_topic': failed to create: -ENOMEM`)
-- VIPs (in Katran project), topic_to_vip and client_ip_to_topic mappings are now configured with max 512 entries but can change in file `lb-n-reals/katran/bpf/mqtt_topic_based_fwd.h`
-- Only Unencrypted MQTT is supported
-- Additionally, Katran constraints should be met also (no IP options set, no fragmented packets, L3 topology and Katran should be able to offload to the Default Gateway via his MAC, same NIC for ingress/egress, max packet size 3.5 k, DSR mode) [Katran Requirements](https://github.com/facebookincubator/katran?tab=readme-ov-file#environment-requirements-for-katran-to-run)
-
-
-## Test 10
+### Procedure for Phase B
 
 ```bash
-# Install Node exporter and run
+# Install Node exporter 
+# https://prometheus.io/docs/guides/node-exporter/
+
+# (Instructions for Linux)
+# Make a dir where the XDP prog metrics will be gathered to be scraped via prometheus
+# Then give permission to this user to be able to write inside this dir
+mkdir -p /var/lib/node_exporter/textfile_metrics/
+sudo chown $USER:$USER /var/lib/node_exporter/textfile_metrics/
+
+# Run the node_exporter 
 ./node_exporter --collector.textfile.directory=/var/lib/node_exporter/textfile_metrics/
 
+# Ensure mode_exporter is running on 0.0.0.0:9100  where the prometheus container seeks for metrics
+# if the port is busy use another port but take care to update prometheus.yml accordingly
 
 # Run the test
 # CAUTION: Periodically look at the console beacause this script waits for user input
@@ -749,6 +766,17 @@ source .venv/bin/activate
 cd lb-n-reals
 python scrape_xdp_prog_metrics.py
 
+# Ensure metrics are exported (check the python program's logs) and then
 # Press enter to the terminal running ./test.sh
-
+# Wait until ./test.sh finishes
 ```
+
+### Observations - Test 9 B
+
+
+
+
+### Time ranges
+
+- Test 9_a (test_9_3): 
+- Test 9_b (test_9_4): 

@@ -10,7 +10,7 @@ services:
     - --web.enable-admin-api
     volumes:
     - ../lb-n-reals/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    - ../lb-n-reals/evolution/test_9_4/prometheus:/prometheus
+    - ../lb-n-reals/evolution/prometheus:/prometheus
     # [CHANGE] replace the above path with the actual path to your prometheus.yml file and a directory for prometheus data storage
 
 
