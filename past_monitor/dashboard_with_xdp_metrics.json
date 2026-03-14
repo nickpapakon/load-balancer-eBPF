@@ -267,7 +267,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "(sum by(name) (rate(container_cpu_usage_seconds_total{name=~\"(real_0|.*broker)\"}[30s])) /   sum by(name) (container_spec_cpu_quota{name=~\"(real_0|.*broker)\"} / container_spec_cpu_period{name=~\"(real_0|.*broker)\"})   * 100) OR ( (rate(xdp_program_run_time_ns_total[30s]) / (1e9 * 0.1)) * 100 )",
+          "expr": "(sum by(name) (rate(container_cpu_usage_seconds_total{name=~\"(real_0|.*broker)\"}[$__rate_interval])) /   sum by(name) (container_spec_cpu_quota{name=~\"(real_0|.*broker)\"} / container_spec_cpu_period{name=~\"(real_0|.*broker)\"})   * 100) OR ( (rate(xdp_program_run_time_ns_total[$__rate_interval]) / (1e9 * 0.1)) * 100 )",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
