@@ -45,7 +45,12 @@ rm -rf /sys/fs/bpf/jmp_${KATRAN_INTERFACE}
 # export KATRAN_INTERFACE="eth0"
 # ./install_xdproot.sh
 
-cd /home/simple_user/scripts
+if [ "$SIMPLE_KATRAN" -eq 1 ]; then \
+    cd /home/simple_user/normal_katran_scripts
+else
+    cd /home/simple_user/scripts
+fi
+
 ./loader.sh
 
 # keep container running indefinitely

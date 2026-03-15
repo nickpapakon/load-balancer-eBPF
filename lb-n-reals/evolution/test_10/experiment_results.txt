@@ -1,0 +1,38 @@
+####################  Simple Katran experiment results:  ####################
+
+
+Experiment 1 (Simple Katran) start time: 15/03/2026_21:00:08, end time: 15/03/2026_21:04:33
+
+
+ client_0 sent to     real_2: 1000
+ client_1 sent to     real_2: 1000
+ client_2 sent to     real_1: 1000
+ client_3 sent to     real_1: 1000
+ client_4 sent to     real_3: 1000
+ client_5 sent to     real_4: 1000
+ client_6 sent to     real_4: 1000
+ client_7 sent to     real_4: 1000
+ client_8 sent to     real_4: 1000
+ client_9 sent to     real_6: 1000
+
+
+
+####################  Katran-mqtt_fwd LB experiment results:  ####################
+
+
+Experiment 2 (Katran-mqtt_fwd LB) start time: 15/03/2026_21:06:35, end time: 15/03/2026_21:09:16
+
+
+ client_0 sent to     real_2: 999
+ client_1 sent to     real_2: 999
+ client_2 sent to     real_1: 999
+ client_3 sent to     real_2: 999
+ client_4 sent to     real_3: 999
+ client_5 sent to     real_3: 999
+ client_6 sent to     real_4: 999
+ client_7 sent to     real_4: 999
+ client_8 sent to     real_4: 999
+ client_9 sent to     real_6: 1000
+
+
+

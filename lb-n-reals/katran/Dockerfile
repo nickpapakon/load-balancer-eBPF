@@ -4,7 +4,7 @@ USER simple_user
 
 # if needed to re-build Katran because a src file changed
 # change the argument below to invalidate docker build cache for the Katran build step
-ARG KATRAN_BUILD_CACHE_BUSTER=0
+ARG KATRAN_BUILD_CACHE_BUSTER=100
 RUN git pull
 
 ARG KATRAN_BPF_DIR=/home/simple_user/katran/katran/lib/bpf
@@ -18,6 +18,15 @@ ENV ENABLE_KATRAN_BPF_PRINTK=0
 # enable bpf_printk if env var is set
 RUN if [ "$ENABLE_KATRAN_BPF_PRINTK" -eq 1 ]; then \
         sed -i 's/^#define DIPLOMA_DEBUG.*/#define DIPLOMA_DEBUG 1/' ${KATRAN_BPF_DIR}/balancer.bpf.c; \
+        sleep 5; \
+    fi
+
+
+ENV DISABLE_MQTT_LB=0
+
+# enable bpf_printk if env var is set
+RUN if [ "$DISABLE_MQTT_LB" -eq 1 ]; then \
+        sed -i 's/^#define MQTT_LB_MODE.*/#define MQTT_LB_MODE 0/' ${KATRAN_BPF_DIR}/balancer.bpf.c; \
         sleep 5; \
     fi
 
@@ -67,7 +76,9 @@ COPY . .
 COPY ./bpf/* /home/simple_user/katran/katran/lib/bpf/
 
 RUN chmod +x /home/simple_user/setup.sh && \
-    chmod +x /home/simple_user/scripts/*
+    chmod +x /home/simple_user/scripts/* && \
+    chmod +x /home/simple_user/normal_katran_scripts/*
 # Add a script to set up interfaces or other configurations at container startup (need root access)
 
+# TODO: make a new setup.sh that based on env variable runs the appropriate script
 ENTRYPOINT [ "/home/simple_user/setup.sh" ]

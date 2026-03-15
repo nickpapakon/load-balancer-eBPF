@@ -31,6 +31,9 @@ fi
 # environment variables from .env should have been set
 TOTAL_TIME=$(echo "$TOTAL_MESSAGES * $SLEEP_TIME" | bc)
 
+# TODO - CHANGE Wait before starting clients
+read -p "Press Enter if ready for the experiment ... "
+
 # Run the clients to generate load (Experiments) 
 docker compose up --build -d client_*
 echo "Wait enough time for the experiment to run and gather data..."

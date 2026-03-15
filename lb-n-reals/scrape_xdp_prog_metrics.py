@@ -10,10 +10,10 @@ CONTAINER_NAME = "katran"
 OUTPUT_FILE = "/var/lib/node_exporter/textfile_metrics/xdp_stats.prom"
 TEMP_FILE = OUTPUT_FILE + ".tmp"
 
-def collect_xdp_stats():
+def collect_xdp_stats(bpf_prog_name="xdp_root"):
     try:
         # 1. Run the docker command
-        cmd = ["docker", "exec", CONTAINER_NAME, "bpftool", "prog", "show", "name", "xdp_root", "--json"]
+        cmd = ["docker", "exec", CONTAINER_NAME, "bpftool", "prog", "show", "name", bpf_prog_name, "--json"]
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         
         # 2. Parse JSON into a dictionary
@@ -65,6 +65,7 @@ if __name__ == "__main__":
     # from command line argument
 
     parser = argparse.ArgumentParser(description="Scrape XDP program metrics from a Docker container and expose them in Prometheus textfile format.")
+    parser.add_argument("--bpf_prog_name", type=str, default="xdp_root", help="Name of the BPF program to scrape (default: xdp_root)")
     parser.add_argument("--interval", type=int, default=3, help="Interval in seconds between metric collections (default: 3)")
     args = parser.parse_args()
     SAMPLE_INTERVAL = args.interval
@@ -76,6 +77,6 @@ if __name__ == "__main__":
         time_now = time.time()
         if time_now - start_time > SAMPLE_INTERVAL:  
             start_time = time_now  # Reset the timer
-            collect_xdp_stats()
+            collect_xdp_stats(args.bpf_prog_name)
         else:
             time.sleep(1)  # Sleep briefly to avoid tight loop
