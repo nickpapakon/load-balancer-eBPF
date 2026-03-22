@@ -23,7 +23,7 @@ end_1=$(date '+%d/%m/%Y_%H:%M:%S')
 sleep 120
 
 
-read -p "${COLOR_GREEN} Start the scrape_xdp_prog_metrics.py, then press Enter...${COLOR_OFF}"
+# read -p "${COLOR_GREEN} Start the scrape_xdp_prog_metrics.py, then press Enter...${COLOR_OFF}"
 
 
 start_2=$(date '+%d/%m/%Y_%H:%M:%S')
@@ -63,4 +63,7 @@ echo -e "Experiment 3 (Shared Subscription broker) start time: $start_3, end tim
 cat experiment-shared-subscriptions/results.txt >> all_results.txt
 
 mv all_results.txt experiment_results.txt
+
+mkdir -p special_exp_${start_1}
+mv experiment-single-broker experiment-LB experiment-shared-subscriptions experiment_results.txt   special_exp_${start_1}
 

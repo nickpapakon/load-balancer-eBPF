@@ -7,7 +7,7 @@ COLOR_GREEN="\033[0;32m"
 COLOR_OFF="\033[0m"
 
 # Set up containers for monitoring
-docker compose up --build -d cadvisor prometheus grafana
+docker compose up --build -d cadvisor prometheus
 
 # Set up the servers and Load Balancer and monitoring stack
 if [ "$CONFIG_AND_OPERATE_LB" -eq 1 ]; then
@@ -32,7 +32,20 @@ fi
 TOTAL_TIME=$(echo "$TOTAL_MESSAGES * $SLEEP_TIME" | bc)
 
 # TODO - CHANGE Wait before starting clients
-read -p "Press Enter if ready for the experiment ... "
+# read -p "Press Enter if ready for the experiment ... "
+
+if [ "$SCRAPE_XDP" -eq 1 ]; then
+    echo "Scraping XDP prog cpu usage"
+    source ../.venv/bin/activate
+    if [ "$SIMPLE_KATRAN" -eq 1 ]; then
+        python scrape_xdp_prog_metrics.py --bpf_prog_name balancer_ingress  &
+    else
+        python scrape_xdp_prog_metrics.py --bpf_prog_name xdp_root  &
+    fi
+    sleep 1
+    # get the pids of the procedure so that kill them at the end
+    pids=$(ps -ef | grep scrape_xdp_prog | awk '{ print $2 }' | xargs)
+fi
 
 # Run the clients to generate load (Experiments) 
 docker compose up --build -d client_*
@@ -51,6 +64,10 @@ done
 # done
 
 sleep 10 # add some extra time to ensure all messages are published and received
+
+if [ "$SCRAPE_XDP" -eq 1 ]; then
+    kill -9 $pids
+fi
 
 # Gather logs from all containers, parse them and save the results along with environment variables for reproducibility
 rm -f experiment_logs/*

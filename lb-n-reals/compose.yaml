@@ -1,3 +1,40 @@
+x-deploy-configs:
+  LB: &deploy_LB
+    resources:
+      limits:
+        cpus: '0.1'
+        memory: 512M
+      reservations:
+        cpus: '0.1'
+        memory: 512M
+
+  clients: &deploy_clients
+    resources:
+      limits:
+        cpus: '0.05'
+        memory: 32M
+      reservations:
+        cpus: '0.05'
+        memory: 32M
+
+  reals: &deploy_reals
+    resources:
+      limits:
+        cpus: '0.01'
+        memory: 8M
+      reservations:
+        cpus: '0.01'
+        memory: 8M
+
+  gateway: &deploy_gateway
+    resources:
+      limits:
+        cpus: '1'
+        memory: 512M
+      reservations:
+        cpus: '1'
+        memory: 512M
+
 services:
 
 #####   KATRAN   ########
@@ -5,14 +42,7 @@ services:
     container_name: katran
     build:
       context: katran/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: 512M
-        reservations:
-          cpus: '0.1'
-          memory: 512M
+    deploy: *deploy_LB
     privileged: true                    # recommended for XDP/AF_XDP access
     cap_add:
       - NET_ADMIN
@@ -35,14 +65,7 @@ services:
     container_name: gateway
     build:
       context: gateway/
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
-        reservations:
-          cpus: '0.05'
-          memory: 8M
+    deploy: *deploy_gateway
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -73,14 +96,7 @@ services:
     container_name: client_0
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -97,14 +113,7 @@ services:
     container_name: client_1
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -121,14 +130,7 @@ services:
     container_name: client_2
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -145,14 +147,7 @@ services:
     container_name: client_3
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -169,14 +164,7 @@ services:
     container_name: client_4
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -193,14 +181,7 @@ services:
     container_name: client_5
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -217,14 +198,7 @@ services:
     container_name: client_6
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -242,14 +216,7 @@ services:
     container_name: client_7
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -267,14 +234,7 @@ services:
     container_name: client_8
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -291,14 +251,7 @@ services:
     container_name: client_9
     build:
       context: client/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.05'
-          memory: 32M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
+    deploy: *deploy_clients
     cap_add:
       - NET_ADMIN
     depends_on:
@@ -318,14 +271,7 @@ services:
     container_name: real_0
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -346,14 +292,7 @@ services:
     container_name: real_1
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -372,14 +311,7 @@ services:
     container_name: real_2
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -398,14 +330,7 @@ services:
     container_name: real_3
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -424,14 +349,7 @@ services:
     container_name: real_4
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -451,14 +369,7 @@ services:
     container_name: real_5
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -478,14 +389,7 @@ services:
     container_name: real_6
     build:
       context: real/
-    deploy:
-      resources:
-        limits:
-          cpus: '0.01'
-          memory: 8M
-        reservations:
-          cpus: '0.01'
-          memory: 8M
+    deploy: *deploy_reals
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -508,14 +412,7 @@ services:
     container_name: shared_subs_broker
     build:
       context: shared_subs_broker/
-    deploy:           # use same limits as Katran for a fair comparison
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: 512M
-        reservations:
-          cpus: '0.1'
-          memory: 512M
+    deploy: *deploy_LB   # use same limits as Katran for a fair comparison
     privileged: true
     cap_add:
       - NET_ADMIN
