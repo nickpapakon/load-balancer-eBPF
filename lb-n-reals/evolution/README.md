@@ -808,6 +808,7 @@ For more details,
 |--------|--------------------|----------------------------------|
 | CPU Usage | **~2.1%** (1.74% (kern) +  0.34% (usr)) | 25.0% |
 | Load Balancing | per client | **per message** (more balanced) |
+| Brokers-Groups decided by | Katran config (VIP-reals) | Brokers by subscribing to `$share/<group_id>/<topic>` |
 | Flexibility | many constraints (see below) | **conforms** with all MQTT rules | 
 
 ### Constraints
@@ -827,4 +828,16 @@ All the below constraints should be applied when using the eBPF Load Balancer (`
 
 
 
+## Test 10
 
+This test compares Katran without and with the `mqtt_fwd` XDP program
+- `Simple Katran`: Only `balancer_ingress` XDP program running. It is not aware of the MQTT topic, just forwards based on the destination IP and VIP-reals mappings. So here, we have configured clients to publish to a different VIPs based on the topic  (in the other case, this differentiation was done by sniffing the MQTT headers in the Load Balancer's `mqtt_fwd` XDP program)
+
+| Metric | Simple Katran | Katran + `mqtt_fwd` |
+|--------|--------------------|----------------------------------|
+| XDP progs CPU Usage | 0.73 % | 1.16 % |
+| Clients should send to |  different VIPs based on topic | a fixed IP but there are constraints | 
+| Each Client publishes to | any topic | one fixed topic |
+| Topic-VIP mapping decided by | clients | `mqtt_fwd` eBPF Maps config |
+
+This observation proposes that `mqtt_fwd` program affects the performance of Katran (but not dramatically)
