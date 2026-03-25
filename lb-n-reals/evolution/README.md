@@ -841,3 +841,21 @@ This test compares Katran without and with the `mqtt_fwd` XDP program
 | Topic-VIP mapping decided by | clients | `mqtt_fwd` eBPF Maps config |
 
 This observation proposes that `mqtt_fwd` program affects the performance of Katran (but not dramatically)
+
+
+## Test 11
+
+Similar to test 9 but includes automated process to do both phases A and B.
+
+### Run experiment
+
+- ensure Docker Desktop up
+- run the node_exporter  (see above for installation/config)
+```bash
+ ./node_exporter --collector.textfile.directory=/var/lib/node_exporter/textfile_metrics/
+```
+
+- test.sh
+
+SLEEP_TIME=0.2
+30 clients

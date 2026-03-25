@@ -115,7 +115,18 @@ if args.debug:
     mqttc.on_log = on_log
 
 print("Connecting to "+args.host+" port: "+str(port))
-mqttc.connect(args.host, port, args.keepalive)
+retries = 3
+retry_num = 0
+while retry_num < retries:
+    try:
+        mqttc.connect(args.host, port, args.keepalive)
+        break
+    except Exception as exc:
+        print(f"Exception: {exc}")
+        retry_num += 1
+
+if retry_num >= retries:
+    raise Exception(f"Could not connect after {retries} retries")
 
 mqttc.loop_start()
 

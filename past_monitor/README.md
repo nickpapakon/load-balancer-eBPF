@@ -14,3 +14,14 @@ Here we provide a docker `compose.yaml` that can be used in order to inspect exp
 - Go to Dashboards > New > Import > `my_custom_dashboard.json` > Select Prometheus as the data source > Import
 - Go to the Dashboard and select the time range the experiment was done. 
 - You are ready to inspect cpu / memory usage, network traffic of the containers during the experiment
+
+
+```bash
+# prepare the prometheus data
+cd lb-n-reals/evolution/prometheus/data
+unzip <snapshot_file.zip>
+
+
+cd ../../../../past_monitor/
+docker compose up --build -d
+```

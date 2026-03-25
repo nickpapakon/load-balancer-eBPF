@@ -13,7 +13,7 @@ rm -rf experiment_*
 
 # read -p "${COLOR_GREEN} Ensure you have started node_exporter and Docker Desktop in your host ${COLOR_OFF}"
 
-start_1=$(date '+%d/%m/%Y_%H:%M:%S')
+start_1=$(date '+%Y_%m_%d/%H_%M_%S')
 echo -e "${COLOR_GREEN}  [1] Single broker experiment: ${COLOR_OFF} Is .env ready ?"
 sed -i 's/^SHARED_SUBS=.*/SHARED_SUBS=0/' .env      # ensure SHARED_SUBS is 0 for 1st and 2nd experiments  
 sed -i 's/^ONE_REAL_ONLY=.*/ONE_REAL_ONLY=1/' .env   # Set ONE_REAL_ONLY to 1 for 1st experiment
@@ -26,7 +26,7 @@ sleep 120
 # read -p "${COLOR_GREEN} Start the scrape_xdp_prog_metrics.py, then press Enter...${COLOR_OFF}"
 
 
-start_2=$(date '+%d/%m/%Y_%H:%M:%S')
+start_2=$(date '+%Y_%m_%d/%H_%M_%S')
 echo -e "${COLOR_GREEN}  [2] Katran-mqtt_fwd LB experiment: ${COLOR_OFF} Is .env ready ?"
 sed -i 's/^SHARED_SUBS=.*/SHARED_SUBS=0/' .env      # ensure SHARED_SUBS is 0 for 1st and 2nd experiments  
 sed -i 's/^ONE_REAL_ONLY=.*/ONE_REAL_ONLY=0/' .env  # Set ONE_REAL_ONLY to 0 for 2nd experiment
@@ -36,7 +36,7 @@ end_2=$(date '+%d/%m/%Y_%H:%M:%S')
 sleep 120
 
 
-start_3=$(date '+%d/%m/%Y_%H:%M:%S')
+start_3=$(date '+%Y_%m_%d/%H_%M_%S')
 echo -e "${COLOR_GREEN}  [3]: Shared Subscription broker experiment: ${COLOR_OFF} Is .env ready ?"
 sed -i 's/^ONE_REAL_ONLY=.*/ONE_REAL_ONLY=0/' .env  
 sed -i 's/^SHARED_SUBS=.*/SHARED_SUBS=1/' .env # set SHARED_SUBS to 1 for Shared Subscription experiment
@@ -64,6 +64,7 @@ cat experiment-shared-subscriptions/results.txt >> all_results.txt
 
 mv all_results.txt experiment_results.txt
 
+# Keep special experiment logs in special folder that will not be deleted
 mkdir -p special_exp_${start_1}
 mv experiment-single-broker experiment-LB experiment-shared-subscriptions experiment_results.txt   special_exp_${start_1}
 
