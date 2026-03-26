@@ -2,3 +2,4 @@
 # do not ignore zip files
 !.gitignore
 !*.zip
+!snapshot_archive

@@ -624,13 +624,36 @@ Received PUBLISH from auto-2F327F23-28BA-9202-475D-0390AA132D52 (d0, q0, r0, m0,
 
 ## Test 9
 
-This test is conducted in two phases (A,B) with similar setup, In phase B, some extra statistics are enabled that show the CPU Usage of the xdp programs. However, the collection procedure of these stats affects Katran's userspace resources usage. 
+This test is conducted in two phases (A,B) with similar setup, In phase B, the only difference is that some extra statistics are enabled that show the CPU Usage of the xdp programs. However, the collection procedure of these stats affects Katran's userspace resources usage. So, in section A we will only discuss the userspace CPU usage and memory usage of Katran and in section B we will compare the CPU usage and network traffic of the brokers and the XDP CPU program usage vs Shared Subscription's broker CPU usage. 
 
-Procedure is done automatically by executing `./test.sh`. 
+### Procedure
 
-Be careful to press enter when the script promts the user to do so.
+- ensure `Docker Desktop` up and running
+- Install and operate `node_exporter` to export specialized metrics to prometheus
+```bash
+# Install Node exporter 
+# https://prometheus.io/docs/guides/node-exporter/
 
-On phase B some more actions are required (described later).
+# (Instructions for Linux)
+# Make a dir where the XDP prog metrics will be gathered to be scraped via prometheus
+# Then give permission to this user to be able to write inside this dir
+mkdir -p /var/lib/node_exporter/textfile_metrics/
+sudo chown $USER:$USER /var/lib/node_exporter/textfile_metrics/
+
+# Run the node_exporter 
+./node_exporter --collector.textfile.directory=/var/lib/node_exporter/textfile_metrics/
+
+# Ensure mode_exporter is running on 0.0.0.0:9100  where the prometheus container seeks for metrics
+# if the port is busy use another port but take care to update prometheus.yml accordingly
+```
+- Run the experiment `./test.sh` like this
+```bash
+# Phase A, does not scrape XDP metrics
+# Phase B, scrapes XDP metrics and thus affects Katran container userspace CPU and Memory usage
+sed -i 's/^SCRAPE_XDP=.*/SCRAPE_XDP=0/' .env  && ./test.sh &&  sed -i 's/^SCRAPE_XDP=.*/SCRAPE_XDP=1/' .env  && sleep 300  &&  ./test.sh
+```
+- Results are kept in `evolution/test_9` directory. 
+- If you want to save a prometheus snapshot with the data and inspect them with grafana, read `past_monitor/README.md`
 
 ### Clients publish to topics
 
@@ -650,7 +673,7 @@ On phase B some more actions are required (described later).
 | other topics               | VIP_DEFAULT | 5,6              |
 
 
-### Procedure
+### Environment
 
 This test was conducted in 3 phases. In all these phases these are common:
 - 10 clients
@@ -670,8 +693,8 @@ The 3 different phases are the following. Client publish to
 
 Notes:
 - Logging has been disabled both in `katran` and `shared_subs_broker` to avoid performance overheads (as it would be in production environments)
-- Results are kept in `evolution/test_9_a/` directory. 
-- `experiment_results.txt` contains the actual results in term of received PUBLISH messages by the brokers.
+
+- `experiment_results.txt` contains the actual results in term of received PUBLISH messages by the brokers for each phase. In the Load Balancer Test, *Ignore the messages published to real_0. These just exist in the .txt because the container real_0 was not restarted*
 - `monitoring` contains images with graphs from grafana about CPU Usage, Received Network Traffic, Memory Usage.
 
 
@@ -691,122 +714,63 @@ For all containers `deploy-resources` section has `limits`=`reservations` to ens
 
 ### Observations - Test 9 A
 
-- In **Single Broker Test**, all messages are published to 
-`real_0` (that's why it's **max CPU usage gets 100%** and **max received network traffic rate 173 KiB/s**)
-- In **Load Balancer Test**, Load Balancing is done per client (as know katran sends the packet with the same 5-tuple to the same real if there exists a session in the LRU session eBPF map). So, clients publish to these reals (selected by the hash) and 
+Here we will only discuss the CPU and memory usage of the Load Balancer
 
-| Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
-| -------- | -------- | -------------- | --------------------------------- |
-| real_1   | 0,1,3    |   66.0%        |       100 KiB/s                   |
-| real_2   | 2        |   24.7%        |      34.1 KiB/s                   |
-| real_3   | 4,5,6    |   65.2%        | 	   100 KiB/s                   |
-| real_4   | 7,8      |   47.0%        |      67.4 KiB/s                   |
-| real_5   | 9        |   22.4%        |      34.3 KiB/s                   |
-
-`katran` container has **Max CPU Usage: 0.34%** and **Max Received Network Traffic Rate 168 KiB/s** 
+`katran` container has **Max CPU Usage: 0.54%**
 
 **Warning: This CPU Usage measured by cAdvisor is Katran userspace CPU usage and does not represent the CPU Usage of the XDP program - that's why we need phase B**
 
+Katran shows a significant memory usage during initialization (39.1 MB) (perhaps due to the memory allocation of the BPF maps which are in the order of tens of MBs)
+
+
+### Observations - Test 9 B
+
+In phase B, we gather the xdp programs runtime by asking katran container via `docker exec katran bpftool ...` and export them to prometheus using `node_exporter`. Periodic Docker exec commands increase katran's userspace CPU usage and thus this will not be representing a real circumstance. In this experiment we compare the XDP program's vs Shared Subscriptions Broker CPU usage.
+
+
+- In **Single Broker Test**, all messages are published to 
+`real_0` (that's why it's **max CPU usage gets 99.8%** and **max received network traffic rate 171 KiB/s**)
+- In **Load Balancer Test**, Load Balancing is done per client (katran sends the packet with the same 5-tuple to the same real if there exists a session in the LRU session eBPF map). So, clients publish to these reals (selected by the hash) and 
+
+| Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
+| -------- | -------- | -------------- | --------------------------------- |
+| real_1   | 1,3      |   48.8%        |     64.8  KiB/s                   |
+| real_2   | 0,2      |   47.2%        |     65.2  KiB/s                   |
+| real_3   | 4,5,6,8  |   85.6%        | 	  134 KiB/s                    |
+| real_4   | 7        |   23.6%        |      31 KiB/s                     |
+| real_5   | 9        |   24.9%        |      32.1 KiB/s                   |
+
+- In **Load Balancer Test**, `katran's xdp_root program` has **Max CPU Usage: 1.63 %** and katran container has **Max Received Network Traffic Rate 162 KiB/s** 
+
 As expected the first message from each client is lost due to the fact that the `mqtt_fwd` program makes false prediction on the future MQTT topic (as this client IP has not been seen before and does not exist in the eBPF Map) 
 
-Katran shows a significant memory usage during initialization (perhaps due to the memory allocation of the BPF maps which are in the order of tens of MBs)
 
-*Ignore the messages published to real_0. These just exist in the .txt because the container real_0 was not restarted*
 
 - In **Shared Subscriptions Test**, Load Balancing is done per message and thus it is fairer. `shared_subs_broker` is a broker that maintains the subscription lists and e.g. each time a publish to `measurements/temperature` arrives, this should be forwarded to one of `real_1` or `real_2`, who have previously subscribed to `$share/vip_a/measurements/temperature` (shared subscription)
 
 | Real     |  Max CPU Usage | Max Received Network Traffic Rate |
 | -------- | -------------- | --------------------------------- |
-| real_1   | 48.1%          | 31.6 KiB/s                        |
-| real_2   | 47.0%          | 31.5 KiB/s                        |
-| real_3   | 60.1%          | 38.9 KiB/s	                    |
-| real_4   | 58.3%          | 38.9 KiB/s                        |
-| real_5   | 27.4%          | 7.77 KiB/s                        |
-| real_6   | 28.3%          | 7.77 KiB/s                        |
+| real_1   | 44.6%          |  34.4 KiB/s                        |
+| real_2   | 46.3%          |  34.5 KiB/s                        |
+| real_3   | 55.2%          |  43.4 KiB/s	                    |
+| real_4   | 54.9%          |  43.1 KiB/s                        |
+| real_5   | 31.1%          |  8.57 KiB/s                        |
+| real_6   | 31.4%          |  8.69 KiB/s                        |
 
-`shared_subs_broker` container has **Max CPU Usage: 28.9%** and **Max Received Network Traffic Rate 166 KiB/s** 
-
-
-### Procedure for Phase B
-
-In phase B, we gather the xdp programs runtime using `node_exporter` and asking katran container via `docker exec katran bpftool ...`. Periodic Docker exec commands increase katran's userspace CPU usage and thus this will not be representing a real circumstance. In this experiment we compare the XDP program's vs Shared Subscriptions Broker CPU usage.
-
-```bash
-# Install Node exporter 
-# https://prometheus.io/docs/guides/node-exporter/
-
-# (Instructions for Linux)
-# Make a dir where the XDP prog metrics will be gathered to be scraped via prometheus
-# Then give permission to this user to be able to write inside this dir
-mkdir -p /var/lib/node_exporter/textfile_metrics/
-sudo chown $USER:$USER /var/lib/node_exporter/textfile_metrics/
-
-# Run the node_exporter 
-./node_exporter --collector.textfile.directory=/var/lib/node_exporter/textfile_metrics/
-
-# Ensure mode_exporter is running on 0.0.0.0:9100  where the prometheus container seeks for metrics
-# if the port is busy use another port but take care to update prometheus.yml accordingly
-
-# Run the test
-# CAUTION: Periodically look at the console beacause this script waits for user input
-cd lb-n-reals
-./test.sh
-
-# When prompted to run the python program to scrape xdp prog metrics
-# Open another terminal
-source .venv/bin/activate
-cd lb-n-reals
-python scrape_xdp_prog_metrics.py
-
-# Ensure metrics are exported (check the python program's logs) and then
-# Press enter to the terminal running ./test.sh
-# Wait until ./test.sh finishes
-```
-
-### Observations - Test 9 B
-
-- In **Single Broker Test**, `real_0`'s **max CPU usage gets 101%** and **max received network traffic rate 165 KiB/s**
-- In **Load Balancer Test**, `katran's xdp_root program` has **Max CPU Usage: 1.74 %** and katran container has **Max Received Network Traffic Rate 167 KiB/s** 
-- In **Shared Subscriptions Test**, `shared_subs_broker` container has **Max CPU Usage: 25.0%** and **Max Received Network Traffic Rate 181 KiB/s** 
+`shared_subs_broker` container has **Max CPU Usage: 27.7%** and **Max Received Network Traffic Rate 183 KiB/s** 
 
 
 
-For more details,
-
-<details>
-<summary> (Load Balancer Test) Load Balancing is done per client: </summary>
-
-| Real     | clients  | Max CPU Usage  | Max Received Network Traffic Rate |
-| -------- | -------- | -------------- | --------------------------------- |
-| real_1   | 0        |   26.7%        |       34.8 KiB/s                   |
-| real_2   | 1,2,3    |   67.7%        |       103  KiB/s                   |
-| real_3   | 5,6,7    |   63.1%        | 	   100  KiB/s                   |
-| real_4   | 4,8      |   43.8%        |       65.4 KiB/s                   |
-| real_6   | 9        |   23.3%        |       32.1 KiB/s                   |
-
-</details>
 
 
-<details>
-<summary> (Shared Subscriptions Test) Load Balancing is done per message: </summary>
 
-| Real     |  Max CPU Usage | Max Received Network Traffic Rate |
-| -------- | -------------- | --------------------------------- |
-| real_1   | 41.0%          |       34.2 KiB/s                        |
-| real_2   | 43.0%          |       34.3 KiB/s                        |
-| real_3   | 51.8%          |       42.8 KiB/s	                      |
-| real_4   | 79.0%          |       32.8 KiB/s                        |
-| real_5   | 23.5%          |       8.65 KiB/s                        |
-| real_6   | 19.3%          |       8.68 KiB/s                        |
-
-</details>
 
 
 ### Summary - Comparison
 
 | Metric | eBPF Load Balancer | MQTT Shared Subscriptions Broker |
 |--------|--------------------|----------------------------------|
-| CPU Usage | **~2.1%** (1.74% (kern) +  0.34% (usr)) | 25.0% |
+| CPU Usage | **~2.2%** (1.63% (kern) +  0.54% (usr)) | 27.7% |
 | Load Balancing | per client | **per message** (more balanced) |
 | Brokers-Groups decided by | Katran config (VIP-reals) | Brokers by subscribing to `$share/<group_id>/<topic>` |
 | Flexibility | many constraints (see below) | **conforms** with all MQTT rules | 
@@ -819,7 +783,7 @@ All the below constraints should be applied when using the eBPF Load Balancer (`
 - **All clients should have different IPs**. Client behind PAT have the same IP and consequently, their messages will be delivered successfully only if all of them publish to the same topic. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/11)
 - MQTT topics up to 256 characters length are supported
 - Clients should check the connection state and re-establish connection if needed.
-- Only Unencrypted MQTT over **TCP/IPv4** is supported.
+- Only Unencrypted MQTT over **TCP/IPv4** is supported (Only QoS=0).
 
 - `max_entries` of the eBPF Map `mqtt_client_ip_to_topic` specifies the max number of clients that can be supported. (This number can be up to 200,000 but not much more due to memory allocation limits - if you use enormous max_entries, you may experience error at the BPF loading phase - `libbpf: map 'mqtt_client_ip_to_topic': failed to create: -ENOMEM`). If more than the specified clients publish simultaneously, the topic prediction mechanism will possibly fail and the majority of messages will be lost. More in this [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/12)
 - VIPs (in Katran project), `topic_to_vip` and `client_ip_to_topic` mappings are now configured with max 512 entries but can change in file `lb-n-reals/katran/bpf/mqtt_topic_based_fwd.h`
@@ -855,7 +819,19 @@ Similar to test 9 but includes automated process to do both phases A and B.
  ./node_exporter --collector.textfile.directory=/var/lib/node_exporter/textfile_metrics/
 ```
 
-- test.sh
+- run `./test.sh` like
+```bash
+sed -i 's/^SCRAPE_XDP=.*/SCRAPE_XDP=0/' .env  && ./test.sh &&  sed -i 's/^SCRAPE_XDP=.*/SCRAPE_XDP=1/' .env  && sleep 300  &&  ./test.sh
+```
 
-SLEEP_TIME=0.2
-30 clients
+### Differences compared to test 9
+
+- `SLEEP_TIME=0.2`
+- 30 clients
+- by this way we achieve a similar traffic (30 * 1/0.2   ~=   10 * 1 / 0.6) 
+- clients with the same %10 result publish to the same topic
+
+### Observations
+
+- In phase A, Load Balancer Test: 8 of the clients loose more than the first message [open issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/13) but not more than 50 messages each client.
+- In all other tests the results are pretty similar with Test 9

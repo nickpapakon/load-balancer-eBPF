@@ -1,0 +1,54 @@
+####################  Single broker experiment results:  ####################
+
+
+Experiment 1 (Single broker) start time: 2026_03_26/08_46_50, end time: 26/03/2026_08:49:41
+
+
+ client_0 sent to     real_0: 926
+ client_1 sent to     real_0: 911
+ client_2 sent to     real_0: 930
+ client_3 sent to     real_0: 935
+ client_4 sent to     real_0: 927
+ client_5 sent to     real_0: 933
+ client_6 sent to     real_0: 928
+ client_7 sent to     real_0: 932
+ client_8 sent to     real_0: 930
+ client_9 sent to     real_0: 929
+
+
+
+####################  Katran-mqtt_fwd LB experiment results:  ####################
+
+
+Experiment 2 (Katran-mqtt_fwd LB) start time: 2026_03_26/08_51_41, end time: 26/03/2026_08:53:27
+
+
+ client_0 sent to     real_0: 926    real_2: 999
+ client_1 sent to     real_0: 911    real_1: 999
+ client_2 sent to     real_0: 930    real_2: 999
+ client_3 sent to     real_0: 935    real_2: 999
+ client_4 sent to     real_0: 927    real_3: 999
+ client_5 sent to     real_0: 933    real_3: 999
+ client_6 sent to     real_0: 928    real_4: 999
+ client_7 sent to     real_0: 932    real_4: 999
+ client_8 sent to     real_0: 930    real_3: 999
+ client_9 sent to     real_0: 929    real_5: 1000
+
+
+
+####################  Shared Subscription broker experiment results:  ####################
+
+
+Experiment 3 (Shared Subscription broker) start time: 2026_03_26/08_55_27, end time: 26/03/2026_08:57:45
+
+
+ client_0 sent to     real_1: 476    real_2: 524
+ client_1 sent to     real_1: 372    real_2: 628
+ client_2 sent to     real_1: 547    real_2: 453
+ client_3 sent to     real_1: 605    real_2: 395
+ client_4 sent to     real_3: 511    real_4: 489
+ client_5 sent to     real_3: 507    real_4: 493
+ client_6 sent to     real_3: 498    real_4: 502
+ client_7 sent to     real_3: 489    real_4: 511
+ client_8 sent to     real_3: 495    real_4: 505
+ client_9 sent to     real_5: 500    real_6: 500

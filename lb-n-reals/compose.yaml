@@ -264,345 +264,345 @@ services:
     environment:
       - CLIENT_NUM=9
 
-  client_10:
-    container_name: client_10
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_10_IP}
-        mac_address: ${CLIENT_10_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=10
+  # client_10:
+  #   container_name: client_10
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_10_IP}
+  #       mac_address: ${CLIENT_10_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=10
 
-  client_11:
-    container_name: client_11
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_11_IP}
-        mac_address: ${CLIENT_11_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=11
+  # client_11:
+  #   container_name: client_11
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_11_IP}
+  #       mac_address: ${CLIENT_11_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=11
 
-  client_12:
-    container_name: client_12
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_12_IP}
-        mac_address: ${CLIENT_12_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=12
+  # client_12:
+  #   container_name: client_12
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_12_IP}
+  #       mac_address: ${CLIENT_12_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=12
 
-  client_13:
-    container_name: client_13
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_13_IP}
-        mac_address: ${CLIENT_13_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=13
+  # client_13:
+  #   container_name: client_13
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_13_IP}
+  #       mac_address: ${CLIENT_13_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=13
 
-  client_14:
-    container_name: client_14
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_14_IP}
-        mac_address: ${CLIENT_14_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=14
+  # client_14:
+  #   container_name: client_14
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_14_IP}
+  #       mac_address: ${CLIENT_14_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=14
 
-  client_15:
-    container_name: client_15
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_15_IP}
-        mac_address: ${CLIENT_15_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=15
+  # client_15:
+  #   container_name: client_15
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_15_IP}
+  #       mac_address: ${CLIENT_15_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=15
 
-  client_16:
-    container_name: client_16
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_16_IP}
-        mac_address: ${CLIENT_16_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=16
+  # client_16:
+  #   container_name: client_16
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_16_IP}
+  #       mac_address: ${CLIENT_16_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=16
 
-  client_17:
-    container_name: client_17
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_17_IP}
-        mac_address: ${CLIENT_17_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=17
+  # client_17:
+  #   container_name: client_17
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_17_IP}
+  #       mac_address: ${CLIENT_17_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=17
 
-  client_18:
-    container_name: client_18
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_18_IP}
-        mac_address: ${CLIENT_18_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=18
+  # client_18:
+  #   container_name: client_18
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_18_IP}
+  #       mac_address: ${CLIENT_18_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=18
 
-  client_19:
-    container_name: client_19
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_19_IP}
-        mac_address: ${CLIENT_19_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=19
+  # client_19:
+  #   container_name: client_19
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_19_IP}
+  #       mac_address: ${CLIENT_19_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=19
 
-  client_20:
-    container_name: client_20
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_20_IP}
-        mac_address: ${CLIENT_20_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=20
+  # client_20:
+  #   container_name: client_20
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_20_IP}
+  #       mac_address: ${CLIENT_20_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=20
 
-  client_21:
-    container_name: client_21
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_21_IP}
-        mac_address: ${CLIENT_21_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=21
+  # client_21:
+  #   container_name: client_21
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_21_IP}
+  #       mac_address: ${CLIENT_21_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=21
 
-  client_22:
-    container_name: client_22
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_22_IP}
-        mac_address: ${CLIENT_22_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=22
+  # client_22:
+  #   container_name: client_22
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_22_IP}
+  #       mac_address: ${CLIENT_22_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=22
 
-  client_23:
-    container_name: client_23
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_23_IP}
-        mac_address: ${CLIENT_23_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=23
+  # client_23:
+  #   container_name: client_23
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_23_IP}
+  #       mac_address: ${CLIENT_23_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=23
 
-  client_24:
-    container_name: client_24
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_24_IP}
-        mac_address: ${CLIENT_24_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=24
+  # client_24:
+  #   container_name: client_24
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_24_IP}
+  #       mac_address: ${CLIENT_24_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=24
 
-  client_25:
-    container_name: client_25
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_25_IP}
-        mac_address: ${CLIENT_25_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=25
+  # client_25:
+  #   container_name: client_25
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_25_IP}
+  #       mac_address: ${CLIENT_25_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=25
 
-  client_26:
-    container_name: client_26
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_26_IP}
-        mac_address: ${CLIENT_26_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=26
+  # client_26:
+  #   container_name: client_26
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_26_IP}
+  #       mac_address: ${CLIENT_26_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=26
 
-  client_27:
-    container_name: client_27
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_27_IP}
-        mac_address: ${CLIENT_27_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=27
+  # client_27:
+  #   container_name: client_27
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_27_IP}
+  #       mac_address: ${CLIENT_27_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=27
 
-  client_28:
-    container_name: client_28
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_28_IP}
-        mac_address: ${CLIENT_28_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=28
+  # client_28:
+  #   container_name: client_28
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_28_IP}
+  #       mac_address: ${CLIENT_28_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=28
 
-  client_29:
-    container_name: client_29
-    build:
-      context: client/
-    deploy: *deploy_clients
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - gateway
-    networks:
-      gateway-client:
-        ipv4_address: ${CLIENT_29_IP}
-        mac_address: ${CLIENT_29_MAC}
-    env_file: .env
-    environment:
-      - CLIENT_NUM=29
+  # client_29:
+  #   container_name: client_29
+  #   build:
+  #     context: client/
+  #   deploy: *deploy_clients
+  #   cap_add:
+  #     - NET_ADMIN
+  #   depends_on:
+  #     - gateway
+  #   networks:
+  #     gateway-client:
+  #       ipv4_address: ${CLIENT_29_IP}
+  #       mac_address: ${CLIENT_29_MAC}
+  #   env_file: .env
+  #   environment:
+  #     - CLIENT_NUM=29
 
 
 #####  REALS  #########
