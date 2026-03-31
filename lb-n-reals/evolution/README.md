@@ -855,3 +855,8 @@ sed -i 's/^SCRAPE_XDP=.*/SCRAPE_XDP=0/' .env  && ./test.sh &&  sed -i 's/^SCRAPE
     "to": "2026-03-27T21:43:53.078Z"
   },
 ```
+
+## Test 13 
+
+Shows that simple Katran also loses the majority of packets when there is increased traffic.
+Related with [issue](https://github.com/nickpapakon/load-balancer-eBPF/issues/13)
